@@ -1,13 +1,18 @@
-import React from 'react';
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, SafeAreaView, TextInput, Button } from 'react-native';
+import { AuthAPI } from '../api/auth';
 
 const LoginScreen = () => {
+  const [token, setToken] = useState('');
+
   return (
-        <View style={styles.container}>
-            <Text>This is the login screen</Text>
-            <StatusBar style="auto" />
-        </View>
+  <SafeAreaView style={styles.container}>
+    <TextInput style={styles.input}
+      placeholder="API Token"
+      onChangeText={setToken}
+    />
+    <Button title="Login" onPress={() => AuthAPI.login(token)} />
+  </SafeAreaView>
   );
 }
 
@@ -17,6 +22,15 @@ const styles = StyleSheet.create({
     backgroundColor: '#00000',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  input: {
+    height: 40,
+    width: '80%',
+    margin: 12,
+    padding: 10,
+    backgroundColor: '#ffffff',
+    borderColor: '#000000',
+    borderWidth: 1,
   },
 });
 
