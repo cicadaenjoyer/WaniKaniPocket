@@ -1,9 +1,15 @@
 import React, { useState } from 'react';
 import { StyleSheet, SafeAreaView, TextInput, Button } from 'react-native';
 import { AuthAPI } from '../api/auth';
+import { useNavigation } from '@react-navigation/native';
+import * as SecureStore from "expo-secure-store";
 
 const LoginScreen = () => {
   const [token, setToken] = useState('');
+  const navigation = useNavigation();
+  const hasToken = SecureStore.getItem('WK_TOKEN');
+
+  if (hasToken) navigation.navigate('Home');
 
   return (
   <SafeAreaView style={styles.container}>
