@@ -1,3 +1,5 @@
+import * as SecureStore from "expo-secure-store";
+
 const WEB_URL = "https://api.wanikani.com/v2";
 
 async function login(apiToken: string) {
@@ -17,6 +19,20 @@ async function login(apiToken: string) {
                 throw new Error("Not Found: Endpoint does not exist");
             default:
                 throw new Error(`API Error: ${response.status} ${response.statusText}`);
+        }
+    } else {
+        if (await SecureStore.getItemAsync("WK_TOKEN")) {
+            console.log("API Token has already been stored. How'd you get here?");
+            return true;
+        } else {
+            // Store the API key inside the .env file
+            try {
+                await SecureStore.setItemAsync("WK_TOKEN", apiToken);
+                console.log("Successfully stored API Token.");
+                return true;
+            } catch (e) {
+                console.error(e);
+            }   
         }
     }
 
