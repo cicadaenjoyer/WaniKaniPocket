@@ -30,8 +30,13 @@ export const HomeStyles = StyleSheet.create({
         height: 45,
         backgroundColor: Colors.HEADER_WHITE,
         flexDirection: 'row',
-        // borderColor: '#000000',
+        justifyContent: 'space-between',
+        alignItems: 'center',
         borderWidth: 1,
+    },
+    header_image: {
+        height: '50%', // XXX: Not sure how this will look on other devices
+        width: '25%',
     },
     review_container: {
         backgroundColor: Colors.OPTIONS_GREY,
