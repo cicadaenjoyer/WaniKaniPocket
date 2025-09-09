@@ -4,6 +4,9 @@ import { AuthAPI } from '../api/auth';
 import { useNavigation } from '@react-navigation/native';
 import * as SecureStore from "expo-secure-store";
 
+import { Colors } from '../constants/colors';
+import { LoginStyles } from '../styles/globals';
+
 const LoginScreen = () => {
   const [token, setToken] = useState('');
   const navigation = useNavigation();
@@ -12,8 +15,8 @@ const LoginScreen = () => {
   if (hasToken) navigation.navigate('Home');
 
   return (
-  <SafeAreaView style={styles.container}>
-    <TextInput style={styles.input}
+  <SafeAreaView style={LoginStyles.container}>
+    <TextInput style={LoginStyles.input}
       placeholder="API Token"
       onChangeText={setToken}
     />
@@ -21,23 +24,5 @@ const LoginScreen = () => {
   </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#00000',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  input: {
-    height: 40,
-    width: '80%',
-    margin: 12,
-    padding: 10,
-    backgroundColor: '#ffffff',
-    borderColor: '#000000',
-    borderWidth: 1,
-  },
-});
 
 export default LoginScreen;
