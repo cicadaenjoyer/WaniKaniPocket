@@ -1,13 +1,19 @@
 import React, { useState } from 'react';
-import { StyleSheet, SafeAreaView } from 'react-native';
+import { View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { Colors } from '../constants/colors';
 import { HomeStyles } from '../styles/globals';
 
 const HomeScreen = () => {
   return (
-  <SafeAreaView style={HomeStyles.container}>
-  </SafeAreaView>
+    <SafeAreaView style={HomeStyles.container}>
+      <View style={HomeStyles.header_container}>
+      </View>
+      <View style={HomeStyles.review_container}>
+        <View style={HomeStyles.review_box}/>
+        <View style={HomeStyles.review_box}/>
+      </View>
+    </SafeAreaView>
   );
 }
 

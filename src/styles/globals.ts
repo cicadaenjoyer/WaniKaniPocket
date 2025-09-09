@@ -22,9 +22,26 @@ export const LoginStyles = StyleSheet.create({
 
 export const HomeStyles = StyleSheet.create({
     container: {
-        flex: 1,
         backgroundColor: Colors.OPTIONS_GREY,
-        alignItems: 'center',
-        justifyContent: 'center',
+        flex: 1,
+        gap: 30
+    },
+    header_container: {
+        height: 45,
+        backgroundColor: Colors.HEADER_WHITE,
+        flexDirection: 'row',
+        // borderColor: '#000000',
+        borderWidth: 1,
+    },
+    review_container: {
+        backgroundColor: Colors.OPTIONS_GREY,
+        justifyContent: 'space-around',
+        flexDirection: 'row'
+    },
+    review_box: {
+        height: 120,
+        width: "48%",
+        borderRadius: 5,
+        backgroundColor: Colors.LESSON_GREY,
     }
 });
