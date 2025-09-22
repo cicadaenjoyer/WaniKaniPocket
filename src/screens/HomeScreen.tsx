@@ -1,6 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, Image, Text } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+
+import ReviewsButton from '../components/ReviewsButton';
+import AssignmentsButton from '../components/AssignmentsButton';
 
 import { HomeStyles } from '../styles/globals';
 
@@ -12,10 +15,14 @@ const HomeScreen = () => {
           style={HomeStyles.header_image}
           source={require('../assets/images/icons/wk_banner_logo.png')}>
         </Image>
+        <Image 
+          style={HomeStyles.header_image}
+          source={require('../assets/images/icons/wk_banner_logo.png')}>
+        </Image>
       </View>
       <View style={HomeStyles.review_container}>
-        <View style={HomeStyles.review_box}/>
-        <View style={HomeStyles.review_box}/>
+        <ReviewsButton label="Reviews"></ReviewsButton>
+        <AssignmentsButton label="Assignments"></AssignmentsButton>
       </View>
     </SafeAreaView>
   );
