@@ -73,8 +73,10 @@ const ReviewsButton: React.FC<LessonsButtonProps> = ({ label }) => {
         )}
       </View>
 
-      <View style={HomeButtonStyles.button}>
-        <Button title='Start Reviews'/>
+      <View style={HomeButtonStyles.button_container}>
+        <Pressable style={HomeButtonStyles.button}>
+          <Text>Start Reviews</Text>
+        </Pressable>
       </View>
     </Pressable>
   );

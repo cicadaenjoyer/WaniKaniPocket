@@ -13,7 +13,16 @@ export const HomeButtonStyles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center'
     },
+    button_container: {
+        width: '85%',
+        justifyContent: 'center'
+    },
     button: {
-        width: '70%'
+        backgroundColor: '#ffffff',
+        borderRadius: 5,
+        alignItems: 'center'
+    },
+    button_text: {
+        // fontFamily: "NotoSans-Regular"
     }
 });
