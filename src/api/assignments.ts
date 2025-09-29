@@ -10,7 +10,7 @@ async function getAllAssignments() {
         headers.set('Authorization', `Bearer ${apiToken}`);
         headers.set('Wanikani-Revision', '20170710');
 
-        const response = await fetch(`${WEB_URL}/lessons`, {
+        const response = await fetch(`${WEB_URL}/assignments`, {
             method: "GET",
             headers: headers
         });
