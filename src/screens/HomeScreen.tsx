@@ -21,8 +21,8 @@ const HomeScreen = () => {
         </Image>
       </View>
       <View style={HomeStyles.review_container}>
-        <ReviewsButton label="Reviews"></ReviewsButton>
         <AssignmentsButton label="Assignments"></AssignmentsButton>
+        <ReviewsButton label="Reviews"></ReviewsButton>
       </View>
     </SafeAreaView>
   );
