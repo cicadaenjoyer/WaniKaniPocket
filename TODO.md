@@ -1,1 +1,1 @@
-- Incorporate RSA algorithm to encrypt user API key
+- Fix resizing with wk logo on header bar (globals.ts)

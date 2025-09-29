@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { View, Pressable } from 'react-native';
+import { View, Text, Image, Button, Pressable, LayoutChangeEvent} from 'react-native';
 
-import { ReviewsAPI } from '../api/reviews';
+import { AssignmentsAPI } from '../api/assignments';
 import { HomeStyles } from '../styles/globals';
+import { HomeButtonStyles } from '../styles/homebutton.styles';
 import { Colors } from '../constants/colors';
 
 interface LessonsButtonProps {
@@ -10,22 +11,34 @@ interface LessonsButtonProps {
 }
 
 const AssignmentsButton: React.FC<LessonsButtonProps> = ({ label }) => {
+    const [assignmentCount, setAssignmentCount] = useState(0);
+    const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
     const [authorized, setAuthorized] = useState<boolean | null>(null);
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        const fetchUser = async () => {
+        const fetchAssignments = async () => {
             try {
-                const result = await ReviewsAPI.getAllReviews();
-                if (result) setAuthorized(true);
+                const result = await AssignmentsAPI.getAllAssignments();
+                if (result) {
+                    setAssignmentCount(result.total_count);
+                    setAuthorized(true);
+                }
             } catch (e) {
                 console.error(e);
             } finally {
                 setLoading(false);
             }
         };
-        fetchUser();
+        fetchAssignments();
     }, []);
+
+    const onLayout = (event: LayoutChangeEvent) => {
+        const { width, height } = event.nativeEvent.layout;
+        setContainerSize({ width, height });
+    };
+    const maxWidth = containerSize.width * 0.5; // 50% of container width
+    const maxHeight = containerSize.height * 0.75; // 75% of container height
 
     if (loading) {
         return (
@@ -38,9 +51,31 @@ const AssignmentsButton: React.FC<LessonsButtonProps> = ({ label }) => {
     <Pressable
       style={[
         HomeStyles.review_box,
-        authorized ? { backgroundColor: Colors.RADICAL_BLUE } : { backgroundColor: 'gray' },
+        authorized ? { backgroundColor: Colors.KANJI_PINK } : { backgroundColor: 'gray' },
       ]}
+      onLayout={onLayout}
     >
+      <View style={HomeButtonStyles.count}>
+        <Text>Assignments {assignmentCount}</Text>
+        <Text>We cooked up these lessons just for you.</Text>
+      </View>
+
+      <View style={HomeButtonStyles.icon}>
+        {containerSize.width > 0 && (
+          <Image
+            source={require('../assets/images/buttons/lessons_crab.png')}
+            style={{
+              width: maxWidth,
+              height: maxHeight,
+              resizeMode: 'contain',
+            }}
+          />
+        )}
+      </View>
+      
+      <View style={HomeButtonStyles.button}>
+        <Button title='Start Lessons'/>
+      </View>
     </Pressable>
   );
 }
