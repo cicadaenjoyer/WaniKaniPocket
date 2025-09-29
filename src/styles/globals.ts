@@ -44,9 +44,14 @@ export const HomeStyles = StyleSheet.create({
         flexDirection: 'row'
     },
     review_box: {
-        height: 120,
-        width: "48%",
+        width: '48%',
+        minHeight: 120,
         borderRadius: 5,
         backgroundColor: Colors.LESSON_GREY,
-    }
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        alignItems: 'center',
+        justifyContent: 'space-around',
+        paddingHorizontal: 5
+    },
 });
