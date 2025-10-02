@@ -15,10 +15,6 @@ const HomeScreen = () => {
           style={HomeStyles.header_image}
           source={require('../assets/images/icons/wk_banner_logo.png')}>
         </Image>
-        <Image 
-          style={HomeStyles.header_image}
-          source={require('../assets/images/icons/wk_banner_logo.png')}>
-        </Image>
       </View>
       <View style={HomeStyles.review_container}>
         <AssignmentsButton label="Assignments"></AssignmentsButton>
