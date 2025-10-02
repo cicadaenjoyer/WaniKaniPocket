@@ -23,6 +23,8 @@ export const HomeButtonStyles = StyleSheet.create({
         alignItems: 'center'
     },
     button_text: {
-        // fontFamily: "NotoSans-Regular"
+        fontFamily: "NotoSans-Regular",
+        lineHeight: 16,
+        color: '#ffffff'
     }
 });

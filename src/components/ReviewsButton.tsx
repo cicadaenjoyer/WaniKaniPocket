@@ -6,6 +6,8 @@ import { HomeStyles } from '../styles/globals';
 import { HomeButtonStyles } from '../styles/homebutton.styles';
 import { Colors } from '../constants/colors';
 
+import ButtonText from './ButtonText';
+
 interface LessonsButtonProps {
     label: string
 }
@@ -56,8 +58,8 @@ const ReviewsButton: React.FC<LessonsButtonProps> = ({ label }) => {
       onLayout={onLayout}
     >
       <View style={HomeButtonStyles.count}>
-        <Text>Reviews {reviewCount}</Text>
-        <Text>Review these items to level them up!</Text>
+        <ButtonText>Reviews {reviewCount}</ButtonText>
+        <ButtonText>Review these items to level them up!</ButtonText>
       </View>
 
       <View style={HomeButtonStyles.icon}>
@@ -75,7 +77,7 @@ const ReviewsButton: React.FC<LessonsButtonProps> = ({ label }) => {
 
       <View style={HomeButtonStyles.button_container}>
         <Pressable style={HomeButtonStyles.button}>
-          <Text>Start Reviews</Text>
+          <ButtonText style={{color: 'black'}}>Start Reviews</ButtonText>
         </Pressable>
       </View>
     </Pressable>
