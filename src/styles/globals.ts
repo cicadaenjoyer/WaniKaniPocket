@@ -24,10 +24,12 @@ export const HomeStyles = StyleSheet.create({
     container: {
         backgroundColor: Colors.OPTIONS_GREY,
         flex: 1,
-        gap: 30
+        gap: 30,
+        alignItems: 'center',
     },
     header_container: {
         height: 45,
+        width: '100%',
         backgroundColor: Colors.HEADER_WHITE,
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -40,8 +42,9 @@ export const HomeStyles = StyleSheet.create({
     },
     review_container: {
         backgroundColor: Colors.OPTIONS_GREY,
-        justifyContent: 'space-around',
-        flexDirection: 'row'
+        justifyContent: 'space-evenly',
+        alignSelf: 'stretch',
+        flexDirection: 'row',
     },
     review_box: {
         width: '48%',
