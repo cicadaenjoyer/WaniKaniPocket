@@ -46,6 +46,12 @@ export const HomeStyles = StyleSheet.create({
         alignSelf: 'stretch',
         flexDirection: 'row',
     },
+    progress_container: {
+        backgroundColor: Colors.HEADER_WHITE,
+        justifyContent: 'space-around',
+        width: '95%',
+        padding: 10
+    },
     review_box: {
         width: '48%',
         minHeight: 120,
