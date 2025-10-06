@@ -1,12 +1,26 @@
+/**
+ * @file ProgressView.tsx
+ * @description
+ *   Displays the user's current level and a progress bar for kanji mastery at that level.
+ *   Fetches user info on mount to determine the current level, then renders a ProgressBar.
+ *
+ *   - Fetches user level from UserAPI on mount.
+ *   - Renders the level and a ProgressBar for that level.
+ *   - Handles loading state.
+ *
+ * @module components/home/progress/ProgressView
+ */
+
 import React, { useState, useEffect } from 'react';
-import { View, Text, Image, Button, Pressable, LayoutChangeEvent } from 'react-native';
+import { View, Text } from 'react-native';
 
-import { UserAPI } from '../../../api/user';
+// Styling
 import { HomeStyles } from '../../../styles/globals';
-import { DashboardStyles } from '../../../styles/home/dashboard.styles';
-import { Colors } from '../../../constants/colors';
 
-import ButtonText from '../dashboard/ButtonText';
+// API
+import { UserAPI } from '../../../api/user';
+
+// Components
 import ProgressBar from './ProgressBar';
 
 interface ProgressViewProps {
@@ -15,9 +29,6 @@ interface ProgressViewProps {
 
 const ProgressView: React.FC<ProgressViewProps> = ({ label }) => {
   const [userLevel, setUserLevel] = useState(0);
-  // const [assignmentCount, setAssignmentCount] = useState(0);
-  // const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
-  // const [authorized, setAuthorized] = useState<boolean | null>(null);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -36,13 +47,7 @@ const ProgressView: React.FC<ProgressViewProps> = ({ label }) => {
     fetchUser();
   });
 
-  // const onLayout = (event: LayoutChangeEvent) => {
-  //     const { width, height } = event.nativeEvent.layout;
-  //     setContainerSize({ width, height });
-  // };
-  // const maxWidth = containerSize.width * 0.5; // 50% of container width
-  // const maxHeight = containerSize.height * 0.75; // 75% of container height
-
+  // Default loading state view
   if (loading) {
       return (
           <View style={[HomeStyles.progress_container, { justifyContent: 'center', alignItems: 'center' }]}>

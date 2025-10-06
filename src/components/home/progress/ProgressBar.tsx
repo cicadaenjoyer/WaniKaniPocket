@@ -1,7 +1,24 @@
+/**
+ * @file ProgressBar.tsx
+ * @description
+ *   Progress bar component that displays the number of mastered and in-progress kanji items using
+ *   a dynamic progress bar. Fetches kanji assignment data for the current level and calculates
+ *   the percentage of kanji that have been mastered (SRS stage 5).
+ *
+ *   - Fetches user's kanji assignments and all kanji for the given level.
+ *   - Calculates mastered kanji (SRS stage 5).
+ *   - Renders a progress bar with a label showing progress.
+ *
+ * @returns {JSX.Element} The rendered Progress Bar component.
+ */
+
 import React, { useEffect, useState } from 'react';
 import { View, Text } from 'react-native';
+
+// Styling
 import { ProgressStyles } from '../../../styles/home/progress.styles';
 
+// API
 import { SubjectsAPI } from '../../../api/subjects';
 import { AssignmentsAPI } from '../../../api/assignments';
 
@@ -16,12 +33,13 @@ const ProgressBar: React.FC<ProgressBarProps> = ({ level }) => {
   useEffect(() => {
     const fetchKanji = async () => {
       try {
-        const allLearned = await AssignmentsAPI.getKanjiAssignmentsAtLevel(level);  // get all user seen kanji assignments at curr level
-        const allKanji = await SubjectsAPI.getKanjiAtLevel(level);  // get all kanji assignments from site at curr level
+        // Get all user-seen kanji assignments at current level
+        const allLearned = await AssignmentsAPI.getKanjiAssignmentsAtLevel(level);
+        // Get all kanji assignments from site at current level
+        const allKanji = await SubjectsAPI.getKanjiAtLevel(level);
 
         if (allLearned && allKanji) {
-          // Calculating the number of mastered kanji by iterating through all kanji assignments
-          // a kanji sign is considered 'mastered' if it has an SRS value of 5
+          // Count mastered kanji (SRS stage 5)
           let numLearned = allLearned.data.reduce(
             (sum: number, kanji: { data: { srs_stage: number; }; }) => sum + (kanji?.data?.srs_stage === 5 ? 1 : 0),
             0
@@ -32,22 +50,24 @@ const ProgressBar: React.FC<ProgressBarProps> = ({ level }) => {
       } catch (e) {
         console.error(e);
       } finally {
-
+        // No cleanup needed
       }
     }
     fetchKanji();
   });
 
+  // Calculate progress percentage
   const progress = (learned / kanji) * 100 || 0;
 
   return (
     <View style={ProgressStyles.bar}>
       <View style={[ProgressStyles.filler, { width: `${progress}%` }]}>
+        {/* Show label inside bar if progress >= 50% */}
         {progress >= 50 && <Text style={ProgressStyles.label}>{learned} of {kanji} kanji passed</Text>}
       </View>
+      {/* Show label outside bar if progress < 50% */}
       {progress < 50 && <Text style={ProgressStyles.label}>{learned} of {kanji} kanji passed</Text>}
     </View>
-
   );
 };
 
