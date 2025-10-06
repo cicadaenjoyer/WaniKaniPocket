@@ -2,8 +2,8 @@ import React from 'react';
 import { View, Image, Text } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import ReviewsButton from '../components/home/dashboard/ReviewsButton';
-import AssignmentsButton from '../components/home/dashboard/AssignmentsButton';
+import Reviews from '../components/home/dashboard/Reviews';
+import Assignments from '../components/home/dashboard/Assignments';
 import ProgressView from '../components/home/progress/ProgressView';
 
 import { HomeStyles } from '../styles/globals';
@@ -20,8 +20,8 @@ const HomeScreen = () => {
       </View>
 
       <View style={HomeStyles.review_container}>
-        <AssignmentsButton label="Assignments"></AssignmentsButton>
-        <ReviewsButton label="Reviews"></ReviewsButton>
+        <Assignments label="Assignments"></Assignments>
+        <Reviews label="Reviews"></Reviews>
       </View>
 
       <ProgressView label='Progress'/>
