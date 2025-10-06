@@ -21,7 +21,7 @@ const AssignmentsButton: React.FC<LessonsButtonProps> = ({ label }) => {
     useEffect(() => {
         const fetchAssignments = async () => {
             try {
-                const result = await AssignmentsAPI.getAllAssignments();
+                const result = await AssignmentsAPI.getAssignments();
                 if (result) {
                     setAssignmentCount(result.total_count);
                     setAuthorized(true);
