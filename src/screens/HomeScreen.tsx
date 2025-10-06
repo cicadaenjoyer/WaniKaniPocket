@@ -2,9 +2,9 @@ import React from 'react';
 import { View, Image, Text } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import ReviewsButton from '../components/ReviewsButton';
-import AssignmentsButton from '../components/AssignmentsButton';
-import ProgressView from '../components/ProgressView';
+import ReviewsButton from '../components/home/dashboard/ReviewsButton';
+import AssignmentsButton from '../components/home/dashboard/AssignmentsButton';
+import ProgressView from '../components/home/progress/ProgressView';
 
 import { HomeStyles } from '../styles/globals';
 

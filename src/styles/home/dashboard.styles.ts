@@ -1,8 +1,8 @@
 // Style sheets for screens
 import { StyleSheet } from 'react-native';
-import { Colors } from '../constants/colors';
+import { Colors } from '../../constants/colors';
 
-export const HomeButtonStyles = StyleSheet.create({
+export const DashboardStyles = StyleSheet.create({
     count: {
         flexWrap: 'wrap',
         flexDirection: 'row',

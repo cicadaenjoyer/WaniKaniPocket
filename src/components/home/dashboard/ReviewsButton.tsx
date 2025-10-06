@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Image, Button, Pressable, LayoutChangeEvent} from 'react-native';
 
-import { ReviewsAPI } from '../api/reviews';
-import { HomeStyles } from '../styles/globals';
-import { HomeButtonStyles } from '../styles/homebutton.styles';
-import { Colors } from '../constants/colors';
+import { ReviewsAPI } from '../../../api/reviews';
+import { HomeStyles } from '../../../styles/globals';
+import { DashboardStyles } from '../../../styles/home/dashboard.styles';
+import { Colors } from '../../../constants/colors';
 
 import ButtonText from './ButtonText';
 
@@ -57,15 +57,15 @@ const ReviewsButton: React.FC<LessonsButtonProps> = ({ label }) => {
       ]}
       onLayout={onLayout}
     >
-      <View style={HomeButtonStyles.count}>
+      <View style={DashboardStyles.count}>
         <ButtonText>Reviews {reviewCount}</ButtonText>
         <ButtonText>Review these items to level them up!</ButtonText>
       </View>
 
-      <View style={HomeButtonStyles.icon}>
+      <View style={DashboardStyles.icon}>
         {containerSize.width > 0 && (
           <Image
-            source={require('../assets/images/buttons/review_kappa.png')}
+            source={require('../../../../assets/images/buttons/review_kappa.png')}
             style={{
               width: maxWidth,
               height: maxHeight,
@@ -75,8 +75,8 @@ const ReviewsButton: React.FC<LessonsButtonProps> = ({ label }) => {
         )}
       </View>
 
-      <View style={HomeButtonStyles.button_container}>
-        <Pressable style={HomeButtonStyles.button}>
+      <View style={DashboardStyles.button_container}>
+        <Pressable style={DashboardStyles.button}>
           <ButtonText style={{color: 'black'}}>Start Reviews</ButtonText>
         </Pressable>
       </View>

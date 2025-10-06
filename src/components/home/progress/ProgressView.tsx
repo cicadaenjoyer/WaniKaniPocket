@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Image, Button, Pressable, LayoutChangeEvent } from 'react-native';
 
-import { UserAPI } from '../api/user';
-import { HomeStyles } from '../styles/globals';
-import { HomeButtonStyles } from '../styles/homebutton.styles';
-import { Colors } from '../constants/colors';
+import { UserAPI } from '../../../api/user';
+import { HomeStyles } from '../../../styles/globals';
+import { DashboardStyles } from '../../../styles/home/dashboard.styles';
+import { Colors } from '../../../constants/colors';
 
-import ButtonText from './ButtonText';
+import ButtonText from '../dashboard/ButtonText';
 import ProgressBar from './ProgressBar';
 
 interface ProgressViewProps {

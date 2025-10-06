@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Image, Button, Pressable, LayoutChangeEvent} from 'react-native';
 
-import { AssignmentsAPI } from '../api/assignments';
-import { HomeStyles } from '../styles/globals';
-import { HomeButtonStyles } from '../styles/homebutton.styles';
-import { Colors } from '../constants/colors';
+import { AssignmentsAPI } from '../../../api/assignments';
+import { HomeStyles } from '../../../styles/globals';
+import { DashboardStyles } from '../../../styles/home/dashboard.styles';
+import { Colors } from '../../../constants/colors';
 
 import ButtonText from './ButtonText';
 
@@ -57,15 +57,15 @@ const AssignmentsButton: React.FC<LessonsButtonProps> = ({ label }) => {
       ]}
       onLayout={onLayout}
     >
-      <View style={HomeButtonStyles.count}>
+      <View style={DashboardStyles.count}>
         <ButtonText>Assignments {assignmentCount}</ButtonText>
         <ButtonText>We cooked up these lessons just for you.</ButtonText>
       </View>
 
-      <View style={HomeButtonStyles.icon}>
+      <View style={DashboardStyles.icon}>
         {containerSize.width > 0 && (
           <Image
-            source={require('../assets/images/buttons/lessons_crab.png')}
+            source={require('../../../../assets/images/buttons/lessons_crab.png')}
             style={{
               width: maxWidth,
               height: maxHeight,
@@ -75,8 +75,8 @@ const AssignmentsButton: React.FC<LessonsButtonProps> = ({ label }) => {
         )}
       </View>
       
-      <View style={HomeButtonStyles.button_container}>
-        <Pressable style={HomeButtonStyles.button}>
+      <View style={DashboardStyles.button_container}>
+        <Pressable style={DashboardStyles.button}>
           <ButtonText style={{color: 'black'}}>Start Lessons</ButtonText>
         </Pressable>
       </View>

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text } from 'react-native';
-import { ProgressStyles } from '../styles/progress.styles';
+import { ProgressStyles } from '../../../styles/home/progress.styles';
 
-import { SubjectsAPI } from '../api/subjects';
-import { AssignmentsAPI } from '../api/assignments';
+import { SubjectsAPI } from '../../../api/subjects';
+import { AssignmentsAPI } from '../../../api/assignments';
 
 interface ProgressBarProps {
   level: number

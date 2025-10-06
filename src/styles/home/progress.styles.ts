@@ -1,6 +1,6 @@
 // Style sheets for screens
 import { StyleSheet } from 'react-native';
-import { Colors } from '../constants/colors';
+import { Colors } from '../../constants/colors';
 
 export const ProgressStyles = StyleSheet.create({
     bar: {
@@ -18,9 +18,6 @@ export const ProgressStyles = StyleSheet.create({
         paddingRight: 10
     },
     label: {
-        paddingLeft: 5,
-
-        // color: 'white',
-        // fontWeight: 'bold'
+        paddingLeft: 5
     }
 });
