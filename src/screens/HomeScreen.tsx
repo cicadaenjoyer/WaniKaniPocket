@@ -1,7 +1,15 @@
+/**
+ * @file HomeScreen.tsx
+ * @description
+ *   Main home screen for WaniKaniPocket.
+ *   Displays the app banner, assignment and review dashboard cards, and the user's progress and current level.
+ */
+
 import React from 'react';
-import { View, Image, Text } from 'react-native';
+import { View, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+// Components
 import Reviews from '../components/home/dashboard/Reviews';
 import Assignments from '../components/home/dashboard/Assignments';
 import ProgressView from '../components/home/progress/ProgressView';
