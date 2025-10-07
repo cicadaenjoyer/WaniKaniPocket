@@ -10,6 +10,7 @@ export const Colors: { [key: string]: string} = {
     KANJI_PINK: "#FF00AA",
     RADICAL_BLUE: "#00AAFF",
     LESSON_GREY: "#808080",
+    LESSON_LIGHT_GREY: "#ecececff",
     OPTIONS_GREY: "#D5D5D5",
     HEADER_WHITE: "#FFFFFF"
 };
