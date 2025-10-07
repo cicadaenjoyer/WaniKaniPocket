@@ -31,15 +31,25 @@ async function getAssignments(query = '') {
 }
 
 async function getKanjiAssignments(query = '') {
-    return await getAssignments('?subject_types=kanji&');
+    return await getAssignments('?subject_types=kanji');
 }
 
 async function getKanjiAssignmentsAtLevel(level: number) {
     return await getAssignments(`?subject_types=kanji&levels=${level}`);
 }
 
+async function getRadicalAssignments(query = '') {
+    return await getAssignments('?subject_types=radical');
+}
+
+async function getRadicalAssignmentsAtLevel(level: number) {
+    return await getAssignments(`?subject_types=radical&levels=${level}`);
+}
+
 export const AssignmentsAPI = {
     getAssignments,
     getKanjiAssignments,
-    getKanjiAssignmentsAtLevel
+    getKanjiAssignmentsAtLevel,
+    getRadicalAssignments,
+    getRadicalAssignmentsAtLevel
 }
