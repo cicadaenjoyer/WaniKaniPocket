@@ -1,5 +1,5 @@
 /**
- * @file ProgressBar.tsx
+ * @file Bar.tsx
  * @description
  *   Progress bar component that displays the number of mastered and in-progress kanji items using
  *   a dynamic progress bar. Fetches kanji assignment data for the current level and calculates
@@ -22,11 +22,11 @@ import { ProgressStyles } from '../../../styles/home/progress.styles';
 import { SubjectsAPI } from '../../../api/subjects';
 import { AssignmentsAPI } from '../../../api/assignments';
 
-interface ProgressBarProps {
+interface BarProps {
   level: number
 }
 
-const ProgressBar: React.FC<ProgressBarProps> = ({ level }) => {
+const Bar: React.FC<BarProps> = ({ level }) => {
   const [learned, setLearned] = useState(0);
   const [kanji, setKanji] = useState(0);
 
@@ -71,4 +71,4 @@ const ProgressBar: React.FC<ProgressBarProps> = ({ level }) => {
   );
 };
 
-export default ProgressBar;
+export default Bar;

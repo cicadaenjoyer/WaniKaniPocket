@@ -12,7 +12,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 // Components
 import Reviews from '../components/home/dashboard/Reviews';
 import Assignments from '../components/home/dashboard/Assignments';
-import ProgressView from '../components/home/progress/ProgressView';
+import ProgressSection from '../components/home/progress/ProgressSection';
 
 import { HomeStyles } from '../styles/globals';
 
@@ -32,7 +32,7 @@ const HomeScreen = () => {
         <Reviews label="Reviews"></Reviews>
       </View>
 
-      <ProgressView label='Progress'/>
+      <ProgressSection label='Progress'/>
 
     </SafeAreaView>
   );
