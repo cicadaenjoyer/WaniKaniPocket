@@ -22,6 +22,7 @@ import { UserAPI } from '../../../api/user';
 
 // Components
 import Bar from './Bar';
+import Subjects from './Subjects';
 
 interface ProgressSectionProps {
   label: string
@@ -59,6 +60,8 @@ const ProgressSection: React.FC<ProgressSectionProps> = ({ label }) => {
     <View style={HomeStyles.progress_container}>
       <Text>Level {userLevel} Progress</Text>
       <Bar level={userLevel}/>
+      <Subjects level={userLevel} type={"radicals"}/>
+      <Subjects level={userLevel} type={"kanji"}/>
     </View>
   );
 }
