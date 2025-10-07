@@ -1,4 +1,10 @@
-// Style sheets for screens
+/**
+ * @file progress.styles.ts
+ * @description
+ *   Style sheets for progress-related components.
+ *   Provides styles for the progress bar, its filler, and the label.
+ */
+
 import { StyleSheet } from 'react-native';
 import { Colors } from '../../constants/colors';
 

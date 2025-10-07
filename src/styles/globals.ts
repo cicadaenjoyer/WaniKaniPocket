@@ -1,4 +1,10 @@
-// Style sheets for screens
+/**
+ * @file globals.ts
+ * @description
+ *   Global style sheets for screens and common UI components.
+ *   Provides reusable styles for main screens (login, home, etc).
+ */
+
 import { StyleSheet } from 'react-native';
 import { Colors } from '../constants/colors';
 
