@@ -36,11 +36,11 @@ export const HomeStyles = StyleSheet.create({
     header_container: {
         height: 45,
         width: '100%',
-        backgroundColor: Colors.HEADER_WHITE,
+        backgroundColor: Colors.LESSON_LIGHT_GREY,
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        borderWidth: 1,
+        // borderWidth: 1, 
     },
     header_image: {
         height: '50%', // XXX: Not sure how this will look on other devices
@@ -53,10 +53,11 @@ export const HomeStyles = StyleSheet.create({
         flexDirection: 'row',
     },
     progress_container: {
-        backgroundColor: Colors.HEADER_WHITE,
+        backgroundColor: Colors.LESSON_LIGHT_GREY,
         justifyContent: 'space-around',
         width: '95%',
-        padding: 10
+        padding: 10,
+        gap: 10
     },
     review_box: {
         width: '48%',
