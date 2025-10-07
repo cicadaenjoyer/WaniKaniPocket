@@ -1,4 +1,9 @@
-// Standard colors used throughout the WaniKani app
+/**
+ * @file colors.ts
+ * @description
+ *   Standard color constants used throughout the app for consistent theming.
+ *   Each key represents a semantic color role for UI elements.
+ */
 
 export const Colors: { [key: string]: string} = {
     VOCAB_PURPLE: "#AA00FF",

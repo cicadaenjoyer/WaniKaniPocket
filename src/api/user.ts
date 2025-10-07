@@ -2,7 +2,7 @@ import * as SecureStore from "expo-secure-store";
 
 const WEB_URL = "https://api.wanikani.com/v2";
 
-async function getAssignments(query = '') {
+async function getUserInfo() {
     const apiToken = SecureStore.getItem('WK_TOKEN');
 
     if (apiToken) {
@@ -10,7 +10,7 @@ async function getAssignments(query = '') {
         headers.set('Authorization', `Bearer ${apiToken}`);
         headers.set('Wanikani-Revision', '20170710');
 
-        const response = await fetch(`${WEB_URL}/assignments/${query}`, {
+        const response = await fetch(`${WEB_URL}/user`, {
             method: "GET",
             headers: headers
         });
@@ -30,16 +30,6 @@ async function getAssignments(query = '') {
     }
 }
 
-async function getKanjiAssignments(query = '') {
-    return await getAssignments('?subject_types=kanji&');
-}
-
-async function getKanjiAssignmentsAtLevel(level: number) {
-    return await getAssignments(`?subject_types=kanji&levels=${level}`);
-}
-
-export const AssignmentsAPI = {
-    getAssignments,
-    getKanjiAssignments,
-    getKanjiAssignmentsAtLevel
+export const UserAPI = {
+    getUserInfo,
 }

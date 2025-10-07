@@ -1,8 +1,13 @@
-// Style sheets for screens
-import { StyleSheet } from 'react-native';
-import { Colors } from '../constants/colors';
+/**
+ * @file dashboard.styles.ts
+ * @description
+ *   Style sheets for dashboard-related screens and components.
+ *   Provides styles for assignment/review cards, icons, and dashboard buttons.
+ */
 
-export const HomeButtonStyles = StyleSheet.create({
+import { StyleSheet } from 'react-native';
+
+export const DashboardStyles = StyleSheet.create({
     count: {
         flexWrap: 'wrap',
         flexDirection: 'row',

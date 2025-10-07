@@ -5,7 +5,7 @@ import AppNavigator from './src/navigation/app.navigator';
 
 const App = () => {
   const [fontsLoaded] = useFonts({
-    'NotoSans-Regular': require('./src/assets/fonts/NotoSans-Regular.ttf'), // note './assets' if App.tsx is in the root
+    'NotoSans-Regular': require('./assets/fonts/NotoSans-Regular.ttf'), // note './assets' if App.tsx is in the root
   });
 
   if (!fontsLoaded) {
