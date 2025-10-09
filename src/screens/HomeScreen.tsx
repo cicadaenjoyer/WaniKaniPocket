@@ -6,7 +6,7 @@
  */
 
 import React from 'react';
-import { View, Image } from 'react-native';
+import { View, Image, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 // Components
@@ -18,22 +18,29 @@ import { HomeStyles } from '../styles/globals';
 
 const HomeScreen = () => {
   return (
-    <SafeAreaView style={HomeStyles.container}>
+    <SafeAreaView style={{ flex: 1 }}>
+      <ScrollView>
+        <View style={HomeStyles.container}>
 
-      <View style={HomeStyles.header_container}>
-        <Image 
-          style={HomeStyles.header_image}
-          source={require('../../assets/images/icons/wk_banner_logo.png')}>
-        </Image>
-      </View>
+          {/* Menu Bar */}
+          <View style={HomeStyles.header_container}>
+            <Image
+              style={HomeStyles.header_image}
+              source={require('../../assets/images/icons/wk_banner_logo.png')}>
+            </Image>
+          </View>
 
-      <View style={HomeStyles.review_container}>
-        <Assignments label="Assignments"></Assignments>
-        <Reviews label="Reviews"></Reviews>
-      </View>
+          {/* Assignments & Reviews Dashboard */}
+          <View style={HomeStyles.review_container}>
+            <Assignments label="Assignments"></Assignments>
+            <Reviews label="Reviews"></Reviews>
+          </View>
 
-      <ProgressSection label='Progress'/>
+          {/* Current Level & Radical/Kanji Progress */}
+          <ProgressSection label='Progress' />
 
+        </View>
+      </ScrollView>
     </SafeAreaView>
   );
 }
