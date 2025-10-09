@@ -41,7 +41,7 @@ const Bar: React.FC<BarProps> = ({ level }) => {
         if (allLearned && allKanji) {
           // Count mastered kanji (SRS stage 5)
           let numLearned = allLearned.data.reduce(
-            (sum: number, kanji: { data: { srs_stage: number; }; }) => sum + (kanji?.data?.srs_stage === 5 ? 1 : 0),
+            (sum: number, kanji: { data: { srs_stage: number; }; }) => sum + (kanji?.data?.srs_stage >= 5 ? 1 : 0),
             0
           );
           setLearned(numLearned);
@@ -57,7 +57,7 @@ const Bar: React.FC<BarProps> = ({ level }) => {
   });
 
   // Calculate progress percentage
-  const progress = (learned / kanji) * 100 || 0;
+  const progress = (Math.min(learned / kanji, 1)) * 100 || 0;
 
   return (
     <View style={ProgressStyles.bar}>

@@ -32,7 +32,7 @@ const Subject: React.FC<SubjectProps> = ({ type, data }) => {
 
       {/* SRS Progression */}
       <View style={ProgressStyles.subject_bar}>
-        <View style={[ProgressStyles.subject_bar_filler, { width: `${(data.srs_stage / 5) * 100}%` }]}/>
+        <View style={[ProgressStyles.subject_bar_filler, { width: `${Math.min((data.srs_stage / 5), 1) * 100}%` }]}/>
       </View>
 
     </View>
