@@ -1,8 +1,13 @@
-- Fix resizing with wk logo on header bar (globals.ts)
-- Adjust alignment of subjects
-- Some assignments have an SRS value > 5
+-   Screens
 
-- Screens to Implement
-    * Review Screen
-    * Assignment Screen
-    * Subject Screen
+    -   Login
+    -   Home
+        -   Only pull in 15 assignments at a time
+        -   Find correct endpoint for reviews
+        -   Apply custom fonts
+    -   Review
+    -   Assignment
+    -   Subject
+
+-   Additional Features
+    -   Gray out dashboard items when on 'Vacation Mode'
