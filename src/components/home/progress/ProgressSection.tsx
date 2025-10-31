@@ -11,59 +11,33 @@
  * @module components/home/progress/ProgressSection
  */
 
-import React, { useState, useEffect } from 'react';
-import { View, Text } from 'react-native';
+import React from "react";
+import { View, Text } from "react-native";
 
 // Styling
-import { HomeStyles } from '../../../styles/globals';
-
-// API
-import { UserAPI } from '../../../api/user';
+import { HomeStyles } from "../../../styles/globals";
 
 // Components
-import Bar from './Bar';
-import Subjects from './Subjects';
+import Bar from "./Bar";
+import Subjects from "./Subjects";
 
 interface ProgressSectionProps {
-  label: string
+    label: string;
+    userLevel: number;
 }
 
-const ProgressSection: React.FC<ProgressSectionProps> = ({ label }) => {
-  const [userLevel, setUserLevel] = useState(0);
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const user = await UserAPI.getUserInfo();
-        if (user) {
-          setUserLevel(user.data.level);
-        }
-      } catch (e) {
-        console.error(e);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchUser();
-  });
-
-  // Default loading state view
-  if (loading) {
-      return (
-          <View style={[HomeStyles.progress_container, { justifyContent: 'center', alignItems: 'center' }]}>
-          </View>
-      );
-  }
-
-  return (
-    <View style={HomeStyles.progress_container}>
-      <Text>Level {userLevel} Progress</Text>
-      <Bar level={userLevel}/>
-      <Subjects level={userLevel} type={"radicals"}/>
-      <Subjects level={userLevel} type={"kanji"}/>
-    </View>
-  );
-}
+const ProgressSection: React.FC<ProgressSectionProps> = ({
+    label,
+    userLevel,
+}) => {
+    return (
+        <View style={HomeStyles.progress_container}>
+            <Text>Level {userLevel} Progress</Text>
+            <Bar level={userLevel} />
+            <Subjects level={userLevel} type={"radicals"} />
+            <Subjects level={userLevel} type={"kanji"} />
+        </View>
+    );
+};
 
 export default ProgressSection;
