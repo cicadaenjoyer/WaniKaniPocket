@@ -45,6 +45,10 @@ async function getAssignmentsBatch() {
     };
 }
 
+async function getAvailableReviews() {
+    return await getAssignments("?immediately_available_for_review=true");
+}
+
 async function getKanjiAssignments() {
     return await getAssignments("?subject_types=kanji");
 }
@@ -64,6 +68,7 @@ async function getRadicalAssignmentsAtLevel(level: number) {
 export const AssignmentsAPI = {
     getAssignments,
     getAssignmentsBatch,
+    getAvailableReviews,
     getKanjiAssignments,
     getKanjiAssignmentsAtLevel,
     getRadicalAssignments,
