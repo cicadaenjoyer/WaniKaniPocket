@@ -65,7 +65,7 @@ const Subjects: React.FC<SubjectsProps> = ({ level, type }) => {
             }
         };
         fetchKanji();
-    }, []);
+    }, [level, type]);
 
     return (
         <View style={ProgressStyles.subject_container}>
