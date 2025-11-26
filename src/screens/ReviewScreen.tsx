@@ -4,28 +4,66 @@
  *   Subject review screen for WaniKaniPocket.
  */
 
-import React, { useState, useEffect } from "react";
-import { Text, TextInput, View, ScrollView, Button } from "react-native";
+import React, { useState, useEffect, useRef } from "react";
+import { Text, View, ScrollView, Button } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useWindowDimensions } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import type { RootStackParamList } from "../navigation/navigation"; // adjust path as needed
+
+// Components
+import WanaKanaInput, {
+    WanaKanaInputRef,
+} from "../components/global/WanaKanaInput";
 
 // Styles
 import { ReviewStyles } from "../styles/globals";
 import { Colors } from "../constants/colors";
 
-const ReviewScreen = (nav: {}) => {
-    const navigation = useNavigation();
+interface Subject {
+    fill: string;
+    type: string;
+    q_type: "meaning" | "reading";
+    slug: string;
+    characters: Array<string>;
+    readings: Array<{ reading: string; meaning: string }>;
+    meanings: Array<{ reading: string; meaning: string }>;
+}
+
+const ReviewScreen = (nav: {
+    route: { params: { subjects: Array<Subject> } };
+}) => {
+    const navigation =
+        useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const { width, height } = useWindowDimensions();
+    const inputRef = useRef<WanaKanaInputRef>(null);
 
-    const [subject, setSubject] = useState<{
-        fill: string;
-        type: string;
-        slug: string;
-        characters: Array<string>;
-    } | null>(null);
+    const [subject, setSubject] = useState<Subject | null>(null);
+    const [txt_box_fill, setTxtBoxFill] = useState(Colors.HEADER_WHITE);
+    const [txt_fill, setTxtFill] = useState(Colors.BASIC_BLACK);
+    const [submitted, setSubmitted] = useState(false);
 
-    let subjects = nav.route.params.subjects.data;
+    const subjects = nav.route.params.subjects;
+
+    const submitResponse = (event: { nativeEvent: { key: string } }) => {
+        if (event.nativeEvent.key === "Enter") {
+            const is_valid = inputRef.current?.isValid();
+
+            if (is_valid) {
+                const is_correct = inputRef.current?.isCorrect();
+
+                // TODO: make text unchangeable, undim box
+                setTxtFill(Colors.HEADER_WHITE);
+                if (is_correct) {
+                    setTxtBoxFill(Colors.CORRECT_GREEN);
+                } else {
+                    setTxtBoxFill(Colors.INCORRECT_RED);
+                }
+                setSubmitted(true);
+            }
+        }
+    };
 
     const nextSubject = () => {
         if (subjects.length === 0) {
@@ -33,28 +71,14 @@ const ReviewScreen = (nav: {}) => {
             return;
         }
 
-        const subjectRaw = subjects.pop();
+        // Reset current subject props
+        setSubject(subjects.pop() || null);
+        setSubmitted(false);
 
-        const subject = {
-            fill: "",
-            type: subjectRaw.object,
-            slug: subjectRaw.data.slug,
-            characters: subjectRaw.data.characters,
-        };
-
-        switch (subject.type) {
-            case "radical":
-                subject.fill = Colors.RADICAL_BLUE;
-                break;
-            case "kanji":
-                subject.fill = Colors.KANJI_PINK;
-                break;
-            case "vocabulary":
-                subject.fill = Colors.VOCAB_PURPLE;
-                break;
-        }
-
-        setSubject(subject);
+        // Reset text box props
+        setTxtBoxFill(Colors.HEADER_WHITE);
+        setTxtFill(Colors.BASIC_BLACK);
+        inputRef.current?.clear();
     };
 
     // Getting the first subject from array
@@ -131,7 +155,7 @@ const ReviewScreen = (nav: {}) => {
                     >
                         {subject.type.charAt(0).toUpperCase() +
                             subject.type.slice(1)}{" "}
-                        Meaning
+                        {subject.q_type === "meaning" ? "Meaning" : "Reading"}
                     </Text>
                 </View>
 
@@ -144,14 +168,26 @@ const ReviewScreen = (nav: {}) => {
                         justifyContent: "center",
                     }}
                 >
-                    <TextInput
+                    <WanaKanaInput
+                        ref={inputRef}
                         style={{
                             ...ReviewStyles.input,
                             height: height * 0.045,
+                            backgroundColor: txt_box_fill,
+                            color: txt_fill,
                         }}
                         placeholder="Your Response"
+                        q_type={subject.q_type}
+                        answers={subject.readings || subject.meanings}
+                        onKeyPress={submitResponse}
                     />
-                    <Button color={"#000000"} title="˃" onPress={nextSubject} />
+                    {submitted && (
+                        <Button
+                            color={"#000000"}
+                            title="˃"
+                            onPress={nextSubject}
+                        />
+                    )}
                 </View>
             </ScrollView>
         </SafeAreaView>
