@@ -32,19 +32,21 @@ interface Subject {
 }
 
 const ReviewScreen = (nav: {
-    route: { params: { subjects: Array<Subject> } };
+    route: { params: { subjects: Array<Subject | null> } };
 }) => {
     const navigation =
         useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const { width, height } = useWindowDimensions();
     const inputRef = useRef<WanaKanaInputRef>(null);
 
+    const subjects = nav.route.params.subjects;
+
     const [subject, setSubject] = useState<Subject | null>(null);
     const [txt_box_fill, setTxtBoxFill] = useState(Colors.HEADER_WHITE);
     const [txt_fill, setTxtFill] = useState(Colors.BASIC_BLACK);
     const [submitted, setSubmitted] = useState(false);
-
-    const subjects = nav.route.params.subjects;
+    const [init_size, _] = useState(subjects.length);
+    const [progress, setProgress] = useState(0);
 
     const submitResponse = (event: { nativeEvent: { key: string } }) => {
         if (event.nativeEvent.key === "Enter") {
@@ -59,6 +61,8 @@ const ReviewScreen = (nav: {
                     setTxtBoxFill(Colors.CORRECT_GREEN);
                 } else {
                     setTxtBoxFill(Colors.INCORRECT_RED);
+                    const idx = Math.floor(Math.random() * subjects.length);
+                    subjects.splice(idx, 0, subject);
                 }
                 setSubmitted(true);
             }
@@ -74,6 +78,9 @@ const ReviewScreen = (nav: {
         // Reset current subject props
         setSubject(subjects.pop() || null);
         setSubmitted(false);
+
+        // Update progress meter
+        setProgress((1 - subjects.length / init_size) * 100);
 
         // Reset text box props
         setTxtBoxFill(Colors.HEADER_WHITE);
@@ -107,6 +114,24 @@ const ReviewScreen = (nav: {
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <ScrollView>
+                {/* Progression Bar */}
+                <View
+                    style={{
+                        width: "100%",
+                        height: "2.5%",
+                        backgroundColor: Colors.BASIC_BLACK,
+                        flexDirection: "row",
+                    }}
+                >
+                    <View
+                        style={{
+                            backgroundColor: Colors.HEADER_WHITE,
+                            height: "100%",
+                            width: `${progress}%`,
+                        }}
+                    />
+                </View>
+
                 {/* Subject Character */}
                 <View
                     style={[
