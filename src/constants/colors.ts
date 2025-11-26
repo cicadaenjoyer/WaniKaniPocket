@@ -5,13 +5,15 @@
  *   Each key represents a semantic color role for UI elements.
  */
 
-export const Colors: { [key: string]: string} = {
+export const Colors: { [key: string]: string } = {
     VOCAB_PURPLE: "#AA00FF",
     KANJI_PINK: "#FF00AA",
     RADICAL_BLUE: "#00AAFF",
+    INCORRECT_RED: "#FF0000",
     CORRECT_GREEN: "#35A753",
     LESSON_GREY: "#808080",
     LESSON_LIGHT_GREY: "#ecececff",
     OPTIONS_GREY: "#D5D5D5",
-    HEADER_WHITE: "#FFFFFF"
+    HEADER_WHITE: "#FFFFFF",
+    BASIC_BLACK: "#000000",
 };
