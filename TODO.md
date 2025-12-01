@@ -3,11 +3,19 @@
     -   **Login**
         -   Update UI
     -   **Home**
+        -   Options
+            -   Reset API token (logout), change app colors, change app icon
+        -   Subject Lookup
+            -   Lookup subjects based on name
     -   **Review**
 
+        -   During subject conversion, make sure to create radical types (don't dupe for these)
+        -   Randomize subjects
         -   Check for correctness
-            -   If wrong, make text box red and text white
-            -   If correct, make text box green and text white
+            -   Add text shake animation for invalid responses
+            -   Make string similarity logic to warn users on potential typos before submission
+            -   For reading questions
+                -   Check if we need to write the answer in hiragana/katakana
             -   Create a component with subject info (reading, meaning, pronunciation, etc) that will display on submission
             -   Create a `Review` record and send to API
                 -   Submit records on:
@@ -18,6 +26,18 @@
 
     -   **Assignment**
     -   **Subject**
+        -   Vocab
+            -   Add pronunciation under `Reading`
+            -   Add `Context` and `Kanji Composition` section
+        -   Kanji
+            -   Add hints to `Meaning` and `Reading`
+            -   Add multiple readings (On'yomi, Kun'yomi, Nanori)
+            -   Add `Radical Combination`
+            -   Add `Found in Vocabulary` section
+        -   Radical
+            -   Add character images under `Name`
+                -   Requires an API call with API key
+            -   Add `Found in Kanji` section to radical
 
 -   Additional Features
     -   Gray out dashboard items when on 'Vacation Mode'
