@@ -7,6 +7,7 @@ const App = () => {
     const [fontsLoaded] = useFonts({
         "NotoSans-Regular": require("./assets/fonts/NotoSans-Regular.ttf"),
         "NotoSans-Bold": require("./assets/fonts/NotoSans-Bold.ttf"),
+        "NotoSans-Light": require("./assets/fonts/NotoSans-Light.ttf"),
     });
 
     if (!fontsLoaded) {
