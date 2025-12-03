@@ -1,0 +1,249 @@
+/**
+ * SubjectReading component displays the header, primary/alt readings, explanations,
+ * and a hint
+ *
+ * @param {SubjectSlugProps} props - The props for the SubjectReading component.
+ * @param {string} props.type - The subject type (Radical, Kanji, or Vocab).
+ * @param {Array<{ reading: string; primary: boolean; type: string }>} props.readings_raw - The subject readings before formatting.
+ * @param {string} props.reading_explanation - An explanation for the main reading.
+ * @param {string} props.reading_hint - A hint (optional) to help rememeber the subject reading(s).
+ *
+ * @returns {JSX.Element}
+ */
+
+import React from "react";
+import { View, Text, Pressable } from "react-native";
+import { Audio } from "expo-av";
+
+// Components
+import RichText from "../global/RichText";
+
+// Styling
+import { Colors } from "../../constants/colors";
+
+interface SubjectReadingProps {
+    type: string;
+    readings_raw: Array<{ reading: string; primary: boolean; type: string }>;
+    pronunciations: Array<{
+        url: string;
+        metadata: {
+            gender: string;
+            voice_actor_name: string;
+            voice_description: string;
+        };
+    }>;
+    reading_explanation: string;
+    reading_hint: string;
+}
+
+const SubjectReading: React.FC<SubjectReadingProps> = ({
+    type,
+    readings_raw,
+    pronunciations,
+    reading_explanation,
+    reading_hint,
+}) => {
+    const playPronunciationAudio = async (uri: string) => {
+        try {
+            await Audio.setAudioModeAsync({
+                playsInSilentModeIOS: true,
+                staysActiveInBackground: false,
+            });
+
+            const { sound } = await Audio.Sound.createAsync(
+                { uri: uri },
+                { shouldPlay: true }
+            );
+
+            sound.setOnPlaybackStatusUpdate((status) => {
+                if (status.isLoaded && status.didJustFinish) {
+                    sound.unloadAsync();
+                }
+            });
+        } catch (error) {
+            console.error("Failed to play audio:", error);
+        }
+    };
+
+    const subject_readings = [
+        {
+            type: "On'yomi",
+            value:
+                readings_raw
+                    ?.filter((r) => r.type === "onyomi")
+                    ?.map((r) => r.reading)
+                    ?.join(", ") || "None",
+            primary: readings_raw?.find((r) => r.type === "onyomi")?.primary,
+        },
+        {
+            type: "Kun'yomi",
+            value:
+                readings_raw
+                    ?.filter((r) => r.type === "kunyomi")
+                    ?.map((r) => r.reading)
+                    ?.join(", ") || "None",
+            primary: readings_raw?.find((r) => r.type === "kunyomi")?.primary,
+        },
+        {
+            type: "Nanori",
+            value:
+                readings_raw
+                    ?.filter((r) => r.type === "nanori")
+                    ?.map((r) => r.reading)
+                    ?.join(", ") || "None",
+            primary: readings_raw?.find((r) => r.type === "nanori")?.primary,
+        },
+    ];
+
+    return (
+        <View style={{ marginTop: 12 }}>
+            {/* Reading Header and Divider */}
+            <Text
+                style={{
+                    fontFamily: "NotoSans-Regular",
+                    fontSize: 20, // NOTE: make dynamic later
+                    color: Colors.BASIC_BLACK,
+                }}
+            >
+                Reading
+            </Text>
+            <View
+                style={{
+                    height: 1,
+                    width: "100%",
+                    backgroundColor: Colors.OPTIONS_GREY,
+                    marginBottom: 12,
+                }}
+            />
+
+            {/* Primary/Alt Reading & Pronunciations (Vocab)*/}
+            <View
+                style={{
+                    flexDirection: "row",
+                    justifyContent: "space-evenly",
+                    alignContent: "flex-start",
+                }}
+            >
+                {type !== "vocabulary" &&
+                    subject_readings.map((reading, ridx) => {
+                        return (
+                            <View
+                                key={ridx}
+                                style={{
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                }}
+                            >
+                                {reading.type && (
+                                    <Text
+                                        style={{
+                                            fontFamily:
+                                                reading.primary &&
+                                                readings_raw.length !== 1
+                                                    ? "NotoSans-Bold"
+                                                    : "NotoSans-Regular",
+                                            fontSize: 14, // NOTE: make dynamic later
+                                            color: Colors.LESSON_GREY,
+                                        }}
+                                    >
+                                        {reading.type.at(0)?.toUpperCase() +
+                                            reading.type.slice(1)}
+                                    </Text>
+                                )}
+                                <Text
+                                    style={{
+                                        fontFamily:
+                                            reading.primary &&
+                                            readings_raw.length !== 1
+                                                ? "NotoSans-Bold"
+                                                : "NotoSans-Regular",
+                                        fontSize: 14, // NOTE: make dynamic later
+                                        color: Colors.BASIC_BLACK,
+                                    }}
+                                >
+                                    {reading.value}
+                                </Text>
+                            </View>
+                        );
+                    })}
+                {type === "vocabulary" && (
+                    <Text
+                        style={{
+                            fontFamily: "NotoSans-Regular",
+                            fontSize: 14, // NOTE: make dynamic later
+                            color: Colors.BASIC_BLACK,
+                        }}
+                    >
+                        {readings_raw?.[0].reading}
+                    </Text>
+                )}
+            </View>
+            {pronunciations.map((pronunciation, pidx) => {
+                return (
+                    <Pressable
+                        key={pidx}
+                        onPress={() =>
+                            playPronunciationAudio(pronunciation.url)
+                        }
+                    >
+                        <Text style={{ fontSize: 10, marginTop: 4 }}>
+                            <Text
+                                style={{
+                                    fontFamily: "NotoSans-Bold",
+                                    fontSize: 9,
+                                }}
+                            >
+                                {"▶︎ "}
+                                {pronunciation.metadata.voice_actor_name?.toUpperCase()}
+                            </Text>
+                            <Text style={{ fontFamily: "NotoSans-Light" }}>
+                                {" "}
+                                (
+                                {pronunciation.metadata.voice_description?.toUpperCase()}
+                                {", "}
+                                {pronunciation.metadata.gender?.toUpperCase()})
+                            </Text>
+                        </Text>
+                    </Pressable>
+                );
+            })}
+
+            {/* Reading Explanation & Hint */}
+            <Text
+                style={{
+                    fontFamily: "NotoSans-Regular",
+                    fontSize: 14, // NOTE: make dynamic later
+                    color: Colors.LESSON_GREY,
+                    paddingTop: 12,
+                }}
+            >
+                {type === "vocabulary" ? "Explanation" : "Mnemonic"}
+            </Text>
+            <View
+                style={{
+                    paddingBottom: 12,
+                }}
+            >
+                <Text style={{ color: Colors.LESSON_GREY }}>
+                    <RichText text={reading_explanation} />
+                </Text>
+            </View>
+            {reading_hint && (
+                <View
+                    style={{
+                        backgroundColor: Colors.LESSON_LIGHT_GREY,
+                        borderRadius: 10,
+                        padding: 15,
+                    }}
+                >
+                    <Text style={{ fontFamily: "NotoSans-Bold", fontSize: 14 }}>
+                        Hints
+                    </Text>
+                    <RichText text={reading_hint} />
+                </View>
+            )}
+        </View>
+    );
+};
+
+export default SubjectReading;
