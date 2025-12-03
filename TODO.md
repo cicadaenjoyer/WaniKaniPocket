@@ -4,7 +4,7 @@
         -   Update UI
     -   **Home**
         -   Options
-            -   Reset API token (logout), change app colors, change app icon
+            -   Reset API token (logout), change app colors, change app icon, change style sheet
         -   Subject Lookup
             -   Lookup subjects based on name
     -   **Review**
@@ -16,7 +16,6 @@
             -   Make string similarity logic to warn users on potential typos before submission
             -   For reading questions
                 -   Check if we need to write the answer in hiragana/katakana
-            -   Create a component with subject info (reading, meaning, pronunciation, etc) that will display on submission
             -   Create a `Review` record and send to API
                 -   Submit records on:
                     -   Back page
@@ -27,18 +26,19 @@
     -   **Assignment**
     -   **Subject**
         -   Vocab
-            -   Add pronunciation under `Reading`
-            -   Add `Context` and `Kanji Composition` section
+            -   Add `Context` section
+            -   Sections requiring API calls
+                -   `Kanji Composition`
         -   Kanji
-            -   Add hints to `Meaning` and `Reading`
-            -   Add multiple readings (On'yomi, Kun'yomi, Nanori)
-            -   Add `Radical Combination`
-            -   Add `Found in Vocabulary` section
+            -   Sections requiring API calls
+                -   `Radical Combination`
+                -   `Found in Vocabulary`
         -   Radical
-            -   Add character images under `Name`
-                -   Requires an API call with API key
-            -   Add `Found in Kanji` section to radical
+            -   Sections requiring API calls
+                -   `Character Image`
+                -   `Found in Kanji`
 
 -   Additional Features
+    -   Replace `expo-av` library with `expo-audio`
     -   Gray out dashboard items when on 'Vacation Mode'
     -   Adjust styles to look more appealing
