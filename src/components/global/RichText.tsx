@@ -1,15 +1,14 @@
 /**
- * RichText component displays a Subject's main reading (slug), meaning,
+ * RichText component converts rich text from WK API to special text blocks
  *
  * @param {RichTextProps} props - The props for the RichText component.
- * @param {string} props.label - The label to display for the RichText section.
- * @param {object} props.userPref - A json object containing user preferred settings.
+ * @param {string} props.text - The rich text to be converted
  *
- * @returns {JSX.Element} The rendered RichText component.
+ * @returns {JSX.Element}
  */
 
 import React from "react";
-import { View, Text, Image } from "react-native";
+import { Text } from "react-native";
 
 // Styling
 import { Colors } from "../../constants/colors";
@@ -18,16 +17,8 @@ interface RichTextProps {
     text: string;
 }
 
-/**
- * RichText component displays the user's current assignment count and provides
- * a button to start lessons. It fetches assignment data from the API on mount,
- * handles loading and authorization states.
- *
- * @param {RichTextProps} props - The props for the RichText component.
- * @returns {JSX.Element} The rendered RichText component.
- */
 const RichText: React.FC<RichTextProps> = ({ text }) => {
-    const EXPLAIN_REGEX =
+    const RT_REGEX =
         /(<(?:kanji|radical|vocabulary|reading|em)>.*?<\/(?:kanji|radical|vocabulary|reading|em)>)|([^<]+)/g;
 
     return (
@@ -38,7 +29,7 @@ const RichText: React.FC<RichTextProps> = ({ text }) => {
                 flexWrap: "wrap",
             }}
         >
-            {text.match(EXPLAIN_REGEX)?.map((e, idx) => {
+            {text.match(RT_REGEX)?.map((e, idx) => {
                 const RM_REGEX =
                     /<\/?(?:vocabulary|kanji|radical|reading|em)>/g;
                 const word_type =
@@ -48,7 +39,7 @@ const RichText: React.FC<RichTextProps> = ({ text }) => {
                         ?.toUpperCase() || null;
                 const background_fill = word_type
                     ? Colors[`${word_type}_HIGHLIGHT_BACK`]
-                    : "transparent";
+                    : "";
                 const txt_fill = word_type
                     ? Colors[`${word_type}_HIGHLIGHT_FILL`]
                     : "";
