@@ -58,34 +58,35 @@ function convertSubject(subject_raw: Subject) {
                 )
         ),
     };
-
-    const subject_meaning = partial_subject;
-    const subject_reading = partial_subject;
-
-    subject_meaning.q_type = "meaning";
-    subject_reading.q_type = "reading";
-    switch (subject_raw.object) {
+    switch (partial_subject.type) {
         case "radical":
-            subject_reading.fill = Colors.RADICAL_BLUE;
-            subject_meaning.fill = Colors.RADICAL_BLUE;
+            partial_subject.fill = Colors.RADICAL_BLUE;
             break;
         case "kanji":
-            subject_reading.fill = Colors.KANJI_PINK;
-            subject_meaning.fill = Colors.KANJI_PINK;
+            partial_subject.fill = Colors.KANJI_PINK;
             break;
         case "vocabulary":
-            subject_reading.fill = Colors.VOCAB_PURPLE;
-            subject_meaning.fill = Colors.VOCAB_PURPLE;
+            partial_subject.fill = Colors.VOCAB_PURPLE;
             break;
     }
 
-    return [subject_meaning, subject_reading];
+    const subject_meaning = { ...partial_subject, q_type: "meaning" };
+    const subject_reading = { ...partial_subject, q_type: "reading" };
+
+    return partial_subject.type === "radical"
+        ? [subject_meaning]
+        : [subject_meaning, subject_reading];
 }
 
 function convertSubjects(subjects_raw: Subject[]) {
-    return subjects_raw.flatMap((subject) => {
-        return convertSubject(subject);
-    });
+    let subjects = subjects_raw.flatMap(convertSubject);
+
+    for (let i = subjects.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [subjects[i], subjects[j]] = [subjects[j], subjects[i]];
+    }
+
+    return subjects;
 }
 
 export const C_Utils = {
