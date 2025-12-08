@@ -2,13 +2,15 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
 import * as SecureStore from "expo-secure-store";
+import { RootStackParamList } from "../navigation/navigation";
+
+const Stack = createStackNavigator<RootStackParamList>();
 
 // Screens
 import LoginScreen from "../screens/LoginScreen";
 import HomeScreen from "../screens/HomeScreen";
 import ReviewScreen from "../screens/ReviewScreen";
-
-const { Navigator, Screen } = createStackNavigator();
+import SubjectScreen from "../screens/SubjectScreen";
 
 const AppNavigator = () => {
     const hasToken = SecureStore.getItem("WK_TOKEN");
@@ -16,14 +18,15 @@ const AppNavigator = () => {
 
     return (
         <NavigationContainer>
-            <Navigator
+            <Stack.Navigator
                 initialRouteName={initialRoute}
                 screenOptions={navigatorOptions}
             >
-                <Screen name="Home" component={HomeScreen}></Screen>
-                <Screen name="Login" component={LoginScreen}></Screen>
-                <Screen name="Review" component={ReviewScreen}></Screen>
-            </Navigator>
+                <Stack.Screen name="Home" component={HomeScreen} />
+                <Stack.Screen name="Login" component={LoginScreen} />
+                <Stack.Screen name="Review" component={ReviewScreen} />
+                <Stack.Screen name="Subject" component={SubjectScreen} />
+            </Stack.Navigator>
         </NavigationContainer>
     );
 };
