@@ -9,6 +9,7 @@
 import { Colors } from "../constants/colors";
 
 interface Subject {
+    id: number;
     object: "radical" | "kanji" | "vocabulary";
     data: {
         slug: string;
@@ -29,12 +30,17 @@ interface Subject {
                 voice_description: "string";
             };
         }> | null;
+        amalgamation_subject_ids: Array<number>;
+        component_subject_ids: Array<number>;
+        visually_similar_subject_ids: Array<number>;
+        context_sentences: Array<{ en: string; ja: string }>;
     };
     srs_stage: number;
 }
 
 function convertSubject(subject_raw: Subject) {
     const partial_subject = {
+        id: subject_raw.id,
         fill: "",
         type: subject_raw.object,
         q_type: "",
@@ -57,6 +63,12 @@ function convertSubject(subject_raw: Subject) {
                         audio.metadata.voice_actor_id
                 )
         ),
+        context_sentences: subject_raw.data.context_sentences,
+        related_subject_ids: [
+            ...(subject_raw.data?.amalgamation_subject_ids || []),
+            ...(subject_raw.data?.component_subject_ids || []),
+            ...(subject_raw.data?.visually_similar_subject_ids || []),
+        ],
     };
     switch (partial_subject.type) {
         case "radical":

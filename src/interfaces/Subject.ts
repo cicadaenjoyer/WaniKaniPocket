@@ -1,4 +1,5 @@
 export interface SubjectProps {
+    id: number;
     fill: string;
     type: string;
     q_type: "meaning" | "reading";
@@ -19,4 +20,6 @@ export interface SubjectProps {
     r_explanation: string;
     m_hint: string;
     r_hint: string;
+    context_sentences: Array<{ en: string; ja: string }>;
+    related_subject_ids: Array<number>;
 }
