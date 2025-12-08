@@ -9,8 +9,6 @@
             -   Lookup subjects based on name
     -   **Review**
 
-        -   During subject conversion, make sure to create radical types (don't dupe for these)
-        -   Randomize subjects
         -   Check for correctness
             -   Add text shake animation for invalid responses
             -   Make string similarity logic to warn users on potential typos before submission
@@ -25,20 +23,15 @@
 
     -   **Assignment**
     -   **Subject**
-        -   Vocab
-            -   Add `Context` section
-            -   Sections requiring API calls
-                -   `Kanji Composition`
-        -   Kanji
-            -   Sections requiring API calls
-                -   `Radical Combination`
-                -   `Found in Vocabulary`
-        -   Radical
-            -   Sections requiring API calls
-                -   `Character Image`
-                -   `Found in Kanji`
+        -   **BUGS**
+            -   Sometimes Radicals don't get the 'Kanji Composition' section... (hard to replicate)
+            -   Character images not showing up for Radicals (auth issue)
 
 -   Additional Features
+
     -   Replace `expo-av` library with `expo-audio`
     -   Gray out dashboard items when on 'Vacation Mode'
     -   Adjust styles to look more appealing
+
+-   Notes
+    -   The WK API currently does not provide info on `Patterns of Use` for vocab subjects
