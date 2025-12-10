@@ -8,42 +8,17 @@
 // Styling
 import { Colors } from "../constants/colors";
 
-interface Subject {
-    id: number;
-    object: "radical" | "kanji" | "vocabulary";
-    data: {
-        slug: string;
-        characters: string;
-        character_images: Array<{ url: string }>;
-        readings: any;
-        meanings: any;
-        meaning_mnemonic: string;
-        reading_mnemonic: string;
-        meaning_hint: string;
-        reading_hint: string;
-        pronunciation_audios: Array<{
-            url: string;
-            metadata: {
-                gender: "string";
-                voice_actor_id: number;
-                voice_actor_name: "string";
-                voice_description: "string";
-            };
-        }> | null;
-        amalgamation_subject_ids: Array<number>;
-        component_subject_ids: Array<number>;
-        visually_similar_subject_ids: Array<number>;
-        context_sentences: Array<{ en: string; ja: string }>;
-    };
-    srs_stage: number;
-}
+// Interfaces
+import { RawSubjectProps } from "../interfaces/RawSubject";
 
-function convertSubject(subject_raw: Subject) {
-    const partial_subject = {
+function convertSubject(subject_raw: RawSubjectProps) {
+    const converted_subject = {
         id: subject_raw.id,
         fill: "",
-        type: subject_raw.object,
-        q_type: "",
+        type:
+            subject_raw.object === "kana_vocabulary"
+                ? "vocabulary"
+                : subject_raw.object,
         slug: subject_raw.data.slug,
         characters: subject_raw.data.characters,
         character_image: subject_raw.data.character_images?.[0]?.url || "",
@@ -69,28 +44,24 @@ function convertSubject(subject_raw: Subject) {
             ...(subject_raw.data?.component_subject_ids || []),
             ...(subject_raw.data?.visually_similar_subject_ids || []),
         ],
+        is_kana: subject_raw.object === "kana_vocabulary",
     };
-    switch (partial_subject.type) {
+    switch (converted_subject.type) {
         case "radical":
-            partial_subject.fill = Colors.RADICAL_BLUE;
+            converted_subject.fill = Colors.RADICAL_BLUE;
             break;
         case "kanji":
-            partial_subject.fill = Colors.KANJI_PINK;
+            converted_subject.fill = Colors.KANJI_PINK;
             break;
         case "vocabulary":
-            partial_subject.fill = Colors.VOCAB_PURPLE;
+            converted_subject.fill = Colors.VOCAB_PURPLE;
             break;
     }
 
-    const subject_meaning = { ...partial_subject, q_type: "meaning" };
-    const subject_reading = { ...partial_subject, q_type: "reading" };
-
-    return partial_subject.type === "radical"
-        ? [subject_meaning]
-        : [subject_meaning, subject_reading];
+    return [converted_subject];
 }
 
-function convertSubjects(subjects_raw: Subject[]) {
+function convertSubjects(subjects_raw: RawSubjectProps[]) {
     let subjects = subjects_raw.flatMap(convertSubject);
 
     for (let i = subjects.length - 1; i > 0; i--) {

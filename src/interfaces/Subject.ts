@@ -2,7 +2,6 @@ export interface SubjectProps {
     id: number;
     fill: string;
     type: string;
-    q_type: "meaning" | "reading";
     slug: string;
     characters: Array<string> | string;
     character_image: string;
@@ -22,4 +21,5 @@ export interface SubjectProps {
     r_hint: string;
     context_sentences: Array<{ en: string; ja: string }>;
     related_subject_ids: Array<number>;
+    is_kana: boolean;
 }

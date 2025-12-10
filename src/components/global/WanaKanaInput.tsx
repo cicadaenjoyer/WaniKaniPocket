@@ -1,6 +1,6 @@
 import React, { useState, forwardRef, useImperativeHandle } from "react";
 import { TextInput, TextInputProps } from "react-native";
-import { isHiragana, toHiragana } from "wanakana";
+import { isHiragana, toHiragana, isKatakana, toKatakana } from "wanakana";
 
 export interface WanaKanaInputRef {
     clear: () => void;
@@ -11,7 +11,13 @@ export interface WanaKanaInputRef {
 
 interface WKI_Props extends TextInputProps {
     q_type: "reading" | "meaning";
-    answers: { reading: string; meaning: string }[];
+    answers: {
+        reading?: string;
+        meaning?: string;
+        type?: string;
+        primary: boolean;
+    }[];
+    is_kana: boolean;
 }
 
 const WanaKanaInput = forwardRef<WanaKanaInputRef, WKI_Props>(
@@ -20,8 +26,9 @@ const WanaKanaInput = forwardRef<WanaKanaInputRef, WKI_Props>(
 
         const handleChangeText = (input: string) => {
             if (props.q_type === "reading") {
-                const hiragana = toHiragana(input);
-                setText(hiragana);
+                const textConverter = props.is_kana ? toKatakana : toHiragana;
+                const converted_text = textConverter(input);
+                setText(converted_text);
             } else {
                 setText(input);
             }
@@ -35,14 +42,21 @@ const WanaKanaInput = forwardRef<WanaKanaInputRef, WKI_Props>(
                 const A_TYPE = props.q_type;
 
                 const answer = props.answers.find(
-                    (a) => a[A_TYPE]?.toLowerCase() === text.toLowerCase()
+                    (a) =>
+                        a[A_TYPE]?.toLowerCase() === text.toLowerCase().trim()
                 );
                 return !!answer;
             },
             isValid: () => {
-                return props.q_type === "reading"
-                    ? isHiragana(text)
-                    : text.length > 0;
+                if (props.q_type === "reading") {
+                    const syntaxChecker = props.is_kana
+                        ? isKatakana
+                        : isHiragana;
+
+                    return syntaxChecker(text);
+                } else {
+                    return text.length > 0;
+                }
             },
             getText: () => {
                 return text;
