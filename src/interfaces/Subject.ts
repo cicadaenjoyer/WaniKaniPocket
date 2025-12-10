@@ -7,7 +7,7 @@ export interface SubjectProps {
     character_image: string;
     readings: Array<{ reading: string; primary: boolean; type: string }>;
     meanings: Array<{ meaning: string; primary: boolean }>;
-    pronunciation_audios: Array<{
+    pronunciation_audios?: Array<{
         url: string;
         metadata: {
             gender: "string";
