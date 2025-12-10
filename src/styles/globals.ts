@@ -38,8 +38,9 @@ export const HomeStyles = StyleSheet.create({
         width: "100%",
         backgroundColor: Colors.LESSON_LIGHT_GREY,
         flexDirection: "row",
-        justifyContent: "space-between",
+        justifyContent: "center",
         alignItems: "center",
+
         // borderWidth: 1,
     },
     header_image: {
@@ -70,5 +71,29 @@ export const HomeStyles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "space-around",
         paddingHorizontal: 5,
+    },
+});
+
+export const ReviewStyles = StyleSheet.create({
+    subject_container: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    subject_text: {
+        color: "#ffffff",
+        fontFamily: "NotoSans-Regular",
+    },
+    input: {
+        width: "85%",
+        margin: 12,
+        padding: 10,
+        textAlign: "center",
+        backgroundColor: "#ffffff",
+        borderColor: "#000000",
+        borderWidth: 1,
+    },
+    next: {
+        color: "#000000",
     },
 });

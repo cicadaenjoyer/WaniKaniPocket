@@ -1,11 +1,35 @@
 -   Screens
 
-    -   Login
-    -   Home
-        -   Apply custom fonts
-    -   Review
-    -   Assignment
-    -   Subject
+    -   **Login**
+
+        -   Update UI
+
+    -   **Home**
+
+        -   Not updating # of Kanji passed correctly
+        -   Options
+            -   Reset API token (logout), change app colors, change app icon, change style sheet
+        -   Subject Lookup
+            -   Lookup subjects based on name
+
+    -   **Review**
+        -   Part 2:
+            -   Add text shake animation for invalid responses
+            -   Create a string similarity check for responses (should also play shake animation for responses > 80% similarity)
+            -   If user answers with reading when expecting meaning (and vice versa), send a warning
+
+    *   **Assignment**
+        -   WIP
+    *   **Subject**
+        -   **BUGS**
+            -   Sometimes Radicals don't get the 'Kanji Composition' section... (hard to replicate)
+            -   Character images not showing up for Radicals (auth issue)
 
 -   Additional Features
+
+    -   Replace `expo-av` library with `expo-audio`
     -   Gray out dashboard items when on 'Vacation Mode'
+    -   Adjust styles to look more appealing
+
+-   Notes
+    -   The WK API currently does not provide info on `Patterns of Use` for vocab subjects

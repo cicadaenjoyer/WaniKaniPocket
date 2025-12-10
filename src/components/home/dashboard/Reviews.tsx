@@ -11,6 +11,9 @@
 
 import React, { useState, useEffect } from "react";
 import { View, Image, Pressable, LayoutChangeEvent } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import type { RootStackParamList } from "../../../navigation/navigation";
 
 // Styling
 import { HomeStyles } from "../../../styles/globals";
@@ -19,6 +22,10 @@ import { Colors } from "../../../constants/colors";
 
 // API
 import { AssignmentsAPI } from "../../../api/assignments";
+import { SubjectsAPI } from "../../../api/subjects";
+
+// Utils
+import { C_Utils } from "../../../utils/convert";
 
 // Components
 import ButtonText from "./ButtonText";
@@ -28,6 +35,10 @@ interface ReviewsProps {
 }
 
 const Reviews: React.FC<ReviewsProps> = ({ label }) => {
+    const navigation =
+        useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+
+    const [reviews, setReviews] = useState([]);
     const [reviewCount, setReviewCount] = useState(0);
     const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
     const [authorized, setAuthorized] = useState<boolean | null>(null);
@@ -39,6 +50,7 @@ const Reviews: React.FC<ReviewsProps> = ({ label }) => {
             try {
                 const result = await AssignmentsAPI.getAvailableReviews();
                 if (result) {
+                    setReviews(result.data);
                     setReviewCount(result.total_count);
                     setAuthorized(true);
                 }
@@ -50,6 +62,18 @@ const Reviews: React.FC<ReviewsProps> = ({ label }) => {
         };
         fetchReviews();
     }, []);
+
+    const goToReviews = async () => {
+        const reviewIds = reviews
+            .map((asgn: { data: { subject_id: number } }) => {
+                return asgn.data.subject_id;
+            })
+            .join(",");
+        const subjectsRaw = await SubjectsAPI.getSubjectsWithId(reviewIds);
+        const subjects = C_Utils.convertSubjects(subjectsRaw.data);
+
+        navigation.navigate("Review", { subjects });
+    };
 
     // Handle layout changes to update container size
     const onLayout = (event: LayoutChangeEvent) => {
@@ -81,6 +105,8 @@ const Reviews: React.FC<ReviewsProps> = ({ label }) => {
                     : { backgroundColor: "gray" },
             ]}
             onLayout={onLayout}
+            onPress={goToReviews}
+            disabled={reviewCount === 0}
         >
             {/* Review count and description */}
             <View style={DashboardStyles.count}>
@@ -104,8 +130,17 @@ const Reviews: React.FC<ReviewsProps> = ({ label }) => {
 
             {/* Start Reviews button */}
             <View style={DashboardStyles.button_container}>
-                <Pressable style={DashboardStyles.button}>
-                    <ButtonText style={{ color: "black" }}>
+                <Pressable
+                    style={DashboardStyles.button}
+                    onPress={goToReviews}
+                    disabled={reviewCount === 0}
+                >
+                    <ButtonText
+                        style={{
+                            ...DashboardStyles.button_text,
+                            color: "black",
+                        }}
+                    >
                         Start Reviews
                     </ButtonText>
                 </Pressable>

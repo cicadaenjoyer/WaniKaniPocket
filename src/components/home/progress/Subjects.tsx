@@ -12,8 +12,10 @@ import { AssignmentsAPI } from "../../../api/assignments";
 import Subject from "./Subject";
 
 interface SubjectsProps {
+    id: number;
     level: number;
-    type: string;
+    type: "radicals" | "kanji";
+    srs_stage: number;
 }
 
 const Subjects: React.FC<SubjectsProps> = ({ level, type }) => {
@@ -50,11 +52,14 @@ const Subjects: React.FC<SubjectsProps> = ({ level, type }) => {
                         )
                     );
                     const allSubjects = allSubjectsRaw.data
-                        .map((subject: { id: number }) => ({
+                        .map((subject: SubjectsProps) => ({
                             ...subject,
                             srs_stage: allLearned.get(subject.id) ?? 0,
                         }))
-                        .sort((a, b) => b.srs_stage - a.srs_stage);
+                        .sort(
+                            (a: SubjectsProps, b: SubjectsProps) =>
+                                b.srs_stage - a.srs_stage
+                        );
 
                     setSubjects(allSubjects);
                 }
@@ -65,7 +70,7 @@ const Subjects: React.FC<SubjectsProps> = ({ level, type }) => {
             }
         };
         fetchKanji();
-    }, []);
+    }, [level, type]);
 
     return (
         <View style={ProgressStyles.subject_container}>
@@ -85,7 +90,7 @@ const Subjects: React.FC<SubjectsProps> = ({ level, type }) => {
                         <Subject
                             key={subject.id || index}
                             type={type}
-                            data={subject}
+                            subject={subject} // NOTE: update in a future patch
                         />
                     )
                 )}
