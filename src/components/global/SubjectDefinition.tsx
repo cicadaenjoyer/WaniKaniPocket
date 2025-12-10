@@ -110,7 +110,7 @@ const SubjectDefinition: React.FC<{ subject: SubjectProps }> = ({
                 fill={subject_color}
                 slug={subject_slug}
                 main_meaning={subject_main_meaning}
-                subject_image={subject_image}
+                // subject_image={subject_image}
             />
 
             {/* (KANJI) Radical Combination */}

@@ -11,7 +11,7 @@
  */
 
 import React from "react";
-import { View, Text, Image } from "react-native";
+import { View, Text } from "react-native";
 
 // Styling
 import { Colors } from "../../constants/colors";
@@ -20,14 +20,13 @@ interface SubjectSlugProps {
     fill: string;
     slug: string;
     main_meaning: string;
-    subject_image: string;
+    // subject_image: string;
 }
 
 const SubjectSlug: React.FC<SubjectSlugProps> = ({
     fill,
     slug,
     main_meaning,
-    subject_image,
 }) => {
     return (
         <View>
@@ -63,13 +62,6 @@ const SubjectSlug: React.FC<SubjectSlugProps> = ({
             >
                 {main_meaning}
             </Text>
-            {subject_image && (
-                <Image
-                    source={{ uri: subject_image }}
-                    style={{ width: 100, height: 100 }}
-                    resizeMode="contain"
-                ></Image>
-            )}
         </View>
     );
 };
