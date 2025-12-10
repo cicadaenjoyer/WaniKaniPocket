@@ -1,28 +1,26 @@
 -   Screens
 
     -   **Login**
+
         -   Update UI
+
     -   **Home**
+
+        -   Not updating # of Kanji passed correctly
         -   Options
             -   Reset API token (logout), change app colors, change app icon, change style sheet
         -   Subject Lookup
             -   Lookup subjects based on name
+
     -   **Review**
-
-        -   Check for correctness
+        -   Part 2:
             -   Add text shake animation for invalid responses
-            -   Make string similarity logic to warn users on potential typos before submission
-            -   For reading questions
-                -   Check if we need to write the answer in hiragana/katakana
-            -   Create a `Review` record and send to API
-                -   Submit records on:
-                    -   Back page
-                    -   Closing app
-                    -   App crash
-                    -   Finish reviews
+            -   Create a string similarity check for responses (should also play shake animation for responses > 80% similarity)
+            -   If user answers with reading when expecting meaning (and vice versa), send a warning
 
-    -   **Assignment**
-    -   **Subject**
+    *   **Assignment**
+        -   WIP
+    *   **Subject**
         -   **BUGS**
             -   Sometimes Radicals don't get the 'Kanji Composition' section... (hard to replicate)
             -   Character images not showing up for Radicals (auth issue)
