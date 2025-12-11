@@ -74,12 +74,11 @@ const ReviewScreen = (nav: {
                 case "assignment":
                     review.started_at = timestamp;
                 case "review":
-                    review.assignment_id = subject?.id;
+                    review.assignment_id = subject?.assignment_id;
                     review.incorrect_meaning_answers =
                         quiz_state.num_meaning_incorrect;
                     review.incorrect_reading_answers =
                         quiz_state.num_reading_inccorect;
-                    review.created_at = timestamp;
             }
         } else {
             console.error("Error: Null Subject when creating review");

@@ -1,5 +1,6 @@
 export interface SubjectProps {
     id: number;
+    assignment_id?: number;
     fill: string;
     type: string;
     slug: string;

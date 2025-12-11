@@ -12,7 +12,7 @@ async function postReview(review: ReviewProps) {
         const headers: Headers = new Headers();
         headers.set("Authorization", `Bearer ${apiToken}`);
         headers.set("Wanikani-Revision", "20170710");
-        headers.set("Content-Type", "application/json");
+        headers.set("Content-Type", "application/json; charset=utf-8");
 
         const response = await fetch(`${WEB_URL}/reviews`, {
             method: "POST",
@@ -28,11 +28,18 @@ async function postReview(review: ReviewProps) {
         });
 
         if (!response.ok) {
+            const errorBody = await response.json();
+            console.log("API Error Details:", errorBody);
+
             switch (response.status) {
                 case 401:
                     throw new Error("Unauthorized: Invalid API token");
                 case 404:
                     throw new Error("Not Found: Endpoint does not exist");
+                case 422:
+                    throw new Error(
+                        `Validation Error: ${JSON.stringify(errorBody)}`
+                    );
                 default:
                     throw new Error(
                         `API Error: ${response.status} ${response.statusText}`

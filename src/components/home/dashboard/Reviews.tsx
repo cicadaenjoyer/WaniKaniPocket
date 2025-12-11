@@ -24,6 +24,9 @@ import { Colors } from "../../../constants/colors";
 import { AssignmentsAPI } from "../../../api/assignments";
 import { SubjectsAPI } from "../../../api/subjects";
 
+// Interfaces
+import { SubjectProps } from "../../../interfaces/Subject";
+
 // Utils
 import { C_Utils } from "../../../utils/convert";
 
@@ -70,9 +73,26 @@ const Reviews: React.FC<ReviewsProps> = ({ label }) => {
             })
             .join(",");
         const subjectsRaw = await SubjectsAPI.getSubjectsWithId(reviewIds);
-        const subjects = C_Utils.convertSubjects(subjectsRaw.data);
+        const subjects = C_Utils.convertSubjects(subjectsRaw.data).slice(0, 2);
 
-        navigation.navigate("Review", { subjects });
+        // Creating a map to assign assignment ids to subjects
+        const subject_to_assignment_map = new Map(
+            reviews.map(
+                (asgn: { id: number; data: { subject_id: number } }) => [
+                    asgn.data.subject_id,
+                    asgn.id,
+                ]
+            )
+        );
+
+        const subjects_with_assignments = subjects.map(
+            (subject: SubjectProps) => ({
+                ...subject,
+                assignment_id: subject_to_assignment_map.get(subject.id),
+            })
+        );
+
+        navigation.navigate("Review", { subjects: subjects_with_assignments });
     };
 
     // Handle layout changes to update container size
