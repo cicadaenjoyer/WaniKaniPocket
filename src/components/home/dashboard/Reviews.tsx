@@ -73,7 +73,7 @@ const Reviews: React.FC<ReviewsProps> = ({ label }) => {
             })
             .join(",");
         const subjectsRaw = await SubjectsAPI.getSubjectsWithId(reviewIds);
-        const subjects = C_Utils.convertSubjects(subjectsRaw.data).slice(0, 2);
+        const subjects = C_Utils.convertSubjects(subjectsRaw.data);
 
         // Creating a map to assign assignment ids to subjects
         const subject_to_assignment_map = new Map(
