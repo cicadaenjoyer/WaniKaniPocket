@@ -166,8 +166,7 @@ const ReviewScreen = (nav: {
 
     const nextSubject = () => {
         if (subjects.length === 0) {
-            setSubject(null);
-            return;
+            navigation.navigate("Home");
         }
 
         const nextSubj = subjects.pop();
@@ -204,7 +203,7 @@ const ReviewScreen = (nav: {
         setSubject(nextSubj);
         setQuizType(quiz_type);
         setSubmitted(false);
-        setProgress((1 - subjects.length / initSize) * 100);
+        setProgress((1 - (subjects.length - 1) / initSize) * 100);
         setTxtBoxFill(Colors.HEADER_WHITE);
         setTxtFill(Colors.BASIC_BLACK);
 
@@ -230,12 +229,12 @@ const ReviewScreen = (nav: {
         nextSubject();
     }, []);
 
-    // Go back to Home screen once all subjects have been studied
-    useEffect(() => {
-        if (subjects.length === 0) {
-            navigation.navigate("Home");
-        }
-    }, [subject, subjects.length, navigation]);
+    // // Go back to Home screen once all subjects have been studied
+    // useEffect(() => {
+    //     if (false) {
+
+    //     }
+    // }, [subject, subjects.length, navigation]);
 
     // NOTE: Replace with better loading screen
     if (!subject) {
