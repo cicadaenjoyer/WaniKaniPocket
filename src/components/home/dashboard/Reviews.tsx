@@ -5,11 +5,12 @@
  *
  * @param {ReviewsProps} props - The props for the Reviews component.
  * @param {string} props.label - The label to display for the reviews section.
+ * @param {Array<RawAssignmentProps>} props.reviews - The assignments available for review
  *
  * @returns {JSX.Element} The rendered Reviews component.
  */
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { View, Image, Pressable, LayoutChangeEvent } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
@@ -21,10 +22,10 @@ import { DashboardStyles } from "../../../styles/home/dashboard.styles";
 import { Colors } from "../../../constants/colors";
 
 // API
-import { AssignmentsAPI } from "../../../api/assignments";
 import { SubjectsAPI } from "../../../api/subjects";
 
 // Interfaces
+import { RawAssignmentProps } from "../../../interfaces/RawAssignment";
 import { SubjectProps } from "../../../interfaces/Subject";
 
 // Utils
@@ -35,41 +36,19 @@ import ButtonText from "./ButtonText";
 
 interface ReviewsProps {
     label: string;
+    reviews: Array<RawAssignmentProps>;
 }
 
-const Reviews: React.FC<ReviewsProps> = ({ label }) => {
+const Reviews: React.FC<ReviewsProps> = ({ label, reviews }) => {
     const navigation =
         useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
-    const [reviews, setReviews] = useState([]);
-    const [reviewCount, setReviewCount] = useState(0);
     const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
-    const [authorized, setAuthorized] = useState<boolean | null>(null);
-    const [loading, setLoading] = useState(false);
-
-    // Fetch reviews on mount
-    useEffect(() => {
-        const fetchReviews = async () => {
-            try {
-                const result = await AssignmentsAPI.getAvailableReviews();
-                if (result) {
-                    setReviews(result.data);
-                    setReviewCount(result.total_count);
-                    setAuthorized(true);
-                }
-            } catch (e) {
-                console.error(e);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchReviews();
-    }, []);
 
     const goToReviews = async () => {
         const reviewIds = reviews
-            .map((asgn: { data: { subject_id: number } }) => {
-                return asgn.data.subject_id;
+            .map((review) => {
+                return review.data.subject_id;
             })
             .join(",");
         const subjectsRaw = await SubjectsAPI.getSubjectsWithId(reviewIds);
@@ -77,12 +56,9 @@ const Reviews: React.FC<ReviewsProps> = ({ label }) => {
 
         // Creating a map to assign assignment ids to subjects
         const subject_to_assignment_map = new Map(
-            reviews.map(
-                (asgn: { id: number; data: { subject_id: number } }) => [
-                    asgn.data.subject_id,
-                    asgn.id,
-                ]
-            )
+            reviews.map((review) => {
+                return [review.data.subject_id, review.id];
+            })
         );
 
         const subjects_with_assignments = subjects.map(
@@ -104,33 +80,21 @@ const Reviews: React.FC<ReviewsProps> = ({ label }) => {
     const maxWidth = containerSize.width * 0.5; // 50% of container width
     const maxHeight = containerSize.height * 0.75; // 75% of container height
 
-    // Default loading state view
-    if (loading) {
-        return (
-            <View
-                style={[
-                    HomeStyles.review_box,
-                    { justifyContent: "center", alignItems: "center" },
-                ]}
-            ></View>
-        );
-    }
-
     return (
         <Pressable
             style={[
                 HomeStyles.review_box,
-                authorized
+                reviews.length !== 0
                     ? { backgroundColor: Colors.RADICAL_BLUE }
                     : { backgroundColor: "gray" },
             ]}
             onLayout={onLayout}
             onPress={goToReviews}
-            disabled={reviewCount === 0}
+            disabled={reviews.length === 0}
         >
             {/* Review count and description */}
             <View style={DashboardStyles.count}>
-                <ButtonText>Reviews {reviewCount}</ButtonText>
+                <ButtonText>Reviews {reviews.length}</ButtonText>
                 <ButtonText>Review these items to level them up!</ButtonText>
             </View>
 
@@ -153,7 +117,7 @@ const Reviews: React.FC<ReviewsProps> = ({ label }) => {
                 <Pressable
                     style={DashboardStyles.button}
                     onPress={goToReviews}
-                    disabled={reviewCount === 0}
+                    disabled={reviews.length === 0}
                 >
                     <ButtonText
                         style={{

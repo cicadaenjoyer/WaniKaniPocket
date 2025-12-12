@@ -83,7 +83,6 @@ const ReviewScreen = (nav: {
         } else {
             console.error("Error: Null Subject when creating review");
         }
-        console.log(review);
 
         return review;
     };

@@ -5,27 +5,29 @@
  *
  * @param {AssignmentsProps} props - The props for the Assignments component.
  * @param {string} props.label - The label to display for the assignments section.
+ * @param {Array<RawAssignmentProps>} props.label - The assignments available to learn.
  * @param {object} props.userPref - A json object containing user preferred settings.
  *
  * @returns {JSX.Element} The rendered Assignments component.
  */
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { View, Image, Pressable, LayoutChangeEvent } from "react-native";
+
+// Interfaces
+import { RawAssignmentProps } from "../../../interfaces/RawAssignment";
 
 // Styling
 import { HomeStyles } from "../../../styles/globals";
 import { DashboardStyles } from "../../../styles/home/dashboard.styles";
 import { Colors } from "../../../constants/colors";
 
-// API
-import { AssignmentsAPI } from "../../../api/assignments";
-
 // Components
 import ButtonText from "./ButtonText";
 
 interface AssignmentsProps {
     label: string;
+    assignments: Array<RawAssignmentProps>;
     userPref: object;
 }
 
@@ -37,56 +39,28 @@ interface AssignmentsProps {
  * @param {AssignmentsProps} props - The props for the Assignments component.
  * @returns {JSX.Element} The rendered Assignments component.
  */
-const Assignments: React.FC<AssignmentsProps> = ({ label, userPref }) => {
-    const [assignmentCount, setAssignmentCount] = useState(0);
+const Assignments: React.FC<AssignmentsProps> = ({
+    label,
+    assignments,
+    userPref,
+}) => {
     const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
-    const [authorized, setAuthorized] = useState<boolean | null>(null);
-    const [loading, setLoading] = useState(false);
-
-    // Fetch assignments on mount
-    useEffect(() => {
-        const fetchAssignments = async () => {
-            try {
-                const result = await AssignmentsAPI.getAssignmentsBatch();
-                if (result) {
-                    setAssignmentCount(result.total_count);
-                    setAuthorized(true);
-                }
-            } catch (e) {
-                console.error(e);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchAssignments();
-    }, []);
 
     // Handle layout changes to update container size
     const onLayout = (event: LayoutChangeEvent) => {
         const { width, height } = event.nativeEvent.layout;
         setContainerSize({ width, height });
     };
+
     // Calculate image max dimensions based on container size
     const maxWidth = containerSize.width * 0.5; // 50% of container width
     const maxHeight = containerSize.height * 0.75; // 75% of container height
-
-    // Default loading state view
-    if (loading) {
-        return (
-            <View
-                style={[
-                    HomeStyles.review_box,
-                    { justifyContent: "center", alignItems: "center" },
-                ]}
-            ></View>
-        );
-    }
 
     return (
         <Pressable
             style={[
                 HomeStyles.review_box,
-                authorized
+                assignments.length !== 0
                     ? { backgroundColor: Colors.KANJI_PINK }
                     : { backgroundColor: "gray" },
             ]}
@@ -94,7 +68,7 @@ const Assignments: React.FC<AssignmentsProps> = ({ label, userPref }) => {
         >
             {/* Assignment count and description */}
             <View style={DashboardStyles.count}>
-                <ButtonText>Assignments {assignmentCount}</ButtonText>
+                <ButtonText>Assignments {assignments.length}</ButtonText>
                 <ButtonText>
                     We cooked up these lessons just for you.
                 </ButtonText>
