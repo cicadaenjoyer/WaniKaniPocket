@@ -27,7 +27,7 @@ const WanaKanaInput = forwardRef<WanaKanaInputRef, WKI_Props>(
         const handleChangeText = (input: string) => {
             if (props.q_type === "reading") {
                 const textConverter = props.is_kana ? toKatakana : toHiragana;
-                const converted_text = textConverter(input);
+                const converted_text = textConverter(input, { IMEMode: true });
                 setText(converted_text);
             } else {
                 setText(input);
