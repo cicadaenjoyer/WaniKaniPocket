@@ -11,18 +11,34 @@ import { Colors } from "../constants/colors";
 export const LoginStyles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#00000",
         alignItems: "center",
         justifyContent: "center",
     },
+    label: {
+        fontFamily: "NotoSans-Bold",
+        fontSize: 13,
+        color: Colors.READING_HIGHLIGHT_FILL,
+    },
     input: {
         height: 40,
-        width: "80%",
-        margin: 12,
-        padding: 10,
-        backgroundColor: "#ffffff",
-        borderColor: "#000000",
+        backgroundColor: Colors.HEADER_WHITE,
+        borderColor: Colors.LESSON_GREY,
         borderWidth: 1,
+        borderRadius: 5,
+    },
+    submit: {
+        height: 40,
+        paddingLeft: 12,
+        justifyContent: "center",
+        borderColor: Colors.LESSON_GREY,
+        borderWidth: 1,
+        borderRadius: 5,
+        borderBottomWidth: 5,
+    },
+    hyperlink: {
+        fontFamily: "NotoSans-Regular",
+        fontSize: 13,
+        color: "#08c",
     },
 });
 
