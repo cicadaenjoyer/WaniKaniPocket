@@ -91,7 +91,7 @@ const HomeScreen = () => {
                     <View style={HomeStyles.header_container}>
                         <Image
                             style={HomeStyles.header_image}
-                            source={require("../../assets/images/icons/wk_banner_logo.png")}
+                            source={require("../assets/images/icons/wk_banner_logo.png")}
                         ></Image>
                     </View>
 

@@ -102,7 +102,7 @@ const Reviews: React.FC<ReviewsProps> = ({ label, reviews }) => {
             <View style={DashboardStyles.icon}>
                 {containerSize.width > 0 && (
                     <Image
-                        source={require("../../../../assets/images/buttons/review_kappa.png")}
+                        source={require("../../../assets/images/buttons/review_kappa.png")}
                         style={{
                             width: maxWidth,
                             height: maxHeight,

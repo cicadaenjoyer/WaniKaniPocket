@@ -54,7 +54,7 @@ const LoginScreen = () => {
         <SafeAreaView style={LoginStyles.container}>
             {/* Main Graphic */}
             <Image
-                source={require("../../assets/images/login/sign_in.png")}
+                source={require("../assets/images/login/sign_in.png")}
                 style={{
                     width: "90%",
                     height: height * 0.15,

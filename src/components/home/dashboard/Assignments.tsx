@@ -78,7 +78,7 @@ const Assignments: React.FC<AssignmentsProps> = ({
             <View style={DashboardStyles.icon}>
                 {containerSize.width > 0 && (
                     <Image
-                        source={require("../../../../assets/images/buttons/lessons_crab.png")}
+                        source={require("../../../assets/images/buttons/lessons_crab.png")}
                         style={{
                             width: maxWidth,
                             height: maxHeight,
