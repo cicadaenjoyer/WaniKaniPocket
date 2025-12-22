@@ -58,7 +58,7 @@ const HomeStyles = StyleSheet.create({
         gap: 30,
         alignItems: "center",
     },
-    header_container: {
+    menu: {
         height: 45,
         width: "100%",
         backgroundColor: Colors.LESSON_LIGHT_GREY,
@@ -66,25 +66,25 @@ const HomeStyles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
     },
-    header_image: {
+    logo: {
         marginLeft: "1%",
         resizeMode: "contain",
         maxWidth: "30%",
     },
-    review_container: {
+    dashboard: {
         backgroundColor: Colors.OPTIONS_GREY,
         justifyContent: "space-evenly",
         alignSelf: "stretch",
         flexDirection: "row",
     },
-    progress_container: {
+    progress: {
         backgroundColor: Colors.LESSON_LIGHT_GREY,
         justifyContent: "space-around",
         width: "95%",
         padding: 10,
         gap: 10,
     },
-    review_box: {
+    assignment: {
         width: "48%",
         minHeight: 120,
         borderRadius: 5,

@@ -96,7 +96,7 @@ const AssignmentCard: React.FC<AssignmentProps> = ({ label, assignments }) => {
     return (
         <Pressable
             style={[
-                HomeStyles.review_box,
+                HomeStyles.assignment,
                 assignments.length !== 0
                     ? { backgroundColor: AssignmentStyles.color }
                     : { backgroundColor: "gray" },

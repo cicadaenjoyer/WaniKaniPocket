@@ -80,7 +80,7 @@ const HomeScreen = () => {
         return (
             <View
                 style={{
-                    ...styles.review_box,
+                    ...styles.assignment,
                     justifyContent: "center",
                     alignItems: "center",
                 }}
@@ -93,15 +93,15 @@ const HomeScreen = () => {
             <ScrollView>
                 <View style={styles.container}>
                     {/* Menu Bar */}
-                    <View style={styles.header_container}>
+                    <View style={styles.menu}>
                         <Image
-                            style={styles.header_image}
+                            style={styles.logo}
                             source={require("../assets/images/icons/wk_banner_logo.png")}
                         ></Image>
                     </View>
 
                     {/* Assignments & Reviews Dashboard */}
-                    <View style={styles.review_container}>
+                    <View style={styles.dashboard}>
                         {lessons && (
                             <AssignmentCard
                                 label="Lessons"
