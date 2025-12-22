@@ -26,8 +26,7 @@ import { AuthAPI } from "../api/auth";
 import * as SecureStore from "expo-secure-store";
 
 // Styling
-import { LoginStyles } from "../styles/globals";
-import { Colors } from "../constants/colors";
+import { LoginStyles as styles } from "../styles/globals";
 
 const SIGNUP_URL = "https://www.wanikani.com/signup";
 
@@ -51,49 +50,38 @@ const LoginScreen = () => {
     };
 
     return (
-        <SafeAreaView style={LoginStyles.container}>
+        <SafeAreaView style={styles.container}>
             {/* Main Graphic */}
             <Image
                 source={require("../assets/images/login/sign_in.png")}
                 style={{
-                    width: "90%",
+                    ...styles.banner,
                     height: height * 0.15,
-                    resizeMode: "contain",
                 }}
             />
 
             <View style={{ gap: 20, width: "65%" }}>
                 {/* API Token Text Box */}
                 <View>
-                    <Text style={LoginStyles.label}>API Token</Text>
-                    <TextInput
-                        style={LoginStyles.input}
-                        onChangeText={setToken}
-                    />
+                    <Text style={styles.label}>API Token</Text>
+                    <TextInput style={styles.input} onChangeText={setToken} />
                 </View>
 
                 {/* Login Button */}
                 <Pressable
-                    style={LoginStyles.submit}
+                    style={styles.submit}
                     onPress={() => AuthAPI.login(token)}
                 >
-                    <Text style={LoginStyles.label}>Login</Text>
+                    <Text style={styles.label}>Login</Text>
                 </Pressable>
             </View>
 
             {/* Divider Graphic */}
-            <View
-                style={{
-                    height: 1.5,
-                    width: "65%",
-                    backgroundColor: Colors.OPTIONS_GREY,
-                    margin: 20,
-                }}
-            />
+            <View style={styles.divider} />
 
             {/* Sign Up Link */}
             <Pressable onPress={() => goToSignUp(SIGNUP_URL)}>
-                <Text style={LoginStyles.hyperlink}>Sign Up</Text>
+                <Text style={styles.hyperlink}>Sign Up</Text>
             </Pressable>
         </SafeAreaView>
     );
