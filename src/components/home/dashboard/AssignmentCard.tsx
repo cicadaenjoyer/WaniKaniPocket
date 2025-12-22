@@ -15,8 +15,8 @@
  * @returns {JSX.Element} The rendered Assignments component.
  */
 
-import React, { useState } from "react";
-import { View, Image, Pressable } from "react-native";
+import React from "react";
+import { View, Text, Image, Pressable } from "react-native";
 import { useWindowDimensions } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
@@ -32,9 +32,6 @@ import { SubjectsAPI } from "../../../api/subjects";
 
 // Utils
 import { C_Utils } from "../../../utils/convert";
-
-// Components
-import ButtonText from "./ButtonText";
 
 // Interfaces
 import { RawAssignmentProps } from "../../../interfaces/RawAssignment";
@@ -106,10 +103,12 @@ const AssignmentCard: React.FC<AssignmentProps> = ({ label, assignments }) => {
         >
             {/* Review Count and Description */}
             <View style={DashboardStyles.count}>
-                <ButtonText>
+                <Text style={DashboardStyles.button_text}>
                     {label} {assignments.length}
-                </ButtonText>
-                <ButtonText>{AssignmentStyles.description}</ButtonText>
+                </Text>
+                <Text style={DashboardStyles.button_text}>
+                    {AssignmentStyles.description}
+                </Text>
             </View>
 
             {/* Themed Image */}
@@ -125,20 +124,20 @@ const AssignmentCard: React.FC<AssignmentProps> = ({ label, assignments }) => {
             </View>
 
             {/* Start Assignments Button */}
-            <View style={DashboardStyles.button_container}>
+            <View style={DashboardStyles.card}>
                 <Pressable
                     style={DashboardStyles.button}
                     onPress={AssignmentStyles.goTo}
                     disabled={assignments.length === 0}
                 >
-                    <ButtonText
+                    <Text
                         style={{
                             ...DashboardStyles.button_text,
                             color: "black",
                         }}
                     >
                         Start {label}
-                    </ButtonText>
+                    </Text>
                 </Pressable>
             </View>
         </Pressable>

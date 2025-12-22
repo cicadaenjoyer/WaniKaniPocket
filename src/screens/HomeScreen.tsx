@@ -18,6 +18,7 @@ import { AssignmentsAPI } from "../api/assignments";
 import AssignmentCard from "../components/home/dashboard/AssignmentCard";
 import ProgressSection from "../components/home/progress/ProgressSection";
 
+// Styles
 import { HomeStyles as styles } from "../styles/globals";
 
 const HomeScreen = () => {
@@ -100,7 +101,7 @@ const HomeScreen = () => {
                         ></Image>
                     </View>
 
-                    {/* Assignments & Reviews Dashboard */}
+                    {/* Lessons & Reviews Dashboard */}
                     <View style={styles.dashboard}>
                         {lessons && (
                             <AssignmentCard
