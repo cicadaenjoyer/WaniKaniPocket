@@ -1,3 +1,11 @@
+/**
+ * @file SubjectProgress.tsx
+ * @description
+ *   A component that displays a given Subject's main reading and their level of mastery.
+ *
+ * @module components/home/progress/SubjectProgress
+ */
+
 import React from "react";
 import { View, Text, Pressable } from "react-native";
 import { useNavigation } from "@react-navigation/native";
@@ -15,20 +23,20 @@ import { Colors } from "../../../constants/colors";
 import { ProgressStyles } from "../../../styles/home/progress.styles";
 
 interface SubjectProps {
-    type: "radicals" | "kanji";
+    type: "radical" | "kanji";
     subject: RawSubjectProps;
 }
 
-const typeColors: Record<"radicals" | "kanji", string> & { default: string } = {
-    radicals: Colors.RADICAL_BLUE,
+const typeColors: Record<"radical" | "kanji", string> & { default: string } = {
+    radical: Colors.RADICAL_BLUE,
     kanji: Colors.KANJI_PINK,
     default: Colors.OPTIONS_GREY,
 };
 
-const Subject: React.FC<SubjectProps> = ({ type, subject }) => {
+const SubjectProgress: React.FC<SubjectProps> = ({ type, subject }) => {
     const navigation =
         useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-    const characterColor =
+    const character_color =
         subject.srs_stage === 0
             ? Colors.OPTIONS_GREY
             : typeColors[type] || typeColors.default;
@@ -44,7 +52,7 @@ const Subject: React.FC<SubjectProps> = ({ type, subject }) => {
             <Pressable
                 style={[
                     ProgressStyles.subject_character,
-                    { backgroundColor: characterColor },
+                    { backgroundColor: character_color },
                 ]}
                 onPress={goToSubject}
             >
@@ -70,4 +78,4 @@ const Subject: React.FC<SubjectProps> = ({ type, subject }) => {
     );
 };
 
-export default Subject;
+export default SubjectProgress;

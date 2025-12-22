@@ -1,3 +1,11 @@
+/**
+ * @file SubjectProgressGrid.tsx
+ * @description
+ *   A grid style view that displays each Subject and their level of mastery at a given level.
+ *
+ * @module components/home/progress/SubjectProgressGrid
+ */
+
 import React, { useEffect, useState } from "react";
 import { View, Text } from "react-native";
 
@@ -9,59 +17,62 @@ import { SubjectsAPI } from "../../../api/subjects";
 import { AssignmentsAPI } from "../../../api/assignments";
 
 // Components
-import Subject from "./Subject";
+import SubjectProgress from "./SubjectProgress";
 
-interface SubjectsProps {
-    id: number;
+// Interfaces
+import { RawAssignmentProps } from "../../../interfaces/RawAssignment";
+import { RawSubjectProps } from "../../../interfaces/RawSubject";
+
+interface SubjectProgressGrid {
     level: number;
-    type: "radicals" | "kanji";
-    srs_stage: number;
+    type: "radical" | "kanji";
 }
 
-const Subjects: React.FC<SubjectsProps> = ({ level, type }) => {
+const SubjectProgressGrid: React.FC<SubjectProgressGrid> = ({
+    level,
+    type,
+}) => {
     const [subjects, setSubjects] = useState([]);
 
     useEffect(() => {
         //  Getting the appropriate functions and storing them as pointers
         const getSubjectAssignments =
-            type === "radicals"
+            type === "radical"
                 ? AssignmentsAPI.getRadicalAssignmentsAtLevel
                 : AssignmentsAPI.getKanjiAssignmentsAtLevel;
         const getSubjects =
-            type === "radicals"
+            type === "radical"
                 ? SubjectsAPI.getRadicalsAtLevel
                 : SubjectsAPI.getKanjiAtLevel;
 
         const fetchKanji = async () => {
             try {
                 // Get all user-seen subject assignments at current level
-                const allLearnedRaw = await getSubjectAssignments(level);
+                const all_learned_raw = await getSubjectAssignments(level);
                 // Get all assignments from site at current level
-                const allSubjectsRaw = await getSubjects(level);
+                const all_subjects_raw = await getSubjects(level);
 
-                if (allLearnedRaw && allSubjectsRaw) {
+                if (all_learned_raw && all_subjects_raw) {
                     // Merging all subjects into one collection and sorting based on SRS value
-                    const allLearned = new Map(
-                        allLearnedRaw.data.map(
-                            (learned: {
-                                data: { subject_id: number; srs_stage: number };
-                            }) => [
+                    const all_learned = new Map(
+                        all_learned_raw.data.map(
+                            (learned: RawAssignmentProps) => [
                                 learned.data.subject_id,
                                 learned.data.srs_stage,
                             ]
                         )
                     );
-                    const allSubjects = allSubjectsRaw.data
-                        .map((subject: SubjectsProps) => ({
+                    const all_subjects = all_subjects_raw.data
+                        .map((subject: RawSubjectProps) => ({
                             ...subject,
-                            srs_stage: allLearned.get(subject.id) ?? 0,
+                            srs_stage: all_learned.get(subject.id) ?? 0,
                         }))
                         .sort(
-                            (a: SubjectsProps, b: SubjectsProps) =>
+                            (a: RawSubjectProps, b: RawSubjectProps) =>
                                 b.srs_stage - a.srs_stage
                         );
 
-                    setSubjects(allSubjects);
+                    setSubjects(all_subjects);
                 }
             } catch (e) {
                 console.error(e);
@@ -78,25 +89,16 @@ const Subjects: React.FC<SubjectsProps> = ({ level, type }) => {
                 {type.charAt(0).toUpperCase() + type.slice(1)}
             </Text>
             <View style={ProgressStyles.subject_table}>
-                {subjects.map(
-                    (
-                        subject: {
-                            id: number;
-                            data: { characters: string };
-                            srs_stage: number;
-                        },
-                        index
-                    ) => (
-                        <Subject
-                            key={subject.id || index}
-                            type={type}
-                            subject={subject} // NOTE: update in a future patch
-                        />
-                    )
-                )}
+                {subjects.map((subject, index) => (
+                    <SubjectProgress
+                        key={index}
+                        type={type}
+                        subject={subject}
+                    />
+                ))}
             </View>
         </View>
     );
 };
 
-export default Subjects;
+export default SubjectProgressGrid;

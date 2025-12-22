@@ -118,7 +118,7 @@ const HomeScreen = () => {
                     </View>
 
                     {/* Current Level & Radical/Kanji Progress */}
-                    <ProgressSection label="Progress" userLevel={userLevel} />
+                    <ProgressSection userLevel={userLevel} />
                 </View>
             </ScrollView>
         </SafeAreaView>
