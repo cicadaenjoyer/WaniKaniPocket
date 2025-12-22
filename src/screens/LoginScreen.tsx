@@ -18,6 +18,8 @@ import {
 } from "react-native";
 import { useWindowDimensions } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import type { RootStackParamList } from "../navigation/navigation";
 
 // API
 import { AuthAPI } from "../api/auth";
@@ -31,11 +33,12 @@ const SIGNUP_URL = "https://www.wanikani.com/signup";
 
 const LoginScreen = () => {
     const [token, setToken] = useState("");
-    const navigation = useNavigation();
+    const navigation =
+        useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const hasToken = SecureStore.getItem("WK_TOKEN");
     const { width, height } = useWindowDimensions();
 
-    // if (hasToken) navigation.navigate('Home');
+    if (hasToken) navigation.navigate("Home");
 
     const goToSignUp = async (url: string) => {
         const supported = await Linking.canOpenURL(url);
