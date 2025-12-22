@@ -8,7 +8,7 @@ A mobile version of WaniKani built with React Native for iOS and Android.
 ![GitHub license](https://img.shields.io/github/license/cicadaenjoyer/WaniKaniPocket)
 ![Built with React Native](https://img.shields.io/badge/Built%20with-React%20Native-purple?logo=react)
 
-## 🚀 Project Overview
+## Project Overview
 
 WaniKaniPocket is a dedicated mobile application designed to extend the comprehensive Japanese language learning experience of WaniKani to iOS and Android platforms.
 
@@ -18,9 +18,8 @@ This application aims to provide mobile users with the same user experience as t
 
 -   Current Level and Progress Overview
 -   Perform Lessons
--   Flashcard Practice
--   Review Quizzes
--   Extra Study Review
+-   Perform Review Quizzes
+-   Review Radical, Kanji, and Vocabulary Subjects
 
 ## Getting Started
 
@@ -30,7 +29,7 @@ This application aims to provide mobile users with the same user experience as t
     ```
 2. Follow the setup instructions (coming soon).
 
-## 📄 License
+## License
 
 This project is open-source under the MIT License.
 
