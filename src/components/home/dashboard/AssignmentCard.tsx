@@ -89,26 +89,36 @@ const AssignmentCard: React.FC<AssignmentProps> = ({ label, assignments }) => {
                 : "Review these items to level them up!",
         image:
             label === "Lessons"
-                ? require("../../../assets/images/buttons/lessons_crab.png")
-                : require("../../../assets/images/buttons/review_kappa.png"),
+                ? require("../../../assets/images/buttons/lessons.png")
+                : require("../../../assets/images/buttons/review.png"),
+        image_no_assignments:
+            label === "Lessons"
+                ? require("../../../assets/images/buttons/no_lessons.png")
+                : require("../../../assets/images/buttons/no_review.png"),
         goTo: label === "Lessons" ? goToLessons : goToReviews,
     };
+
+    const no_assignments = assignments.length === 0;
 
     return (
         <Pressable
             style={[
                 styles.assignment,
-                assignments.length !== 0
+                !no_assignments
                     ? { backgroundColor: AssignmentStyles.primary_color }
                     : { backgroundColor: "gray" },
             ]}
             onPress={AssignmentStyles.goTo}
-            disabled={assignments.length === 0}
+            disabled={no_assignments}
         >
             {/* Themed Image */}
             <View style={styles.assignment_icon}>
                 <Image
-                    source={AssignmentStyles.image}
+                    source={
+                        !no_assignments
+                            ? AssignmentStyles.image
+                            : AssignmentStyles.image_no_assignments
+                    }
                     style={{
                         width: width * 0.265,
                         height: height * 0.1,
@@ -128,10 +138,9 @@ const AssignmentCard: React.FC<AssignmentProps> = ({ label, assignments }) => {
                 <View
                     style={{
                         ...styles.assignment_button_container,
-                        borderColor:
-                            assignments.length !== 0
-                                ? AssignmentStyles.accent_color
-                                : "black",
+                        borderColor: !no_assignments
+                            ? AssignmentStyles.accent_color
+                            : "black",
                     }}
                 >
                     <Text style={styles.assignment_button_text}>
