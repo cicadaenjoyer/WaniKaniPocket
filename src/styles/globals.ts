@@ -61,10 +61,13 @@ const HomeStyles = StyleSheet.create({
     menu: {
         height: 45,
         width: "100%",
-        backgroundColor: Colors.LESSON_LIGHT_GREY,
+        backgroundColor: Colors.HEADER_WHITE,
         flexDirection: "row",
         justifyContent: "center",
         alignItems: "center",
+        borderColor: Colors.READING_HIGHLIGHT_BACK,
+        // borderTopWidth: 1,
+        borderBottomWidth: 1,
     },
     logo: {
         marginLeft: "1%",
