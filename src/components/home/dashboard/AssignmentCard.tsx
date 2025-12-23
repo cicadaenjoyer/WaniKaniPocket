@@ -23,8 +23,7 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import type { RootStackParamList } from "../../../navigation/navigation";
 
 // Styling
-import { HomeStyles } from "../../../styles/globals";
-import { DashboardStyles } from "../../../styles/home/dashboard.styles";
+import { DashboardStyles as styles } from "../../../styles/home/dashboard.styles";
 import { Colors } from "../../../constants/colors";
 
 // API
@@ -78,7 +77,12 @@ const AssignmentCard: React.FC<AssignmentProps> = ({ label, assignments }) => {
     };
 
     const AssignmentStyles = {
-        color: label === "Lessons" ? Colors.KANJI_PINK : Colors.RADICAL_BLUE,
+        primary_color:
+            label === "Lessons" ? Colors.KANJI_PINK : Colors.RADICAL_BLUE,
+        accent_color:
+            label === "Lessons"
+                ? Colors.KANJI_HIGHLIGHT_FILL
+                : Colors.RADICAL_HIGHLIGHT_FILL,
         description:
             label === "Lessons"
                 ? "We cooked up these lessons just for you."
@@ -93,52 +97,47 @@ const AssignmentCard: React.FC<AssignmentProps> = ({ label, assignments }) => {
     return (
         <Pressable
             style={[
-                HomeStyles.assignment,
+                styles.assignment,
                 assignments.length !== 0
-                    ? { backgroundColor: AssignmentStyles.color }
+                    ? { backgroundColor: AssignmentStyles.primary_color }
                     : { backgroundColor: "gray" },
             ]}
             onPress={AssignmentStyles.goTo}
             disabled={assignments.length === 0}
         >
-            {/* Review Count and Description */}
-            <View style={DashboardStyles.count}>
-                <Text style={DashboardStyles.button_text}>
-                    {label} {assignments.length}
-                </Text>
-                <Text style={DashboardStyles.button_text}>
-                    {AssignmentStyles.description}
-                </Text>
-            </View>
-
             {/* Themed Image */}
-            <View style={DashboardStyles.icon}>
+            <View style={styles.assignment_icon}>
                 <Image
                     source={AssignmentStyles.image}
                     style={{
-                        width: width * 0.22,
+                        width: width * 0.265,
                         height: height * 0.1,
                         resizeMode: "contain",
                     }}
                 />
             </View>
 
-            {/* Start Assignments Button */}
-            <View style={DashboardStyles.card}>
-                <Pressable
-                    style={DashboardStyles.button}
-                    onPress={AssignmentStyles.goTo}
-                    disabled={assignments.length === 0}
+            {/* Assignment Count and Start Button */}
+            <View style={styles.assignment_info}>
+                <Text style={styles.assignment_header}>
+                    {label} {assignments.length}
+                </Text>
+                <Text style={styles.assignment_subheader}>
+                    {AssignmentStyles.description}
+                </Text>
+                <View
+                    style={{
+                        ...styles.assignment_button_container,
+                        borderColor:
+                            assignments.length !== 0
+                                ? AssignmentStyles.accent_color
+                                : "black",
+                    }}
                 >
-                    <Text
-                        style={{
-                            ...DashboardStyles.button_text,
-                            color: "black",
-                        }}
-                    >
+                    <Text style={styles.assignment_button_text}>
                         Start {label}
                     </Text>
-                </Pressable>
+                </View>
             </View>
         </Pressable>
     );

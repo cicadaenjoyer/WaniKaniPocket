@@ -55,7 +55,7 @@ const HomeStyles = StyleSheet.create({
     container: {
         backgroundColor: Colors.OPTIONS_GREY,
         flex: 1,
-        gap: 30,
+        gap: 20,
         alignItems: "center",
     },
     menu: {
@@ -73,8 +73,6 @@ const HomeStyles = StyleSheet.create({
     },
     dashboard: {
         backgroundColor: Colors.OPTIONS_GREY,
-        justifyContent: "center",
-        flexDirection: "column",
         gap: 10,
     },
     progress: {
@@ -92,17 +90,6 @@ const HomeStyles = StyleSheet.create({
     level_subheader: {
         fontFamily: "NotoSans-Regular",
         fontSize: 13,
-    },
-    assignment: {
-        width: "85%",
-        minHeight: 120,
-        borderRadius: 5,
-        backgroundColor: Colors.LESSON_GREY,
-        flexDirection: "row",
-        flexWrap: "wrap",
-        alignItems: "center",
-        justifyContent: "space-around",
-        paddingHorizontal: 5,
     },
 });
 
