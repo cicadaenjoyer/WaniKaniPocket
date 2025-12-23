@@ -10,6 +10,7 @@ const Stack = createStackNavigator<RootStackParamList>();
 import LoginScreen from "../screens/LoginScreen";
 import HomeScreen from "../screens/HomeScreen";
 import ReviewScreen from "../screens/ReviewScreen";
+import LessonScreen from "../screens/LessonScreen";
 import SubjectScreen from "../screens/SubjectScreen";
 
 const AppNavigator = () => {
@@ -25,6 +26,7 @@ const AppNavigator = () => {
                 <Stack.Screen name="Home" component={HomeScreen} />
                 <Stack.Screen name="Login" component={LoginScreen} />
                 <Stack.Screen name="Review" component={ReviewScreen} />
+                <Stack.Screen name="Lesson" component={LessonScreen} />
                 <Stack.Screen name="Subject" component={SubjectScreen} />
             </Stack.Navigator>
         </NavigationContainer>
