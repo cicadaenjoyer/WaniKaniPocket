@@ -14,6 +14,7 @@ import React from "react";
 import { View, Text } from "react-native";
 
 // Styling
+import { SubjectSlugStyles } from "../../styles/subject/subject.definition.styles";
 import { Colors } from "../../constants/colors";
 
 interface SubjectSlugProps {
@@ -33,35 +34,15 @@ const SubjectSlug: React.FC<SubjectSlugProps> = ({
             {/* Main Subject Slug */}
             <View
                 style={{
-                    alignSelf: "flex-start",
-                    alignItems: "center",
-                    justifyContent: "center",
+                    ...SubjectSlugStyles.slug,
                     backgroundColor: fill,
-                    borderRadius: 8,
-                    paddingHorizontal: 12,
                 }}
             >
-                <Text
-                    style={{
-                        fontFamily: "NotoSans-Bold",
-                        fontSize: 25, // NOTE: make dynamic later
-                        color: Colors.HEADER_WHITE,
-                    }}
-                >
-                    {slug}
-                </Text>
+                <Text style={SubjectSlugStyles.slug_text}>{slug}</Text>
             </View>
 
             {/* Subject Main Meaning & Helper Image */}
-            <Text
-                style={{
-                    fontFamily: "NotoSans-Regular",
-                    fontSize: 25, // NOTE: make dynamic later
-                    color: Colors.BASIC_BLACK,
-                }}
-            >
-                {main_meaning}
-            </Text>
+            <Text style={SubjectSlugStyles.meaning}>{main_meaning}</Text>
         </View>
     );
 };

@@ -18,6 +18,7 @@ import { View, Text } from "react-native";
 import RichText from "../global/RichText";
 
 // Styling
+import { SubjectMeaningStyles as styles } from "../../styles/subject/subject.definition.styles";
 import { Colors } from "../../constants/colors";
 
 interface SubjectMeaningProps {
@@ -38,13 +39,7 @@ const SubjectMeaning: React.FC<SubjectMeaningProps> = ({
     return (
         <View style={{ marginTop: 12 }}>
             {/* Meaning Header and Divider */}
-            <Text
-                style={{
-                    fontFamily: "NotoSans-Regular",
-                    fontSize: 20, // NOTE: make dynamic later
-                    color: Colors.BASIC_BLACK,
-                }}
-            >
+            <Text style={styles.header}>
                 {type === "radical" ? "Name" : "Meaning"}
             </Text>
             <View
@@ -58,19 +53,10 @@ const SubjectMeaning: React.FC<SubjectMeaningProps> = ({
 
             {/* Primary/Alt Meanings */}
             <Text>
+                <Text style={styles.meaning}>Primary{"\t\t"}</Text>
                 <Text
                     style={{
-                        fontFamily: "NotoSans-Bold",
-                        fontSize: 14, // NOTE: make dynamic later
-                        color: Colors.LESSON_GREY,
-                    }}
-                >
-                    Primary{"\t\t"}
-                </Text>
-                <Text
-                    style={{
-                        fontFamily: "NotoSans-Bold",
-                        fontSize: 14, // NOTE: make dynamic later
+                        ...styles.meaning,
                         color: Colors.BASIC_BLACK,
                     }}
                 >
@@ -80,9 +66,8 @@ const SubjectMeaning: React.FC<SubjectMeaningProps> = ({
             {alt_meanings && (
                 <Text
                     style={{
+                        ...styles.meaning,
                         fontFamily: "NotoSans-Regular",
-                        fontSize: 14, // NOTE: make dynamic later
-                        color: Colors.LESSON_GREY,
                     }}
                 >
                     Alternatives{"\t\t"}
@@ -93,14 +78,7 @@ const SubjectMeaning: React.FC<SubjectMeaningProps> = ({
             {/* NOTE: Add word type? */}
 
             {/* Meaning Explanation & Hint */}
-            <Text
-                style={{
-                    fontFamily: "NotoSans-Regular",
-                    fontSize: 14, // NOTE: make dynamic later
-                    color: Colors.LESSON_GREY,
-                    paddingTop: 12,
-                }}
-            >
+            <Text style={styles.explanation}>
                 {type === "vocabulary" ? "Explanation" : "Mnemonic"}
             </Text>
             <View
@@ -113,14 +91,8 @@ const SubjectMeaning: React.FC<SubjectMeaningProps> = ({
                 </Text>
             </View>
             {meaning_hint && (
-                <View
-                    style={{
-                        backgroundColor: Colors.LESSON_LIGHT_GREY,
-                        borderRadius: 10,
-                        padding: 15,
-                    }}
-                >
-                    <Text style={{ fontFamily: "NotoSans-Bold", fontSize: 14 }}>
+                <View style={styles.hint}>
+                    <Text style={{ ...styles.meaning, color: "inherit" }}>
                         Hints
                     </Text>
                     <RichText text={meaning_hint} />

@@ -19,6 +19,7 @@ import { Audio } from "expo-av";
 import RichText from "../global/RichText";
 
 // Styling
+import { SubjectReadingStyles as styles } from "../../styles/subject/subject.definition.styles";
 import { Colors } from "../../constants/colors";
 
 interface SubjectReadingProps {
@@ -98,15 +99,7 @@ const SubjectReading: React.FC<SubjectReadingProps> = ({
     return (
         <View style={{ marginTop: 12 }}>
             {/* Reading Header and Divider */}
-            <Text
-                style={{
-                    fontFamily: "NotoSans-Regular",
-                    fontSize: 20, // NOTE: make dynamic later
-                    color: Colors.BASIC_BLACK,
-                }}
-            >
-                Reading
-            </Text>
+            <Text style={styles.header}>Reading</Text>
             <View
                 style={{
                     height: 1,
@@ -117,13 +110,7 @@ const SubjectReading: React.FC<SubjectReadingProps> = ({
             />
 
             {/* Primary/Alt Reading & Pronunciations (Vocab)*/}
-            <View
-                style={{
-                    flexDirection: "row",
-                    justifyContent: "space-evenly",
-                    alignContent: "flex-start",
-                }}
-            >
+            <View style={styles.readings_table}>
                 {type !== "vocabulary" &&
                     subject_readings.map((reading, ridx) => {
                         return (
@@ -137,13 +124,12 @@ const SubjectReading: React.FC<SubjectReadingProps> = ({
                                 {reading.type && (
                                     <Text
                                         style={{
+                                            ...styles.reading,
                                             fontFamily:
                                                 reading.primary &&
                                                 readings_raw.length !== 1
                                                     ? "NotoSans-Bold"
                                                     : "NotoSans-Regular",
-                                            fontSize: 14, // NOTE: make dynamic later
-                                            color: Colors.LESSON_GREY,
                                         }}
                                     >
                                         {reading.type.at(0)?.toUpperCase() +
@@ -152,12 +138,12 @@ const SubjectReading: React.FC<SubjectReadingProps> = ({
                                 )}
                                 <Text
                                     style={{
+                                        ...styles.reading,
                                         fontFamily:
                                             reading.primary &&
                                             readings_raw.length !== 1
                                                 ? "NotoSans-Bold"
                                                 : "NotoSans-Regular",
-                                        fontSize: 14, // NOTE: make dynamic later
                                         color: Colors.BASIC_BLACK,
                                     }}
                                 >
@@ -169,8 +155,8 @@ const SubjectReading: React.FC<SubjectReadingProps> = ({
                 {type === "vocabulary" && (
                     <Text
                         style={{
+                            ...styles.reading,
                             fontFamily: "NotoSans-Regular",
-                            fontSize: 14, // NOTE: make dynamic later
                             color: Colors.BASIC_BLACK,
                         }}
                     >
@@ -187,12 +173,7 @@ const SubjectReading: React.FC<SubjectReadingProps> = ({
                         }
                     >
                         <Text style={{ fontSize: 10, marginTop: 4 }}>
-                            <Text
-                                style={{
-                                    fontFamily: "NotoSans-Bold",
-                                    fontSize: 9,
-                                }}
-                            >
+                            <Text style={styles.pronunciation}>
                                 {"▶︎ "}
                                 {pronunciation.metadata.voice_actor_name?.toUpperCase()}
                             </Text>
@@ -209,14 +190,7 @@ const SubjectReading: React.FC<SubjectReadingProps> = ({
             })}
 
             {/* Reading Explanation & Hint */}
-            <Text
-                style={{
-                    fontFamily: "NotoSans-Regular",
-                    fontSize: 14, // NOTE: make dynamic later
-                    color: Colors.LESSON_GREY,
-                    paddingTop: 12,
-                }}
-            >
+            <Text style={styles.explanation}>
                 {type === "vocabulary" ? "Explanation" : "Mnemonic"}
             </Text>
             <View
@@ -229,13 +203,7 @@ const SubjectReading: React.FC<SubjectReadingProps> = ({
                 </Text>
             </View>
             {reading_hint && (
-                <View
-                    style={{
-                        backgroundColor: Colors.LESSON_LIGHT_GREY,
-                        borderRadius: 10,
-                        padding: 15,
-                    }}
-                >
+                <View style={styles.hint}>
                     <Text style={{ fontFamily: "NotoSans-Bold", fontSize: 14 }}>
                         Hints
                     </Text>
