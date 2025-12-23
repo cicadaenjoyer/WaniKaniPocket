@@ -19,15 +19,15 @@ import { C_Utils } from "../../../utils/convert";
 import { RawSubjectProps } from "../../../interfaces/RawSubject";
 
 // Styling
+import { ProgressStyles as styles } from "../../../styles/home/progress.styles";
 import { Colors } from "../../../constants/colors";
-import { ProgressStyles } from "../../../styles/home/progress.styles";
 
 interface SubjectProps {
     type: "radical" | "kanji";
     subject: RawSubjectProps;
 }
 
-const typeColors: Record<"radical" | "kanji", string> & { default: string } = {
+const type_colors: Record<"radical" | "kanji", string> & { default: string } = {
     radical: Colors.RADICAL_BLUE,
     kanji: Colors.KANJI_PINK,
     default: Colors.OPTIONS_GREY,
@@ -37,9 +37,7 @@ const SubjectProgress: React.FC<SubjectProps> = ({ type, subject }) => {
     const navigation =
         useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const character_color =
-        subject.srs_stage === 0
-            ? Colors.OPTIONS_GREY
-            : typeColors[type] || typeColors.default;
+        subject.srs_stage !== 0 ? type_colors[type] : type_colors.default;
 
     const goToSubject = () => {
         const converted_subject = C_Utils.convertSubject(subject)?.[0];
@@ -47,25 +45,25 @@ const SubjectProgress: React.FC<SubjectProps> = ({ type, subject }) => {
     };
 
     return (
-        <View style={ProgressStyles.subject}>
+        <View style={styles.progress_container}>
             {/* Subject Text and Background */}
             <Pressable
                 style={[
-                    ProgressStyles.subject_character,
+                    styles.progress_fill,
                     { backgroundColor: character_color },
                 ]}
                 onPress={goToSubject}
             >
-                <Text style={{ color: "#ffffff", fontFamily: "NotoSans-Bold" }}>
+                <Text style={styles.progress_text}>
                     {subject?.data?.characters || "?"}
                 </Text>
             </Pressable>
 
             {/* SRS Progression */}
-            <View style={ProgressStyles.srs_bar}>
+            <View style={styles.srs_bar}>
                 <View
                     style={[
-                        ProgressStyles.srs_bar_filler,
+                        styles.srs_bar_filler,
                         {
                             width: `${
                                 Math.min(subject.srs_stage / 5, 1) * 100

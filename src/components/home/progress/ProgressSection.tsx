@@ -7,7 +7,7 @@
  * @module components/home/progress/ProgressSection
  */
 
-import React from "react";
+import React, { useReducer } from "react";
 import { View, Text } from "react-native";
 
 // Styling
@@ -24,7 +24,7 @@ interface ProgressSectionProps {
 const ProgressSection: React.FC<ProgressSectionProps> = ({ userLevel }) => {
     return (
         <View style={styles.progress}>
-            <Text>Level {userLevel} Progress</Text>
+            <Text style={styles.level_header}>Level {userLevel} Progress</Text>
             <Bar level={userLevel} />
             <SubjectProgressGrid level={userLevel} type={"radical"} />
             <SubjectProgressGrid level={userLevel} type={"kanji"} />

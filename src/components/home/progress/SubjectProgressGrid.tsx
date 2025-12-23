@@ -85,10 +85,15 @@ const SubjectProgressGrid: React.FC<SubjectProgressGrid> = ({
 
     return (
         <View style={ProgressStyles.grid}>
-            <Text style={ProgressStyles.label}>
+            <Text
+                style={{
+                    ...ProgressStyles.label,
+                    fontFamily: "NotoSans-Bold",
+                }}
+            >
                 {type.charAt(0).toUpperCase() + type.slice(1)}
             </Text>
-            <View style={ProgressStyles.grid}>
+            <View style={{ ...ProgressStyles.grid, borderWidth: 0 }}>
                 {subjects.map((subject, index) => (
                     <SubjectProgress
                         key={index}

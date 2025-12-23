@@ -55,16 +55,19 @@ const HomeStyles = StyleSheet.create({
     container: {
         backgroundColor: Colors.OPTIONS_GREY,
         flex: 1,
-        gap: 30,
+        gap: 20,
         alignItems: "center",
     },
     menu: {
         height: 45,
         width: "100%",
-        backgroundColor: Colors.LESSON_LIGHT_GREY,
+        backgroundColor: Colors.HEADER_WHITE,
         flexDirection: "row",
         justifyContent: "center",
         alignItems: "center",
+        borderColor: Colors.READING_HIGHLIGHT_BACK,
+        // borderTopWidth: 1,
+        borderBottomWidth: 1,
     },
     logo: {
         marginLeft: "1%",
@@ -73,9 +76,7 @@ const HomeStyles = StyleSheet.create({
     },
     dashboard: {
         backgroundColor: Colors.OPTIONS_GREY,
-        justifyContent: "space-evenly",
-        alignSelf: "stretch",
-        flexDirection: "row",
+        gap: 10,
     },
     progress: {
         backgroundColor: Colors.LESSON_LIGHT_GREY,
@@ -83,17 +84,15 @@ const HomeStyles = StyleSheet.create({
         width: "95%",
         padding: 10,
         gap: 10,
+        borderRadius: 10,
     },
-    assignment: {
-        width: "48%",
-        minHeight: 120,
-        borderRadius: 5,
-        backgroundColor: Colors.LESSON_GREY,
-        flexDirection: "row",
-        flexWrap: "wrap",
-        alignItems: "center",
-        justifyContent: "space-around",
-        paddingHorizontal: 5,
+    level_header: {
+        fontFamily: "NotoSans-Bold",
+        fontSize: 14,
+    },
+    level_subheader: {
+        fontFamily: "NotoSans-Regular",
+        fontSize: 13,
     },
 });
 

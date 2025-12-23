@@ -23,8 +23,7 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import type { RootStackParamList } from "../../../navigation/navigation";
 
 // Styling
-import { HomeStyles } from "../../../styles/globals";
-import { DashboardStyles } from "../../../styles/home/dashboard.styles";
+import { DashboardStyles as styles } from "../../../styles/home/dashboard.styles";
 import { Colors } from "../../../constants/colors";
 
 // API
@@ -78,67 +77,76 @@ const AssignmentCard: React.FC<AssignmentProps> = ({ label, assignments }) => {
     };
 
     const AssignmentStyles = {
-        color: label === "Lessons" ? Colors.KANJI_PINK : Colors.RADICAL_BLUE,
+        primary_color:
+            label === "Lessons" ? Colors.KANJI_PINK : Colors.RADICAL_BLUE,
+        accent_color:
+            label === "Lessons"
+                ? Colors.KANJI_HIGHLIGHT_FILL
+                : Colors.RADICAL_HIGHLIGHT_FILL,
         description:
             label === "Lessons"
                 ? "We cooked up these lessons just for you."
                 : "Review these items to level them up!",
         image:
             label === "Lessons"
-                ? require("../../../assets/images/buttons/lessons_crab.png")
-                : require("../../../assets/images/buttons/review_kappa.png"),
+                ? require("../../../assets/images/buttons/lessons.png")
+                : require("../../../assets/images/buttons/review.png"),
+        image_no_assignments:
+            label === "Lessons"
+                ? require("../../../assets/images/buttons/no_lessons.png")
+                : require("../../../assets/images/buttons/no_review.png"),
         goTo: label === "Lessons" ? goToLessons : goToReviews,
     };
+
+    const no_assignments = assignments.length === 0;
 
     return (
         <Pressable
             style={[
-                HomeStyles.assignment,
-                assignments.length !== 0
-                    ? { backgroundColor: AssignmentStyles.color }
+                styles.assignment,
+                !no_assignments
+                    ? { backgroundColor: AssignmentStyles.primary_color }
                     : { backgroundColor: "gray" },
             ]}
             onPress={AssignmentStyles.goTo}
-            disabled={assignments.length === 0}
+            disabled={no_assignments}
         >
-            {/* Review Count and Description */}
-            <View style={DashboardStyles.count}>
-                <Text style={DashboardStyles.button_text}>
-                    {label} {assignments.length}
-                </Text>
-                <Text style={DashboardStyles.button_text}>
-                    {AssignmentStyles.description}
-                </Text>
-            </View>
-
             {/* Themed Image */}
-            <View style={DashboardStyles.icon}>
+            <View style={styles.assignment_icon}>
                 <Image
-                    source={AssignmentStyles.image}
+                    source={
+                        !no_assignments
+                            ? AssignmentStyles.image
+                            : AssignmentStyles.image_no_assignments
+                    }
                     style={{
-                        width: width * 0.22,
+                        width: width * 0.265,
                         height: height * 0.1,
                         resizeMode: "contain",
                     }}
                 />
             </View>
 
-            {/* Start Assignments Button */}
-            <View style={DashboardStyles.card}>
-                <Pressable
-                    style={DashboardStyles.button}
-                    onPress={AssignmentStyles.goTo}
-                    disabled={assignments.length === 0}
+            {/* Assignment Count and Start Button */}
+            <View style={styles.assignment_info}>
+                <Text style={styles.assignment_header}>
+                    {label} {assignments.length}
+                </Text>
+                <Text style={styles.assignment_subheader}>
+                    {AssignmentStyles.description}
+                </Text>
+                <View
+                    style={{
+                        ...styles.assignment_button_container,
+                        borderColor: !no_assignments
+                            ? AssignmentStyles.accent_color
+                            : "black",
+                    }}
                 >
-                    <Text
-                        style={{
-                            ...DashboardStyles.button_text,
-                            color: "black",
-                        }}
-                    >
+                    <Text style={styles.assignment_button_text}>
                         Start {label}
                     </Text>
-                </Pressable>
+                </View>
             </View>
         </Pressable>
     );
