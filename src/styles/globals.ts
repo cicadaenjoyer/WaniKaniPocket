@@ -73,9 +73,9 @@ const HomeStyles = StyleSheet.create({
     },
     dashboard: {
         backgroundColor: Colors.OPTIONS_GREY,
-        justifyContent: "space-evenly",
-        alignSelf: "stretch",
-        flexDirection: "row",
+        justifyContent: "center",
+        flexDirection: "column",
+        gap: 10,
     },
     progress: {
         backgroundColor: Colors.LESSON_LIGHT_GREY,
@@ -83,9 +83,18 @@ const HomeStyles = StyleSheet.create({
         width: "95%",
         padding: 10,
         gap: 10,
+        borderRadius: 10,
+    },
+    level_header: {
+        fontFamily: "NotoSans-Bold",
+        fontSize: 14,
+    },
+    level_subheader: {
+        fontFamily: "NotoSans-Regular",
+        fontSize: 13,
     },
     assignment: {
-        width: "48%",
+        width: "85%",
         minHeight: 120,
         borderRadius: 5,
         backgroundColor: Colors.LESSON_GREY,
