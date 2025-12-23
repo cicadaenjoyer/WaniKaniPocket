@@ -6,11 +6,11 @@ import { ReviewProps } from "../interfaces/Review";
 const WEB_URL = "https://api.wanikani.com/v2";
 
 async function postReview(review: ReviewProps) {
-    const apiToken = SecureStore.getItem("WK_TOKEN");
+    const api_token = SecureStore.getItem("WK_TOKEN");
 
-    if (apiToken) {
+    if (api_token) {
         const headers: Headers = new Headers();
-        headers.set("Authorization", `Bearer ${apiToken}`);
+        headers.set("Authorization", `Bearer ${api_token}`);
         headers.set("Wanikani-Revision", "20170710");
         headers.set("Content-Type", "application/json; charset=utf-8");
 
