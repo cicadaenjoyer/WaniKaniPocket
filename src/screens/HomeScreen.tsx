@@ -2,10 +2,10 @@
  * @file HomeScreen.tsx
  * @description
  *   Main home screen for WaniKaniPocket.
- *   Displays the app banner, assignment and review dashboard cards, and the user's progress and current level.
+ *   Displays assignment and review dashboard cards and the user's progress and current level.
  */
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { View, Image, ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useFocusEffect } from "@react-navigation/native";
@@ -15,20 +15,21 @@ import { UserAPI } from "../api/user";
 import { AssignmentsAPI } from "../api/assignments";
 
 // Components
-import Reviews from "../components/home/dashboard/Reviews";
-import Assignments from "../components/home/dashboard/Assignments";
+import AssignmentCard from "../components/home/dashboard/AssignmentCard";
 import ProgressSection from "../components/home/progress/ProgressSection";
 
-import { HomeStyles } from "../styles/globals";
+// Styles
+import { HomeStyles as styles } from "../styles/globals";
 
 const HomeScreen = () => {
     const [userLevel, setUserLevel] = useState(0);
     const [userPref, setUserPref] = useState({});
-    const [assignments, setAssignments] = useState([]);
+    const [lessons, setLessons] = useState([]);
     const [reviews, setReviews] = useState([]);
 
     const [loading, setLoading] = useState(false);
 
+    // Login and get user level and other preferences
     const fetchUser = async () => {
         try {
             const user = await UserAPI.getUserInfo();
@@ -40,16 +41,20 @@ const HomeScreen = () => {
             console.error(e);
         }
     };
-    const fetchAssignments = async () => {
+
+    // Get all available user lessons
+    const fetchLessons = async () => {
         try {
-            const assignments = await AssignmentsAPI.getAssignmentsBatch();
-            if (assignments) {
-                setAssignments(assignments.data);
+            const lessons = await AssignmentsAPI.getAvailableLessons();
+            if (lessons) {
+                setLessons(lessons.data);
             }
         } catch (e) {
             console.error(e);
         }
     };
+
+    // Get all available user reviews
     const fetchReviews = async () => {
         try {
             const reviews = await AssignmentsAPI.getAvailableReviews();
@@ -65,7 +70,7 @@ const HomeScreen = () => {
     useFocusEffect(
         React.useCallback(() => {
             fetchUser();
-            fetchAssignments();
+            fetchLessons();
             fetchReviews();
             setLoading(false);
         }, [])
@@ -75,10 +80,11 @@ const HomeScreen = () => {
     if (loading) {
         return (
             <View
-                style={[
-                    HomeStyles.review_box,
-                    { justifyContent: "center", alignItems: "center" },
-                ]}
+                style={{
+                    ...styles.assignment,
+                    justifyContent: "center",
+                    alignItems: "center",
+                }}
             ></View>
         );
     }
@@ -86,34 +92,34 @@ const HomeScreen = () => {
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <ScrollView>
-                <View style={HomeStyles.container}>
+                <View style={styles.container}>
                     {/* Menu Bar */}
-                    <View style={HomeStyles.header_container}>
+                    <View style={styles.menu}>
                         <Image
-                            style={HomeStyles.header_image}
-                            source={require("../../assets/images/icons/wk_banner_logo.png")}
+                            style={styles.logo}
+                            source={require("../assets/images/icons/wk_banner_logo.png")}
                         ></Image>
                     </View>
 
-                    {/* Assignments & Reviews Dashboard */}
-                    <View style={HomeStyles.review_container}>
-                        {assignments && (
-                            <Assignments
-                                label="Assignments"
-                                assignments={assignments}
+                    {/* Lessons & Reviews Dashboard */}
+                    <View style={styles.dashboard}>
+                        {lessons && (
+                            <AssignmentCard
+                                label="Lessons"
+                                assignments={lessons}
                                 userPref={userPref}
-                            ></Assignments>
+                            ></AssignmentCard>
                         )}
                         {reviews && (
-                            <Reviews
+                            <AssignmentCard
                                 label="Reviews"
-                                reviews={reviews}
-                            ></Reviews>
+                                assignments={reviews}
+                            ></AssignmentCard>
                         )}
                     </View>
 
                     {/* Current Level & Radical/Kanji Progress */}
-                    <ProgressSection label="Progress" userLevel={userLevel} />
+                    <ProgressSection userLevel={userLevel} />
                 </View>
             </ScrollView>
         </SafeAreaView>

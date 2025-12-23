@@ -3,11 +3,11 @@ import * as SecureStore from "expo-secure-store";
 const WEB_URL = "https://api.wanikani.com/v2";
 
 async function getAllSubjects(query = "") {
-    const apiToken = SecureStore.getItem("WK_TOKEN");
+    const api_token = SecureStore.getItem("WK_TOKEN");
 
-    if (apiToken) {
+    if (api_token) {
         const headers: Headers = new Headers();
-        headers.set("Authorization", `Bearer ${apiToken}`);
+        headers.set("Authorization", `Bearer ${api_token}`);
         headers.set("Wanikani-Revision", "20170710");
 
         const response = await fetch(`${WEB_URL}/subjects/${query}`, {

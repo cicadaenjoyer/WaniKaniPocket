@@ -5,10 +5,10 @@ import AppNavigator from "./src/navigation/app.navigator";
 
 const App = () => {
     const [fontsLoaded] = useFonts({
-        "NotoSans-Regular": require("./assets/fonts/NotoSans-Regular.ttf"),
-        "NotoSans-Bold": require("./assets/fonts/NotoSans-Bold.ttf"),
-        "NotoSans-Light": require("./assets/fonts/NotoSans-Light.ttf"),
-        "NotoSans-Italic": require("./assets/fonts/NotoSans-Italic.ttf"),
+        "NotoSans-Regular": require("./src/assets/fonts/NotoSans-Regular.ttf"),
+        "NotoSans-Bold": require("./src/assets/fonts/NotoSans-Bold.ttf"),
+        "NotoSans-Light": require("./src/assets/fonts/NotoSans-Light.ttf"),
+        "NotoSans-Italic": require("./src/assets/fonts/NotoSans-Italic.ttf"),
     });
 
     if (!fontsLoaded) {

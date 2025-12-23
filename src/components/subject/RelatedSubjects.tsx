@@ -17,6 +17,7 @@ import { View, Text } from "react-native";
 import SubjectCard from "../global/SubjectCard";
 
 // Styling
+import { RelatedSubjectsStyles as styles } from "../../styles/subject/subject.definition.styles";
 import { Colors } from "../../constants/colors";
 
 // Interfaces
@@ -34,15 +35,7 @@ const RelatedSubjects: React.FC<RelatedSubjectsProps> = ({
     return (
         <View style={{ marginTop: 12 }}>
             {/* Related Subjects Header and Divider */}
-            <Text
-                style={{
-                    fontFamily: "NotoSans-Regular",
-                    fontSize: 20, // NOTE: make dynamic later
-                    color: Colors.BASIC_BLACK,
-                }}
-            >
-                {header}
-            </Text>
+            <Text style={styles.header}>{header}</Text>
             <View
                 style={{
                     height: 1,
@@ -53,14 +46,7 @@ const RelatedSubjects: React.FC<RelatedSubjectsProps> = ({
             />
 
             {/* Related Subjects */}
-            <View
-                style={{
-                    flex: 1,
-                    flexDirection: "row",
-                    flexWrap: "wrap",
-                    gap: 10,
-                }}
-            >
+            <View style={styles.grid}>
                 {subjects.map((subject, s_idx) => {
                     return <SubjectCard subject={subject} s_idx={s_idx} />;
                 })}

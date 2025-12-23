@@ -1,18 +1,21 @@
 /**
  * @file globals.ts
  * @description
- *   Global style sheets for screens and common UI components.
- *   Provides reusable styles for main screens (login, home, etc).
+ *   Styles for basic UI elements for each screen (Login, Home, Review, etc).
  */
 
 import { StyleSheet } from "react-native";
 import { Colors } from "../constants/colors";
 
-export const LoginStyles = StyleSheet.create({
+const LoginStyles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: "center",
         justifyContent: "center",
+    },
+    banner: {
+        width: "90%",
+        resizeMode: "contain",
     },
     label: {
         fontFamily: "NotoSans-Bold",
@@ -35,6 +38,12 @@ export const LoginStyles = StyleSheet.create({
         borderRadius: 5,
         borderBottomWidth: 5,
     },
+    divider: {
+        height: 1.5,
+        width: "65%",
+        backgroundColor: Colors.OPTIONS_GREY,
+        margin: 20,
+    },
     hyperlink: {
         fontFamily: "NotoSans-Regular",
         fontSize: 13,
@@ -42,42 +51,40 @@ export const LoginStyles = StyleSheet.create({
     },
 });
 
-export const HomeStyles = StyleSheet.create({
+const HomeStyles = StyleSheet.create({
     container: {
         backgroundColor: Colors.OPTIONS_GREY,
         flex: 1,
         gap: 30,
         alignItems: "center",
     },
-    header_container: {
+    menu: {
         height: 45,
         width: "100%",
         backgroundColor: Colors.LESSON_LIGHT_GREY,
         flexDirection: "row",
         justifyContent: "center",
         alignItems: "center",
-
-        // borderWidth: 1,
     },
-    header_image: {
+    logo: {
         marginLeft: "1%",
         resizeMode: "contain",
         maxWidth: "30%",
     },
-    review_container: {
+    dashboard: {
         backgroundColor: Colors.OPTIONS_GREY,
         justifyContent: "space-evenly",
         alignSelf: "stretch",
         flexDirection: "row",
     },
-    progress_container: {
+    progress: {
         backgroundColor: Colors.LESSON_LIGHT_GREY,
         justifyContent: "space-around",
         width: "95%",
         padding: 10,
         gap: 10,
     },
-    review_box: {
+    assignment: {
         width: "48%",
         minHeight: 120,
         borderRadius: 5,
@@ -90,7 +97,7 @@ export const HomeStyles = StyleSheet.create({
     },
 });
 
-export const ReviewStyles = StyleSheet.create({
+const ReviewStyles = StyleSheet.create({
     subject_container: {
         flex: 1,
         justifyContent: "center",
@@ -113,3 +120,5 @@ export const ReviewStyles = StyleSheet.create({
         color: "#000000",
     },
 });
+
+export { LoginStyles, HomeStyles, ReviewStyles };

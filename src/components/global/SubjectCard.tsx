@@ -14,6 +14,7 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import type { RootStackParamList } from "../../navigation/navigation";
 
 // Styling
+import { SubjectCardStyles as styles } from "../../styles/subject/subject.card.styles";
 import { Colors } from "../../constants/colors";
 
 // Interfaces
@@ -38,34 +39,17 @@ const SubjectCard: React.FC<{ subject: SubjectProps; s_idx: number }> = ({
     return (
         <View key={s_idx}>
             <Pressable
-                style={{
-                    height: "auto",
-                    backgroundColor: Colors.HEADER_WHITE,
-                    borderColor: Colors.LESSON_GREY,
-                    paddingHorizontal: 10,
-                    paddingVertical: 6,
-                    borderRadius: 8,
-                    borderWidth: 1,
-                    alignItems: "center",
-                }}
+                style={styles.container}
                 onPress={() => goToSubject(subject)}
             >
                 {/* Main Character/Symbol */}
                 <View
                     style={{
+                        ...styles.slug,
                         backgroundColor: subject.fill,
-                        borderRadius: 8,
-                        paddingVertical: 4,
-                        paddingHorizontal: 10,
                     }}
                 >
-                    <Text
-                        style={{
-                            color: "#ffffff",
-                            fontSize: 24,
-                            fontFamily: "NotoSans-Bold",
-                        }}
-                    >
+                    <Text style={styles.slug_text}>
                         {subject.type === "radical"
                             ? subject?.characters?.[0]
                             : subject?.slug}
@@ -74,28 +58,12 @@ const SubjectCard: React.FC<{ subject: SubjectProps; s_idx: number }> = ({
 
                 {/* Main Reading */}
                 {subject_main_reading && (
-                    <Text
-                        style={{
-                            color: Colors.BASIC_BLACK,
-                            fontFamily: "NotoSans-Regular",
-                            fontSize: 13,
-                        }}
-                    >
-                        {subject_main_reading}
-                    </Text>
+                    <Text style={styles.reading}>{subject_main_reading}</Text>
                 )}
 
                 {/* Main Meaning */}
                 {subject_main_meaning && (
-                    <Text
-                        style={{
-                            color: Colors.READING_HIGHLIGHT_FILL,
-                            fontFamily: "NotoSans-Regular",
-                            fontSize: 13,
-                        }}
-                    >
-                        {subject_main_meaning}
-                    </Text>
+                    <Text style={styles.meaning}>{subject_main_meaning}</Text>
                 )}
             </Pressable>
         </View>

@@ -11,6 +11,7 @@ import React from "react";
 import { View, Text } from "react-native";
 
 // Styling
+import { SubjectContextStyles as styles } from "../../styles/subject/subject.definition.styles";
 import { Colors } from "../../constants/colors";
 
 interface SubjectContextProps {
@@ -23,15 +24,7 @@ const SubjectContext: React.FC<SubjectContextProps> = ({
     return (
         <View style={{ marginTop: 12 }}>
             {/* Meaning Header and Divider */}
-            <Text
-                style={{
-                    fontFamily: "NotoSans-Regular",
-                    fontSize: 20, // NOTE: make dynamic later
-                    color: Colors.BASIC_BLACK,
-                }}
-            >
-                Context
-            </Text>
+            <Text style={styles.header}>Context</Text>
             <View
                 style={{
                     height: 1,
@@ -42,15 +35,7 @@ const SubjectContext: React.FC<SubjectContextProps> = ({
             />
 
             {/* Subject Context Sentences */}
-            <Text
-                style={{
-                    fontFamily: "NotoSans-Regular",
-                    fontSize: 14, // NOTE: make dynamic later
-                    color: Colors.LESSON_GREY,
-                }}
-            >
-                Context Sentences
-            </Text>
+            <Text style={styles.context_sentence}>Context Sentences</Text>
             {context_sentences.map((c_sent) => {
                 return (
                     <View

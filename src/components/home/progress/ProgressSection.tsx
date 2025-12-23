@@ -1,12 +1,8 @@
 /**
  * @file ProgressSection.tsx
  * @description
- *   Displays the user's current level and a progress bar for kanji mastery at that level.
- *   Fetches user info on mount to determine the current level, then renders a Progress Bar.
- *
- *   - Fetches user level from UserAPI on mount.
- *   - Renders the level and a Progress Bar for that level.
- *   - Handles loading state.
+ *   Displays the user's current level and progress. Also displays the current level's Radical
+ *   and Kanji assignments, as well as the user's level of mastery on each Subject.
  *
  * @module components/home/progress/ProgressSection
  */
@@ -15,27 +11,23 @@ import React from "react";
 import { View, Text } from "react-native";
 
 // Styling
-import { HomeStyles } from "../../../styles/globals";
+import { HomeStyles as styles } from "../../../styles/globals";
 
 // Components
 import Bar from "./Bar";
-import Subjects from "./Subjects";
+import SubjectProgressGrid from "./SubjectProgressGrid";
 
 interface ProgressSectionProps {
-    label: string;
     userLevel: number;
 }
 
-const ProgressSection: React.FC<ProgressSectionProps> = ({
-    label,
-    userLevel,
-}) => {
+const ProgressSection: React.FC<ProgressSectionProps> = ({ userLevel }) => {
     return (
-        <View style={HomeStyles.progress_container}>
+        <View style={styles.progress}>
             <Text>Level {userLevel} Progress</Text>
             <Bar level={userLevel} />
-            <Subjects level={userLevel} type={"radicals"} />
-            <Subjects level={userLevel} type={"kanji"} />
+            <SubjectProgressGrid level={userLevel} type={"radical"} />
+            <SubjectProgressGrid level={userLevel} type={"kanji"} />
         </View>
     );
 };

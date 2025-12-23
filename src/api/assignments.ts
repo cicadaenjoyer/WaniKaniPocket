@@ -6,11 +6,11 @@ import { ReviewProps } from "../interfaces/Review";
 const WEB_URL = "https://api.wanikani.com/v2";
 
 async function putAssignment(assignment: ReviewProps) {
-    const apiToken = SecureStore.getItem("WK_TOKEN");
+    const api_token = SecureStore.getItem("WK_TOKEN");
 
-    if (apiToken && assignment.assignment_id) {
+    if (api_token && assignment.assignment_id) {
         const headers: Headers = new Headers();
-        headers.set("Authorization", `Bearer ${apiToken}`);
+        headers.set("Authorization", `Bearer ${api_token}`);
         headers.set("Wanikani-Revision", "20170710");
         headers.set("Content-Type", "application/json");
 
@@ -43,11 +43,11 @@ async function putAssignment(assignment: ReviewProps) {
 }
 
 async function getAssignments(query: string = "") {
-    const apiToken = SecureStore.getItem("WK_TOKEN");
+    const api_token = SecureStore.getItem("WK_TOKEN");
 
-    if (apiToken) {
+    if (api_token) {
         const headers: Headers = new Headers();
-        headers.set("Authorization", `Bearer ${apiToken}`);
+        headers.set("Authorization", `Bearer ${api_token}`);
         headers.set("Wanikani-Revision", "20170710");
 
         const response = await fetch(`${WEB_URL}/assignments/${query}`, {
@@ -72,7 +72,7 @@ async function getAssignments(query: string = "") {
     }
 }
 
-async function getAssignmentsBatch() {
+async function getAvailableLessons() {
     const assignments = await getAssignments(
         "?immediately_available_for_lessons=true"
     );
@@ -108,7 +108,7 @@ async function getRadicalAssignmentsAtLevel(level: number) {
 export const AssignmentsAPI = {
     putAssignment,
     getAssignments,
-    getAssignmentsBatch,
+    getAvailableLessons,
     getAvailableReviews,
     getKanjiAssignments,
     getKanjiAssignmentsAtLevel,

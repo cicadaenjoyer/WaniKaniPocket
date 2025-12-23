@@ -228,13 +228,6 @@ const ReviewScreen = (nav: {
         nextSubject();
     }, []);
 
-    // // Go back to Home screen once all subjects have been studied
-    // useEffect(() => {
-    //     if (false) {
-
-    //     }
-    // }, [subject, subjects.length, navigation]);
-
     // NOTE: Replace with better loading screen
     if (!subject) {
         return (
