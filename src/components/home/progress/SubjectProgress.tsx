@@ -62,10 +62,10 @@ const SubjectProgress: React.FC<SubjectProps> = ({ type, subject }) => {
             </Pressable>
 
             {/* SRS Progression */}
-            <View style={ProgressStyles.subject_bar}>
+            <View style={ProgressStyles.srs_bar}>
                 <View
                     style={[
-                        ProgressStyles.subject_bar_filler,
+                        ProgressStyles.srs_bar_filler,
                         {
                             width: `${
                                 Math.min(subject.srs_stage / 5, 1) * 100
