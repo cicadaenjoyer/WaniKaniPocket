@@ -1,3 +1,15 @@
+/**
+ * WanaKanaInput uses the WanaKana library to make a text input box used for quizzes.
+ *
+ * Able to detect correct/incorrect answers and changes style based on submitted
+ * responses.
+ *
+ * @param {WKIProps} q_type - The quiz type.
+ * @param {WKIProps} answers - A list of acceptable readings/meanings
+ * @param {WKIProps} is_kana - A flag used to convert text to Katakana
+ *
+ * @returns {JSX.Element}
+ */
 import React, { useState, forwardRef, useImperativeHandle } from "react";
 import { TextInput, TextInputProps } from "react-native";
 import { isHiragana, toHiragana, isKatakana, toKatakana } from "wanakana";
@@ -9,7 +21,7 @@ export interface WanaKanaInputRef {
     getText: () => string;
 }
 
-interface WKI_Props extends TextInputProps {
+interface WKIProps extends TextInputProps {
     q_type: "reading" | "meaning";
     answers: {
         reading?: string;
@@ -20,7 +32,7 @@ interface WKI_Props extends TextInputProps {
     is_kana: boolean;
 }
 
-const WanaKanaInput = forwardRef<WanaKanaInputRef, WKI_Props>(
+const WanaKanaInput = forwardRef<WanaKanaInputRef, WKIProps>(
     ({ style, ...props }, ref) => {
         const [text, setText] = useState("");
 
