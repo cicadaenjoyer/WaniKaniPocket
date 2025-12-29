@@ -56,8 +56,10 @@ const LessonScreen = (nav: {
                     return { ...subject, related_subjects: related };
                 })
             );
+            const current_subject = updated_batch[0];
             setSubjectBatch(updated_batch);
-            setCurrentSubject(updated_batch[0]);
+            setCurrentSubject(current_subject);
+            setActiveTab("meaning");
         };
         init();
     }, []);
@@ -262,9 +264,12 @@ const LessonScreen = (nav: {
                     },
                 ]}
             >
-                {lesson_tabs[currentSubject.type].map((tab) => {
+                {lesson_tabs[currentSubject.type].map((tab, idx) => {
                     return (
-                        <Pressable onPress={() => setActiveTab(tab.key)}>
+                        <Pressable
+                            key={idx}
+                            onPress={() => setActiveTab(tab.key)}
+                        >
                             <Text style={LessonStyles.tab_text}>
                                 {tab.label}
                             </Text>
