@@ -265,12 +265,21 @@ const LessonScreen = (nav: {
                 ]}
             >
                 {lesson_tabs[currentSubject.type].map((tab, idx) => {
+                    const is_active = activeTab === tab.key;
+
                     return (
                         <Pressable
                             key={idx}
                             onPress={() => setActiveTab(tab.key)}
                         >
-                            <Text style={LessonStyles.tab_text}>
+                            <Text
+                                style={{
+                                    ...LessonStyles.tab_text,
+                                    fontFamily: is_active
+                                        ? "NotoSans-Bold"
+                                        : "NotoSans-Regular",
+                                }}
+                            >
                                 {tab.label}
                             </Text>
                         </Pressable>
