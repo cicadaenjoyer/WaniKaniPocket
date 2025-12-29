@@ -108,6 +108,7 @@ const LessonScreen = (nav: {
         ],
     };
 
+    // Render tab component (subject meaning, reading, etc)
     const renderTab = () => {
         if (!currentSubject) return null;
 
@@ -229,9 +230,14 @@ const LessonScreen = (nav: {
         }
     };
 
+    // Changes the current subject on screen
     const handleSelectSubject = (subject: SubjectProps) => {
         setCurrentSubject(subject);
         setActiveTab("meaning");
+    };
+
+    const handleSelectQuiz = () => {
+        navigation.navigate("Review", { subjects: subjectBatch });
     };
 
     return (
@@ -301,6 +307,7 @@ const LessonScreen = (nav: {
             <LessonNavigator
                 subjects={subjectBatch}
                 onSelectSubject={handleSelectSubject}
+                onSelectQuiz={handleSelectQuiz}
             />
         </SafeAreaView>
     );

@@ -21,7 +21,8 @@ import { SubjectProps } from "../../interfaces/Subject";
 const LessonNavigator: React.FC<{
     subjects: Array<SubjectProps>;
     onSelectSubject: (subject: SubjectProps) => void;
-}> = ({ subjects, onSelectSubject }) => {
+    onSelectQuiz: () => void;
+}> = ({ subjects, onSelectSubject, onSelectQuiz }) => {
     return (
         <View style={styles.navigator}>
             {/* Subjects */}
@@ -37,10 +38,7 @@ const LessonNavigator: React.FC<{
             })}
 
             {/* Go To Review/Quiz Button */}
-            <Pressable
-                style={styles.reviews}
-                onPress={() => console.log("Go to Reviews screen!")}
-            >
+            <Pressable style={styles.reviews} onPress={() => onSelectQuiz()}>
                 <Text style={styles.slug_text}>Quiz</Text>
             </Pressable>
         </View>
