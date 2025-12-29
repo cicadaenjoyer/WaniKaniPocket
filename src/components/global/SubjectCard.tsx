@@ -20,10 +20,7 @@ import { Colors } from "../../constants/colors";
 // Interfaces
 import { SubjectProps } from "../../interfaces/Subject";
 
-const SubjectCard: React.FC<{ subject: SubjectProps; s_idx: number }> = ({
-    subject,
-    s_idx,
-}) => {
+const SubjectCard: React.FC<{ subject: SubjectProps }> = ({ subject }) => {
     const navigation =
         useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
@@ -37,36 +34,34 @@ const SubjectCard: React.FC<{ subject: SubjectProps; s_idx: number }> = ({
         subject?.meanings?.find((meaning) => meaning.primary)?.meaning || "";
 
     return (
-        <View key={s_idx}>
-            <Pressable
-                style={styles.container}
-                onPress={() => goToSubject(subject)}
+        <Pressable
+            style={styles.container}
+            onPress={() => goToSubject(subject)}
+        >
+            {/* Main Character/Symbol */}
+            <View
+                style={{
+                    ...styles.slug,
+                    backgroundColor: subject.fill,
+                }}
             >
-                {/* Main Character/Symbol */}
-                <View
-                    style={{
-                        ...styles.slug,
-                        backgroundColor: subject.fill,
-                    }}
-                >
-                    <Text style={styles.slug_text}>
-                        {subject.type === "radical"
-                            ? subject?.characters?.[0]
-                            : subject?.slug}
-                    </Text>
-                </View>
+                <Text style={styles.slug_text}>
+                    {subject.type === "radical"
+                        ? subject?.characters?.[0]
+                        : subject?.slug}
+                </Text>
+            </View>
 
-                {/* Main Reading */}
-                {subject_main_reading && (
-                    <Text style={styles.reading}>{subject_main_reading}</Text>
-                )}
+            {/* Main Reading */}
+            {subject_main_reading && (
+                <Text style={styles.reading}>{subject_main_reading}</Text>
+            )}
 
-                {/* Main Meaning */}
-                {subject_main_meaning && (
-                    <Text style={styles.meaning}>{subject_main_meaning}</Text>
-                )}
-            </Pressable>
-        </View>
+            {/* Main Meaning */}
+            {subject_main_meaning && (
+                <Text style={styles.meaning}>{subject_main_meaning}</Text>
+            )}
+        </Pressable>
     );
 };
 
