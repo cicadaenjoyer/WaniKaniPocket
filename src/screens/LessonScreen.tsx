@@ -17,6 +17,7 @@ import SubjectMeaning from "../components/subject/SubjectMeaning";
 import SubjectReading from "../components/subject/SubjectReading";
 import SubjectContext from "../components/subject/SubjectContext";
 import RelatedSubjects from "../components/subject/RelatedSubjects";
+import LessonNavigator from "../components/lesson/LessonNavigator";
 
 // Interfaces
 import { SubjectProps } from "../interfaces/Subject";
@@ -47,7 +48,7 @@ const LessonScreen = (nav: {
     // Getting the first batch of subjects and setting the current subject
     useEffect(() => {
         const init = async () => {
-            const subject_batch = subjects.slice(BATCH_SIZE);
+            const subject_batch = subjects.slice(0, BATCH_SIZE);
             const updated_batch = await Promise.all(
                 subject_batch.map(async (subject) => {
                     const related = await R_Utils.getRelatedSubjects(
@@ -228,6 +229,11 @@ const LessonScreen = (nav: {
         }
     };
 
+    const handleSelectSubject = (subject: SubjectProps) => {
+        setCurrentSubject(subject);
+        setActiveTab("meaning");
+    };
+
     return (
         <SafeAreaView style={{ flex: 1 }}>
             {/* Subject Character */}
@@ -291,6 +297,11 @@ const LessonScreen = (nav: {
             <ScrollView style={{ flex: 1, padding: 20 }}>
                 {renderTab()}
             </ScrollView>
+
+            <LessonNavigator
+                subjects={subjectBatch}
+                onSelectSubject={handleSelectSubject}
+            />
         </SafeAreaView>
     );
 };

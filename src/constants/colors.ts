@@ -19,6 +19,7 @@ export const Colors: { [key: string]: string } = {
     READING_HIGHLIGHT_FILL: "#333333",
     INCORRECT_RED: "#FF0000",
     CORRECT_GREEN: "#35A753",
+    CORRECT_GREEN_ACCENT: "#0c7d2aff", // TODO: get exact color code
     LESSON_GREY: "#808080",
     LESSON_LIGHT_GREY: "#ecececff",
     OPTIONS_GREY: "#D5D5D5",
