@@ -301,6 +301,7 @@ const LessonScreen = (nav: {
 
             {/* Tab Content */}
             <ScrollView
+                showsVerticalScrollIndicator={false}
                 style={{
                     flex: 1,
                     paddingHorizontal: 20,
