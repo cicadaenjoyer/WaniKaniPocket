@@ -12,7 +12,7 @@ export const LessonNavigatorStyles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "center",
         alignItems: "center",
-        paddingBottom: 20,
+        marginTop: "auto",
     },
     subject_button_view: {
         height: "auto",

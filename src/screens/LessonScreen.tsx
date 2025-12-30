@@ -300,7 +300,13 @@ const LessonScreen = (nav: {
             </View>
 
             {/* Tab Content */}
-            <ScrollView style={{ flex: 1, padding: 20 }}>
+            <ScrollView
+                style={{
+                    flex: 1,
+                    paddingHorizontal: 20,
+                    maxHeight: height * 0.67,
+                }}
+            >
                 {renderTab()}
             </ScrollView>
 
