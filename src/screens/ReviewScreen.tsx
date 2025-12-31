@@ -230,6 +230,12 @@ const ReviewScreen = (nav: {
         setTxtBoxFill(Colors.HEADER_WHITE);
         setTxtFill(Colors.BASIC_BLACK);
 
+        // // FOR DEBUGGING
+        // console.log(
+        //     JSON.stringify(nextSubj.meanings, null, 4),
+        //     JSON.stringify(nextSubj.readings, null, 4)
+        // );
+
         // Clear text box
         inputRef.current?.clear();
     };
