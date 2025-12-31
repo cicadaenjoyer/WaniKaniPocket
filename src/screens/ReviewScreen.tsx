@@ -21,6 +21,7 @@ import WanaKanaInput, {
     WanaKanaInputRef,
 } from "../components/global/WanaKanaInput";
 import SubjectDefinition from "../components/global/SubjectDefinition";
+import ContinueModal from "../components/review/ContinueModal";
 
 // Interfaces
 import { SubjectProps } from "../interfaces/Subject";
@@ -72,7 +73,10 @@ const ReviewScreen = (nav: {
     const [quizType, setQuizType] = useState<"meaning" | "reading" | null>(
         null
     );
+    const [modalVisible, setModalVisible] = useState(false);
 
+    // Creates an Assignment (for lessons) or Review (for reviews) obj and
+    // sends it to the API
     const createReview = (
         s_type: "review" | "lesson",
         quiz_state: QuizState
@@ -100,6 +104,8 @@ const ReviewScreen = (nav: {
         return review;
     };
 
+    // Checks if a response is valid, correct, and creates a review obj if
+    // the subject has been fully tested
     const submitResponse = () => {
         const is_valid = inputRef.current?.isValid();
 
@@ -175,13 +181,12 @@ const ReviewScreen = (nav: {
         }
     };
 
+    // Updates the quiz state of the current subject and replaces the current
+    // one with the next subject in the list
     const nextSubject = () => {
         if (subjects.length === 0) {
             if (assignment_type === "lesson" && num_lessons !== 0) {
-                // TODO
-                console.log("Modal should show up here!");
-                if (onComplete) onComplete();
-                if (navigation.canGoBack()) navigation.goBack();
+                setModalVisible(true);
             } else {
                 navigation.navigate("Home");
             }
@@ -229,6 +234,15 @@ const ReviewScreen = (nav: {
         inputRef.current?.clear();
     };
 
+    // Handles navigation for continue modal
+    const handleNavLessons = () => {
+        if (onComplete) onComplete();
+        if (navigation.canGoBack()) navigation.goBack();
+    };
+    const handleNavHome = () => {
+        navigation.navigate("Home");
+    };
+
     // Getting the first subject from array and initializing quiz states
     useEffect(() => {
         const quiz_states = new Map<number, QuizState>();
@@ -261,6 +275,13 @@ const ReviewScreen = (nav: {
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <ScrollView>
+                {/* Continue Modal (For Lessons) */}
+                <ContinueModal
+                    isVisible={modalVisible}
+                    returnHome={handleNavHome}
+                    backToLessons={handleNavLessons}
+                />
+
                 {/* Progression Bar */}
                 <View
                     style={{
