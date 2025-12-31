@@ -1,7 +1,7 @@
 /**
  * @file ReviewScreen.tsx
  * @description
- *   Subject review screen for WaniKaniPocket.
+ *   Subject review screen for Tabi.
  */
 
 import React, { useState, useEffect, useRef } from "react";

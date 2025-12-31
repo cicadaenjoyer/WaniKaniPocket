@@ -1,7 +1,7 @@
 /**
  * @file LoginScreen.tsx
  * @description
- *   Login screen for WaniKaniPocket.
+ *   Login screen for Tabi.
  *   Allows the user to enter their API token and handles authentication.
  *   Redirects to Home if a valid token is already stored.
  */

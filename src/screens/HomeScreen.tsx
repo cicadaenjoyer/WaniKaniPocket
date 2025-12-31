@@ -1,7 +1,7 @@
 /**
  * @file HomeScreen.tsx
  * @description
- *   Main home screen for WaniKaniPocket.
+ *   Main home screen for Tabi.
  *   Displays assignment and review dashboard cards and the user's progress and current level.
  */
 
