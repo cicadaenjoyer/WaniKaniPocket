@@ -39,8 +39,9 @@ const LessonScreen = (nav: {
         useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const { width, height } = useWindowDimensions();
 
-    const subjects = nav.route.params.subjects;
-
+    const [allSubjects, setAllSubjects] = useState<Array<SubjectProps>>(
+        nav.route.params.subjects
+    );
     const [subjectBatch, setSubjectBatch] = useState<Array<SubjectProps>>([]);
     const [currentSubject, setCurrentSubject] = useState<SubjectProps>();
     const [activeTab, setActiveTab] = useState<string>();
@@ -48,17 +49,20 @@ const LessonScreen = (nav: {
     // Getting the first batch of subjects and setting the current subject
     useEffect(() => {
         const init = async () => {
-            const subject_batch = subjects.slice(0, BATCH_SIZE);
-            const updated_batch = await Promise.all(
-                subject_batch.map(async (subject) => {
+            // Adding related subjects to each subject
+            const updated_subjects = await Promise.all(
+                allSubjects.map(async (subject) => {
                     const related = await R_Utils.getRelatedSubjects(
                         subject.related_subject_ids
                     );
                     return { ...subject, related_subjects: related };
                 })
             );
-            const current_subject = updated_batch[0];
-            setSubjectBatch(updated_batch);
+            const current_batch = updated_subjects.splice(0, BATCH_SIZE);
+            const current_subject = current_batch[0];
+
+            setAllSubjects(updated_subjects);
+            setSubjectBatch(current_batch);
             setCurrentSubject(current_subject);
             setActiveTab("meaning");
         };
@@ -67,10 +71,10 @@ const LessonScreen = (nav: {
 
     // Going back to home page if no more subjects to study
     useEffect(() => {
-        if (subjects.length === 0 && subjectBatch.length === 0) {
+        if (allSubjects.length === 0 && subjectBatch.length === 0) {
             navigation.navigate("Home");
         }
-    }, [subjects, subjectBatch]);
+    }, [allSubjects, subjectBatch]);
 
     // TODO: Replace with better loading screen
     if (subjectBatch.length === 0 || !currentSubject) {
@@ -230,14 +234,34 @@ const LessonScreen = (nav: {
         }
     };
 
+    // Called by Review screen; generates the next batch of subjects to learn
+    const createNextBatch = () => {
+        const subjects = [...allSubjects];
+        const current_batch = subjects.splice(0, BATCH_SIZE);
+        const current_subject = current_batch[0];
+
+        setAllSubjects(subjects);
+        setSubjectBatch(current_batch);
+        setCurrentSubject(current_subject);
+        setActiveTab("meaning");
+    };
+
     // Changes the current subject on screen
     const handleSelectSubject = (subject: SubjectProps) => {
         setCurrentSubject(subject);
         setActiveTab("meaning");
     };
 
+    // Sends the current subject batch over to Review screen
     const handleSelectQuiz = () => {
-        navigation.navigate("Review", { subjects: subjectBatch });
+        navigation.navigate("Review", {
+            subjects: [...subjectBatch],
+            assignment_type: "lesson",
+            num_lessons: allSubjects.length,
+            onComplete: () => {
+                createNextBatch();
+            },
+        });
     };
 
     return (
