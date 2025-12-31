@@ -25,6 +25,7 @@ const LoginStyles = StyleSheet.create({
     input: {
         height: 40,
         backgroundColor: Colors.HEADER_WHITE,
+        color: Colors.BASIC_BLACK,
         borderColor: Colors.LESSON_GREY,
         borderWidth: 1,
         borderRadius: 5,
@@ -66,7 +67,6 @@ const HomeStyles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         borderColor: Colors.READING_HIGHLIGHT_BACK,
-        // borderTopWidth: 1,
         borderBottomWidth: 1,
     },
     logo: {
