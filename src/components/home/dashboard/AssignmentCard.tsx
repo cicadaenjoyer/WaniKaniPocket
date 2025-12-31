@@ -168,7 +168,7 @@ const AssignmentCard: React.FC<AssignmentProps> = ({
                     {label} {no_assignments ? 0 : assignments.length}
                 </Text>
                 <Text style={styles.assignment_subheader}>
-                    {no_assignments
+                    {!no_assignments
                         ? AssignmentStyles.description
                         : AssignmentStyles.description_no_assignments}
                 </Text>
