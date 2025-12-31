@@ -112,6 +112,10 @@ const AssignmentCard: React.FC<AssignmentProps> = ({ label, assignments }) => {
             label === "Lessons"
                 ? "We cooked up these lessons just for you."
                 : "Review these items to level them up!",
+        description_no_assignments:
+            label === "Lessons"
+                ? "All done. Do your Reviews to unlock more Lessons."
+                : "There are no more Reviews to do right now.",
         image:
             label === "Lessons"
                 ? require("../../../assets/images/buttons/lessons.png")
@@ -158,20 +162,24 @@ const AssignmentCard: React.FC<AssignmentProps> = ({ label, assignments }) => {
                     {label} {assignments.length}
                 </Text>
                 <Text style={styles.assignment_subheader}>
-                    {AssignmentStyles.description}
+                    {assignments.length > 0
+                        ? AssignmentStyles.description
+                        : AssignmentStyles.description_no_assignments}
                 </Text>
-                <View
-                    style={{
-                        ...styles.assignment_button_container,
-                        borderColor: !no_assignments
-                            ? AssignmentStyles.accent_color
-                            : "black",
-                    }}
-                >
-                    <Text style={styles.assignment_button_text}>
-                        Start {label}
-                    </Text>
-                </View>
+                {assignments.length > 0 && (
+                    <View
+                        style={{
+                            ...styles.assignment_button_container,
+                            borderColor: !no_assignments
+                                ? AssignmentStyles.accent_color
+                                : "black",
+                        }}
+                    >
+                        <Text style={styles.assignment_button_text}>
+                            Start {label}
+                        </Text>
+                    </View>
+                )}
             </View>
         </Pressable>
     );
