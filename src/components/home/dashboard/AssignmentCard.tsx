@@ -70,10 +70,35 @@ const AssignmentCard: React.FC<AssignmentProps> = ({ label, assignments }) => {
             })
         );
 
-        navigation.navigate("Review", { subjects: subjects_with_assignments });
+        navigation.navigate("Review", {
+            subjects: subjects_with_assignments,
+            assignment_type: "review",
+        });
     };
     const goToLessons = async () => {
-        console.log("WIP");
+        const review_ids = assignments
+            .map((assignment) => {
+                return assignment.data.subject_id;
+            })
+            .join(",");
+        const subjects_raw = await SubjectsAPI.getSubjectsWithId(review_ids);
+        const subjects = C_Utils.convertSubjects(subjects_raw.data);
+
+        // Creating a map to assign assignment ids to subjects
+        const subject_to_assignment_map = new Map(
+            assignments.map((assignment) => {
+                return [assignment.data.subject_id, assignment.id];
+            })
+        );
+
+        const subjects_with_assignments = subjects.map(
+            (subject: SubjectProps) => ({
+                ...subject,
+                assignment_id: subject_to_assignment_map.get(subject.id),
+            })
+        );
+
+        navigation.navigate("Lesson", { subjects: subjects_with_assignments });
     };
 
     const AssignmentStyles = {

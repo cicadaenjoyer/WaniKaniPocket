@@ -1,0 +1,8 @@
+-   Screens
+    -   Home
+        -   Not Updating # of Kanji passed correctly
+    -   Lessons
+        -   Clicking in and out of lessons screen too frequently gives an API error (429)
+        -   Having too many lessons at once gives an API error (429), likely due to init
+    -   Subject
+        -   Character images won't show up for radicals

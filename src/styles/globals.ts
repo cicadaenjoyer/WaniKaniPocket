@@ -98,7 +98,6 @@ const HomeStyles = StyleSheet.create({
 
 const ReviewStyles = StyleSheet.create({
     subject_container: {
-        flex: 1,
         justifyContent: "center",
         alignItems: "center",
     },
@@ -120,4 +119,21 @@ const ReviewStyles = StyleSheet.create({
     },
 });
 
-export { LoginStyles, HomeStyles, ReviewStyles };
+const LessonStyles = StyleSheet.create({
+    subject_bar: {
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    tab_bar: {
+        flexDirection: "row",
+        justifyContent: "space-evenly",
+        alignItems: "center",
+    },
+    tab_text: {
+        fontFamily: "NotoSans-Regular",
+        fontSize: 12,
+        color: Colors.HEADER_WHITE,
+    },
+});
+
+export { LoginStyles, HomeStyles, ReviewStyles, LessonStyles };

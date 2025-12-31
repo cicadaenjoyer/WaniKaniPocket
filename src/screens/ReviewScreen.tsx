@@ -21,6 +21,7 @@ import WanaKanaInput, {
     WanaKanaInputRef,
 } from "../components/global/WanaKanaInput";
 import SubjectDefinition from "../components/global/SubjectDefinition";
+import ContinueModal from "../components/review/ContinueModal";
 
 // Interfaces
 import { SubjectProps } from "../interfaces/Subject";
@@ -39,7 +40,14 @@ interface QuizState {
 }
 
 const ReviewScreen = (nav: {
-    route: { params: { subjects: Array<SubjectProps> } };
+    route: {
+        params: {
+            subjects: Array<SubjectProps>;
+            assignment_type: "review" | "lesson";
+            num_lessons?: number;
+            onComplete?: () => void;
+        };
+    };
 }) => {
     const navigation =
         useNavigation<NativeStackNavigationProp<RootStackParamList>>();
@@ -47,13 +55,17 @@ const ReviewScreen = (nav: {
     const inputRef = useRef<WanaKanaInputRef>(null);
 
     const subjects = nav.route.params.subjects;
+    const assignment_type = nav.route.params.assignment_type;
+    const num_lessons = nav.route.params.num_lessons;
+    const onComplete = nav.route.params.onComplete;
+
     const prog_bar_height = height * 0.01;
 
     const [subject, setSubject] = useState<SubjectProps | null>(null);
     const [txtBoxFill, setTxtBoxFill] = useState(Colors.HEADER_WHITE);
     const [txtFill, setTxtFill] = useState(Colors.BASIC_BLACK);
     const [submitted, setSubmitted] = useState(false);
-    const [initSize, _] = useState(subjects.length);
+    const initSize = useRef(subjects.length);
     const [progress, setProgress] = useState(0);
     const [quizStates, setQuizStates] = useState<Map<number, QuizState>>(
         new Map()
@@ -61,18 +73,23 @@ const ReviewScreen = (nav: {
     const [quizType, setQuizType] = useState<"meaning" | "reading" | null>(
         null
     );
+    const [modalVisible, setModalVisible] = useState(false);
 
+    // Creates an Assignment (for lessons) or Review (for reviews) obj and
+    // sends it to the API
     const createReview = (
-        s_type: string,
+        s_type: "review" | "lesson",
         quiz_state: QuizState
     ): ReviewProps => {
-        const timestamp = new Date().toISOString();
-        const review = Object.create(null);
+        // const timestamp = new Date().toISOString();
+        const review = Object.create({});
 
         if (subject) {
             switch (s_type) {
-                case "assignment":
-                    review.started_at = timestamp;
+                // NOTE: Unneeded but leaving for clarity
+                //
+                // case "lesson":
+                //     review.started_at = timestamp;
                 case "review":
                     review.assignment_id = subject?.assignment_id;
                     review.incorrect_meaning_answers =
@@ -87,6 +104,8 @@ const ReviewScreen = (nav: {
         return review;
     };
 
+    // Checks if a response is valid, correct, and creates a review obj if
+    // the subject has been fully tested
     const submitResponse = () => {
         const is_valid = inputRef.current?.isValid();
 
@@ -147,8 +166,7 @@ const ReviewScreen = (nav: {
                         quiz_state?.reading_attempt &&
                         quiz_state?.meaning_attempt)
                 ) {
-                    const assignment_type = "review"; // NOTE: hard coding to create a review of type 'Review'...changing once AssignmentScreen is finished.
-                    const review = createReview("review", quiz_state);
+                    const review = createReview(assignment_type, quiz_state);
 
                     const sendReview =
                         assignment_type === "review"
@@ -163,9 +181,15 @@ const ReviewScreen = (nav: {
         }
     };
 
+    // Updates the quiz state of the current subject and replaces the current
+    // one with the next subject in the list
     const nextSubject = () => {
         if (subjects.length === 0) {
-            navigation.navigate("Home");
+            if (assignment_type === "lesson" && num_lessons !== 0) {
+                setModalVisible(true);
+            } else {
+                navigation.navigate("Home");
+            }
         }
 
         const nextSubj = subjects.pop();
@@ -202,12 +226,27 @@ const ReviewScreen = (nav: {
         setSubject(nextSubj);
         setQuizType(quiz_type);
         setSubmitted(false);
-        setProgress((1 - (subjects.length - 1) / initSize) * 100);
+        setProgress(100 - ((subjects.length + 1) / initSize.current) * 100);
         setTxtBoxFill(Colors.HEADER_WHITE);
         setTxtFill(Colors.BASIC_BLACK);
 
+        // // FOR DEBUGGING
+        // console.log(
+        //     JSON.stringify(nextSubj.meanings, null, 4),
+        //     JSON.stringify(nextSubj.readings, null, 4)
+        // );
+
         // Clear text box
         inputRef.current?.clear();
+    };
+
+    // Handles navigation for continue modal
+    const handleNavLessons = () => {
+        if (onComplete) onComplete();
+        if (navigation.canGoBack()) navigation.goBack();
+    };
+    const handleNavHome = () => {
+        navigation.navigate("Home");
     };
 
     // Getting the first subject from array and initializing quiz states
@@ -242,6 +281,13 @@ const ReviewScreen = (nav: {
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <ScrollView>
+                {/* Continue Modal (For Lessons) */}
+                <ContinueModal
+                    isVisible={modalVisible}
+                    returnHome={handleNavHome}
+                    backToLessons={handleNavLessons}
+                />
+
                 {/* Progression Bar */}
                 <View
                     style={{
@@ -290,7 +336,7 @@ const ReviewScreen = (nav: {
                         {
                             backgroundColor:
                                 subject.type === "vocabulary"
-                                    ? Colors.BASIC_BLACK
+                                    ? Colors.READING_HIGHLIGHT_FILL
                                     : Colors.OPTIONS_GREY,
                             height: height * 0.05,
                             width: width,

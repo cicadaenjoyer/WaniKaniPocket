@@ -81,7 +81,7 @@ const HomeScreen = () => {
         return (
             <View
                 style={{
-                    ...styles.assignment,
+                    ...styles.container,
                     justifyContent: "center",
                     alignItems: "center",
                 }}

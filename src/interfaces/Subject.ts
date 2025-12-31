@@ -2,7 +2,7 @@ export interface SubjectProps {
     id: number;
     assignment_id?: number;
     fill: string;
-    type: string;
+    type: "radical" | "kanji" | "vocabulary" | "kana_vocabulary";
     slug: string;
     characters: Array<string> | string;
     character_image: string;
@@ -22,5 +22,10 @@ export interface SubjectProps {
     r_hint: string;
     context_sentences: Array<{ en: string; ja: string }>;
     related_subject_ids: Array<number>;
+    related_subjects?: {
+        radicals?: Array<SubjectProps>;
+        kanji?: Array<SubjectProps>;
+        vocabulary?: Array<SubjectProps>;
+    };
     is_kana: boolean;
 }
