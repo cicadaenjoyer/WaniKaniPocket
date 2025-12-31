@@ -6,7 +6,7 @@
  */
 
 import React, { useState } from "react";
-import { View, Image, ScrollView } from "react-native";
+import { View, Image, ScrollView, RefreshControl } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useFocusEffect } from "@react-navigation/native";
 
@@ -27,6 +27,7 @@ const HomeScreen = () => {
     const [lessons, setLessons] = useState([]);
     const [reviews, setReviews] = useState([]);
 
+    const [refreshing, setRefreshing] = useState(false);
     const [loading, setLoading] = useState(false);
 
     // Login and get user level and other preferences
@@ -66,7 +67,7 @@ const HomeScreen = () => {
         }
     };
 
-    // Refresh the page and its components on back page event
+    // Refresh the page and its components on back page event or reload event
     useFocusEffect(
         React.useCallback(() => {
             fetchUser();
@@ -75,6 +76,17 @@ const HomeScreen = () => {
             setLoading(false);
         }, [])
     );
+    const onRefresh = React.useCallback(async () => {
+        setRefreshing(true);
+
+        try {
+            await Promise.all([fetchUser(), fetchLessons(), fetchReviews()]);
+        } catch (e) {
+            console.error(e);
+        } finally {
+            setRefreshing(false);
+        }
+    }, []);
 
     // Default loading state view
     if (loading) {
@@ -91,7 +103,14 @@ const HomeScreen = () => {
 
     return (
         <SafeAreaView style={{ flex: 1 }}>
-            <ScrollView>
+            <ScrollView
+                refreshControl={
+                    <RefreshControl
+                        refreshing={refreshing}
+                        onRefresh={onRefresh}
+                    />
+                }
+            >
                 <View style={styles.container}>
                     {/* Menu Bar */}
                     <View style={styles.menu}>
