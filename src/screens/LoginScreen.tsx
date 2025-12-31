@@ -49,6 +49,13 @@ const LoginScreen = () => {
         }
     };
 
+    const handleLogin = async () => {
+        await AuthAPI.login(token);
+        const has_token = SecureStore.getItem("WK_TOKEN");
+
+        if (has_token) navigation.navigate("Home");
+    };
+
     return (
         <SafeAreaView style={styles.container}>
             {/* Main Graphic */}
@@ -68,10 +75,7 @@ const LoginScreen = () => {
                 </View>
 
                 {/* Login Button */}
-                <Pressable
-                    style={styles.submit}
-                    onPress={() => AuthAPI.login(token)}
-                >
+                <Pressable style={styles.submit} onPress={handleLogin}>
                     <Text style={styles.label}>Login</Text>
                 </Pressable>
             </View>
