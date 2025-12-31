@@ -14,6 +14,8 @@ import { useFocusEffect } from "@react-navigation/native";
 import { UserAPI } from "../api/user";
 import { AssignmentsAPI } from "../api/assignments";
 
+import { UserProps } from "../interfaces/User";
+
 // Components
 import AssignmentCard from "../components/home/dashboard/AssignmentCard";
 import ProgressSection from "../components/home/progress/ProgressSection";
@@ -22,8 +24,7 @@ import ProgressSection from "../components/home/progress/ProgressSection";
 import { HomeStyles as styles } from "../styles/globals";
 
 const HomeScreen = () => {
-    const [userLevel, setUserLevel] = useState(0);
-    const [userPref, setUserPref] = useState({});
+    const [user, setUser] = useState<UserProps>();
     const [lessons, setLessons] = useState([]);
     const [reviews, setReviews] = useState([]);
 
@@ -33,10 +34,10 @@ const HomeScreen = () => {
     // Login and get user level and other preferences
     const fetchUser = async () => {
         try {
-            const user = await UserAPI.getUserInfo();
-            if (user) {
-                setUserLevel(user.data.level);
-                setUserPref(user.data.preferences);
+            const user_raw = await UserAPI.getUser();
+            if (user_raw) {
+                const user = user_raw.data;
+                setUser(user);
             }
         } catch (e) {
             console.error(e);
@@ -126,19 +127,20 @@ const HomeScreen = () => {
                             <AssignmentCard
                                 label="Lessons"
                                 assignments={lessons}
-                                userPref={userPref}
+                                user={user}
                             ></AssignmentCard>
                         )}
                         {reviews && (
                             <AssignmentCard
                                 label="Reviews"
                                 assignments={reviews}
+                                user={user}
                             ></AssignmentCard>
                         )}
                     </View>
 
                     {/* Current Level & Radical/Kanji Progress */}
-                    <ProgressSection userLevel={userLevel} />
+                    <ProgressSection userLevel={user?.level || 0} />
                 </View>
             </ScrollView>
         </SafeAreaView>
