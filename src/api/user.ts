@@ -2,7 +2,9 @@ import * as SecureStore from "expo-secure-store";
 
 const WEB_URL = "https://api.wanikani.com/v2";
 
-async function getUserInfo() {
+import { UserProps } from "../interfaces/User";
+
+async function getUser(): Promise<{ data: UserProps }> {
     const api_token = SecureStore.getItem("WK_TOKEN");
 
     if (api_token) {
@@ -29,9 +31,11 @@ async function getUserInfo() {
         } else {
             return await response.json();
         }
+    } else {
+        throw new Error("Missing API Token");
     }
 }
 
 export const UserAPI = {
-    getUserInfo,
+    getUser,
 };

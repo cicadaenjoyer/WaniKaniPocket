@@ -33,16 +33,21 @@ import { SubjectsAPI } from "../../../api/subjects";
 import { C_Utils } from "../../../utils/convert";
 
 // Interfaces
+import { UserProps } from "../../../interfaces/User";
 import { RawAssignmentProps } from "../../../interfaces/RawAssignment";
 import { SubjectProps } from "../../../interfaces/Subject";
 
 interface AssignmentProps {
     label: "Lessons" | "Reviews";
     assignments: Array<RawAssignmentProps>;
-    userPref?: object; // NOTE: leaving as object for now until I know what to use for
+    user?: UserProps; // NOTE: leaving as object for now until I know what to use for
 }
 
-const AssignmentCard: React.FC<AssignmentProps> = ({ label, assignments }) => {
+const AssignmentCard: React.FC<AssignmentProps> = ({
+    label,
+    assignments,
+    user,
+}) => {
     const navigation =
         useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const { width, height } = useWindowDimensions();
@@ -127,7 +132,8 @@ const AssignmentCard: React.FC<AssignmentProps> = ({ label, assignments }) => {
         goTo: label === "Lessons" ? goToLessons : goToReviews,
     };
 
-    const no_assignments = assignments.length === 0;
+    const no_assignments =
+        assignments.length === 0 || user?.current_vacation_started_at !== null;
 
     return (
         <Pressable
@@ -159,14 +165,14 @@ const AssignmentCard: React.FC<AssignmentProps> = ({ label, assignments }) => {
             {/* Assignment Count and Start Button */}
             <View style={styles.assignment_info}>
                 <Text style={styles.assignment_header}>
-                    {label} {assignments.length}
+                    {label} {no_assignments ? 0 : assignments.length}
                 </Text>
                 <Text style={styles.assignment_subheader}>
-                    {assignments.length > 0
+                    {no_assignments
                         ? AssignmentStyles.description
                         : AssignmentStyles.description_no_assignments}
                 </Text>
-                {assignments.length > 0 && (
+                {!no_assignments && (
                     <View
                         style={{
                             ...styles.assignment_button_container,
