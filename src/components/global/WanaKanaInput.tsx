@@ -44,7 +44,9 @@ const WanaKanaInput = forwardRef<WanaKanaInputRef, WKIProps>(
 
         const handleChangeText = (input: string) => {
             if (props.q_type === "reading") {
-                const textConverter = is_katakana ? toKatakana : toHiragana;
+                const textConverter = is_katakana.current
+                    ? toKatakana
+                    : toHiragana;
                 const converted_text = textConverter(input, { IMEMode: true });
                 setText(converted_text);
             } else {
@@ -67,7 +69,9 @@ const WanaKanaInput = forwardRef<WanaKanaInputRef, WKIProps>(
             },
             isValid: () => {
                 if (props.q_type === "reading") {
-                    const syntaxChecker = is_katakana ? isKatakana : isHiragana;
+                    const syntaxChecker = is_katakana.current
+                        ? isKatakana
+                        : isHiragana;
 
                     return syntaxChecker(text);
                 } else {
