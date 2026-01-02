@@ -6,11 +6,15 @@
  *
  * @param {WKIProps} q_type - The quiz type.
  * @param {WKIProps} answers - A list of acceptable readings/meanings
- * @param {WKIProps} is_kana - A flag used to convert text to Katakana
  *
  * @returns {JSX.Element}
  */
-import React, { useState, forwardRef, useImperativeHandle } from "react";
+import React, {
+    useState,
+    useRef,
+    forwardRef,
+    useImperativeHandle,
+} from "react";
 import { TextInput, TextInputProps } from "react-native";
 import { isHiragana, toHiragana, isKatakana, toKatakana } from "wanakana";
 
@@ -29,16 +33,18 @@ interface WKIProps extends TextInputProps {
         type?: string;
         primary: boolean;
     }[];
-    is_kana: boolean;
 }
 
 const WanaKanaInput = forwardRef<WanaKanaInputRef, WKIProps>(
     ({ style, ...props }, ref) => {
         const [text, setText] = useState("");
+        const is_katakana = useRef(
+            isKatakana(props.answers?.[0]?.reading || "")
+        );
 
         const handleChangeText = (input: string) => {
             if (props.q_type === "reading") {
-                const textConverter = props.is_kana ? toKatakana : toHiragana;
+                const textConverter = is_katakana ? toKatakana : toHiragana;
                 const converted_text = textConverter(input, { IMEMode: true });
                 setText(converted_text);
             } else {
@@ -61,9 +67,7 @@ const WanaKanaInput = forwardRef<WanaKanaInputRef, WKIProps>(
             },
             isValid: () => {
                 if (props.q_type === "reading") {
-                    const syntaxChecker = props.is_kana
-                        ? isKatakana
-                        : isHiragana;
+                    const syntaxChecker = is_katakana ? isKatakana : isHiragana;
 
                     return syntaxChecker(text);
                 } else {
