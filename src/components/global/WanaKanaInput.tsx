@@ -6,7 +6,6 @@
  *
  * @param {WKIProps} q_type - The quiz type.
  * @param {WKIProps} answers - A list of acceptable readings/meanings
- * @param {WKIProps} is_kana - A flag used to convert text to Katakana
  *
  * @returns {JSX.Element}
  */
