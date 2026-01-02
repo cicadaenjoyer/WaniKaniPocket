@@ -385,7 +385,6 @@ const ReviewScreen = (nav: {
                                 ? subject.meanings
                                 : subject.readings
                         }
-                        is_kana={subject.is_kana}
                         editable={!submitted}
                         onSubmitEditing={submitResponse}
                     />

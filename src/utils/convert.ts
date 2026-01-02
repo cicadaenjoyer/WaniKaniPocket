@@ -44,7 +44,7 @@ function convertSubject(subject_raw: RawSubjectProps) {
             ...(subject_raw.data?.component_subject_ids || []),
             ...(subject_raw.data?.visually_similar_subject_ids || []),
         ],
-        is_kana: subject_raw.object === "kana_vocabulary",
+        is_kana_vocabulary: subject_raw.object === "kana_vocabulary",
     };
     switch (converted_subject.type) {
         case "radical":

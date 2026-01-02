@@ -27,5 +27,5 @@ export interface SubjectProps {
         kanji?: Array<SubjectProps>;
         vocabulary?: Array<SubjectProps>;
     };
-    is_kana: boolean;
+    is_kana_vocabulary: boolean;
 }
