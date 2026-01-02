@@ -146,9 +146,10 @@ const ReviewScreen = (nav: {
                 quiz_state = quizStates.get(subject.id);
 
                 // pass the subject back into array if user hasn't been quizzed on both
-                // reading and meaning (meaning for radicals)
+                // reading and meaning (meaning for radicals and kana_vocabulary)
                 if (
-                    (subject.type === "radical" &&
+                    ((subject.type === "radical" ||
+                        subject.is_kana_vocabulary) &&
                         !quiz_state?.meaning_attempt) ||
                     (subject.type !== "radical" &&
                         (!quiz_state?.reading_attempt ||
@@ -160,7 +161,8 @@ const ReviewScreen = (nav: {
 
                 // create a review object to send to API once user has been fully quizzed
                 if (
-                    (subject.type === "radical" &&
+                    ((subject.type === "radical" ||
+                        subject.is_kana_vocabulary) &&
                         quiz_state?.meaning_attempt) ||
                     (subject.type !== "radical" &&
                         quiz_state?.reading_attempt &&
@@ -205,7 +207,10 @@ const ReviewScreen = (nav: {
 
             // Both false - choose randomly
             if (!meaning_attempted && !reading_attempted) {
-                if (nextSubj?.type === "radical") {
+                if (
+                    nextSubj?.type === "radical" ||
+                    nextSubj?.is_kana_vocabulary
+                ) {
                     return "meaning";
                 } else {
                     return Math.random() > 0.5 ? "meaning" : "reading";
