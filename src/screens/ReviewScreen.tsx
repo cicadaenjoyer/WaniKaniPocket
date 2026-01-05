@@ -156,7 +156,11 @@ const ReviewScreen = (nav: {
                         (!quiz_state?.reading_attempt ||
                             !quiz_state?.meaning_attempt))
                 ) {
-                    const idx = Math.floor(Math.random() * subjects.length);
+                    const allowed_range = Math.max(
+                        1,
+                        Math.floor(subjects.length / 3)
+                    );
+                    const idx = Math.floor(Math.random() * allowed_range);
                     subjects.splice(idx, 0, subject);
                 }
 
