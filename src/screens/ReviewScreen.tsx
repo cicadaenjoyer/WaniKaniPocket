@@ -61,6 +61,7 @@ const ReviewScreen = (nav: {
 
     const prog_bar_height = height * 0.007;
 
+    const [queue, setQueue] = useState<Array<SubjectProps>>([...subjects]);
     const [subject, setSubject] = useState<SubjectProps | null>(null);
     const [txtBoxFill, setTxtBoxFill] = useState(Colors.HEADER_WHITE);
     const [txtFill, setTxtFill] = useState(Colors.BASIC_BLACK);
@@ -158,10 +159,14 @@ const ReviewScreen = (nav: {
                 ) {
                     const allowed_range = Math.max(
                         1,
-                        Math.floor(subjects.length / 3)
+                        Math.floor(queue.length / 3)
                     );
                     const idx = Math.floor(Math.random() * allowed_range);
-                    subjects.splice(idx, 0, subject);
+                    setQueue((queue) => {
+                        const copy = [...queue];
+                        copy.splice(idx, 0, subject);
+                        return copy;
+                    });
                 }
 
                 // create a review object to send to API once user has been fully quizzed
@@ -198,7 +203,7 @@ const ReviewScreen = (nav: {
     // Updates the quiz state of the current subject and replaces the current
     // one with the next subject in the list
     const nextSubject = () => {
-        if (subjects.length === 0) {
+        if (queue.length === 0) {
             if (assignment_type === "lesson" && num_lessons !== 0) {
                 setModalVisible(true);
             } else {
@@ -206,7 +211,8 @@ const ReviewScreen = (nav: {
             }
         }
 
-        const nextSubj = subjects.pop();
+        const nextSubj = queue[queue.length - 1];
+        setQueue((q) => q.slice(0, -1));
 
         if (!nextSubj) return;
 
@@ -243,7 +249,7 @@ const ReviewScreen = (nav: {
         setSubject(nextSubj);
         setQuizType(quiz_type);
         setSubmitted(false);
-        setProgress(100 - ((subjects.length + 1) / initSize.current) * 100);
+        setProgress(100 - ((queue.length + 1) / initSize.current) * 100);
         setTxtBoxFill(Colors.HEADER_WHITE);
         setTxtFill(Colors.BASIC_BLACK);
 
@@ -269,7 +275,7 @@ const ReviewScreen = (nav: {
     // Getting the first subject from array and initializing quiz states
     useEffect(() => {
         const quiz_states = new Map<number, QuizState>();
-        subjects.forEach((subject) => {
+        queue.forEach((subject) => {
             if (!quiz_states.has(subject?.id)) {
                 quiz_states.set(subject?.id, {
                     last_quizzed_type: null,
