@@ -36,7 +36,7 @@ interface QuizState {
     meaning_attempt: boolean;
     reading_attempt: boolean;
     num_meaning_incorrect: number;
-    num_reading_inccorect: number;
+    num_reading_incorrect: number;
 }
 
 const ReviewScreen = (nav: {
@@ -95,7 +95,7 @@ const ReviewScreen = (nav: {
                     review.incorrect_meaning_answers =
                         quiz_state.num_meaning_incorrect;
                     review.incorrect_reading_answers =
-                        quiz_state.num_reading_inccorect;
+                        quiz_state.num_reading_incorrect;
             }
         } else {
             console.error("Error: Null Subject when creating review");
@@ -137,8 +137,8 @@ const ReviewScreen = (nav: {
                         num_meaning_incorrect:
                             quiz_state.num_meaning_incorrect +
                             Number(quizType === "meaning" && !is_correct),
-                        num_reading_inccorect:
-                            quiz_state.num_reading_inccorect +
+                        num_reading_incorrect:
+                            quiz_state.num_reading_incorrect +
                             Number(quizType === "reading" && !is_correct),
                     });
                 }
@@ -264,7 +264,7 @@ const ReviewScreen = (nav: {
                     meaning_attempt: false,
                     reading_attempt: false,
                     num_meaning_incorrect: 0,
-                    num_reading_inccorect: 0,
+                    num_reading_incorrect: 0,
                 });
             }
         });
