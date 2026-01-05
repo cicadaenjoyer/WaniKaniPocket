@@ -348,17 +348,16 @@ const ReviewScreen = (nav: {
 
                 {/* Subject Type */}
                 <View
-                    style={[
-                        ReviewStyles.subject_container,
-                        {
+                    style={{
+                        alignItems: "center",
+                        justifyContent: "center",
                             backgroundColor:
                                 subject.type === "vocabulary"
                                     ? Colors.READING_HIGHLIGHT_FILL
                                     : Colors.OPTIONS_GREY,
                             height: height * 0.05,
                             width: width,
-                        },
-                    ]}
+                    }}
                 >
                     <Text
                         style={{
