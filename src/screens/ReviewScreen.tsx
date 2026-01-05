@@ -22,6 +22,7 @@ import WanaKanaInput, {
 } from "../components/global/WanaKanaInput";
 import SubjectDefinition from "../components/global/SubjectDefinition";
 import ContinueModal from "../components/review/ContinueModal";
+import ReviewProgress from "../components/review/ReviewProgress";
 
 // Interfaces
 import { SubjectProps } from "../interfaces/Subject";
@@ -340,6 +341,19 @@ const ReviewScreen = (nav: {
                         },
                     ]}
                 >
+                    {/* Review Progress (Passed Kanji, Subjects Left, etc) */}
+                    <ReviewProgress
+                        type={assignment_type}
+                        remaining_subjects={
+                            submitted ? queue.length - 1 : queue.length
+                        }
+                        progress={Math.floor(
+                            (numCorrect / initSize.current) * 100
+                        )}
+                        returnHome={handleNavHome}
+                    />
+
+                    {/* Main Character */}
                     <Text
                         style={{
                             ...ReviewStyles.subject_text,
@@ -357,12 +371,12 @@ const ReviewScreen = (nav: {
                     style={{
                         alignItems: "center",
                         justifyContent: "center",
-                            backgroundColor:
-                                subject.type === "vocabulary"
-                                    ? Colors.READING_HIGHLIGHT_FILL
-                                    : Colors.OPTIONS_GREY,
-                            height: height * 0.05,
-                            width: width,
+                        backgroundColor:
+                            subject.type === "vocabulary"
+                                ? Colors.READING_HIGHLIGHT_FILL
+                                : Colors.OPTIONS_GREY,
+                        height: height * 0.05,
+                        width: width,
                     }}
                 >
                     <Text
