@@ -98,7 +98,6 @@ const HomeStyles = StyleSheet.create({
 
 const ReviewStyles = StyleSheet.create({
     subject_container: {
-        justifyContent: "center",
         alignItems: "center",
     },
     subject_text: {
