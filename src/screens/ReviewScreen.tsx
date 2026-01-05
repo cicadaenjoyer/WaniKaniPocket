@@ -67,6 +67,7 @@ const ReviewScreen = (nav: {
     const [submitted, setSubmitted] = useState(false);
     const initSize = useRef(subjects.length);
     const [progress, setProgress] = useState(0);
+    const [numCorrect, setNumCorrect] = useState(subjects.length);
     const [quizStates, setQuizStates] = useState<Map<number, QuizState>>(
         new Map()
     );
@@ -169,6 +170,13 @@ const ReviewScreen = (nav: {
                         quiz_state?.meaning_attempt)
                 ) {
                     const review = createReview(assignment_type, quiz_state);
+
+                    // Updating number of passed subjects
+                    if (
+                        quiz_state.num_meaning_incorrect > 0 ||
+                        quiz_state.num_reading_incorrect > 0
+                    )
+                        setNumCorrect(numCorrect - 1);
 
                     const sendReview =
                         assignment_type === "review"
