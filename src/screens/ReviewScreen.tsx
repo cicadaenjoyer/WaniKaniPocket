@@ -249,7 +249,7 @@ const ReviewScreen = (nav: {
         setSubject(nextSubj);
         setQuizType(quiz_type);
         setSubmitted(false);
-        setProgress(100 - ((queue.length + 1) / initSize.current) * 100);
+        setProgress(100 - (queue.length / initSize.current) * 100);
         setTxtBoxFill(Colors.HEADER_WHITE);
         setTxtFill(Colors.BASIC_BLACK);
 
