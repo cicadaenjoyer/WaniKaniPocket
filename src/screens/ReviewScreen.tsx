@@ -59,7 +59,7 @@ const ReviewScreen = (nav: {
     const num_lessons = nav.route.params.num_lessons;
     const onComplete = nav.route.params.onComplete;
 
-    const prog_bar_height = height * 0.01;
+    const prog_bar_height = height * 0.007;
 
     const [subject, setSubject] = useState<SubjectProps | null>(null);
     const [txtBoxFill, setTxtBoxFill] = useState(Colors.HEADER_WHITE);
