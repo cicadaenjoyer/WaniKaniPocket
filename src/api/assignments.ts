@@ -19,11 +19,6 @@ async function putAssignment(assignment: ReviewProps) {
             {
                 method: "PUT",
                 headers: headers,
-                body: JSON.stringify({
-                    assignment: {
-                        started_at: assignment.started_at,
-                    },
-                }),
             }
         );
 
@@ -76,12 +71,11 @@ async function getAvailableLessons() {
     const assignments = await getAssignments(
         "?immediately_available_for_lessons=true"
     );
-    const lessonsPerSession = 15; // NOTE: not sure how WK gets the session batch size, hardcoding for now...
 
     return {
         ...assignments,
-        data: assignments.data.slice(0, lessonsPerSession),
-        total_count: lessonsPerSession,
+        data: assignments.data,
+        total_count: assignments.data.length,
     };
 }
 

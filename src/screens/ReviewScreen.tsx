@@ -89,10 +89,8 @@ const ReviewScreen = (nav: {
 
         if (subject) {
             switch (s_type) {
-                // NOTE: Unneeded but leaving for clarity
-                //
-                // case "lesson":
-                //     review.started_at = timestamp;
+                case "lesson":
+                    review.assignment_id = subject?.assignment_id;
                 case "review":
                     review.assignment_id = subject?.assignment_id;
                     review.incorrect_meaning_answers =
