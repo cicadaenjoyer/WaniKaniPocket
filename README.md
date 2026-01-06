@@ -27,7 +27,7 @@ This application aims to provide mobile users with the same user experience as t
 <img width="439" height="980" alt="image" src="https://github.com/user-attachments/assets/2adfb695-9e1f-4718-a6d1-5d101ae5f310" />
 
 ### Review Screen
-<img width="439" height="980" alt="image" src="https://github.com/user-attachments/assets/29a70974-b38c-45fe-9bef-0e9b26fc0845" />
+<img width="439" height="980" alt="Screenshot from 2026-01-05 21-57-09" src="https://github.com/user-attachments/assets/a2db8470-2b7a-4bd5-815b-d4fabc8c3ea3" />
 
 ### Lesson Screen
 <img width="439" height="980" alt="image" src="https://github.com/user-attachments/assets/c5bb23e4-1ad1-4118-8eff-0055ed61686e" />
