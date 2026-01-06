@@ -35,10 +35,10 @@ const Bar: React.FC<BarProps> = ({ level }) => {
                 const all_kanji = await SubjectsAPI.getKanjiAtLevel(level);
 
                 if (all_learned && all_kanji) {
-                    // Count mastered kanji (SRS stage 5)
+                    // Count mastered kanji
                     let num_learned = all_learned.data.reduce(
-                        (sum: number, kanji: { data: { srs_stage: number } }) =>
-                            sum + (kanji?.data?.srs_stage >= 5 ? 1 : 0),
+                        (sum: number, kanji: { data: { passed_at?: Date } }) =>
+                            sum + (kanji?.data?.passed_at ? 1 : 0),
                         0
                     );
                     setLearned(num_learned);
