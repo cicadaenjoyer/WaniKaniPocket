@@ -58,7 +58,9 @@ const SubjectProgressGrid: React.FC<SubjectProgressGrid> = ({
                         all_learned_raw.data.map(
                             (learned: RawAssignmentProps) => [
                                 learned.data.subject_id,
-                                learned.data.srs_stage,
+                                learned.data?.passed_at
+                                    ? 5
+                                    : learned.data.srs_stage,
                             ]
                         )
                     );

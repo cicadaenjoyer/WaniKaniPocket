@@ -22,6 +22,7 @@ import WanaKanaInput, {
 } from "../components/global/WanaKanaInput";
 import SubjectDefinition from "../components/global/SubjectDefinition";
 import ContinueModal from "../components/review/ContinueModal";
+import ReviewProgress from "../components/review/ReviewProgress";
 
 // Interfaces
 import { SubjectProps } from "../interfaces/Subject";
@@ -36,7 +37,7 @@ interface QuizState {
     meaning_attempt: boolean;
     reading_attempt: boolean;
     num_meaning_incorrect: number;
-    num_reading_inccorect: number;
+    num_reading_incorrect: number;
 }
 
 const ReviewScreen = (nav: {
@@ -59,14 +60,16 @@ const ReviewScreen = (nav: {
     const num_lessons = nav.route.params.num_lessons;
     const onComplete = nav.route.params.onComplete;
 
-    const prog_bar_height = height * 0.01;
+    const prog_bar_height = height * 0.007;
 
+    const [queue, setQueue] = useState<Array<SubjectProps>>([...subjects]);
     const [subject, setSubject] = useState<SubjectProps | null>(null);
     const [txtBoxFill, setTxtBoxFill] = useState(Colors.HEADER_WHITE);
     const [txtFill, setTxtFill] = useState(Colors.BASIC_BLACK);
     const [submitted, setSubmitted] = useState(false);
     const initSize = useRef(subjects.length);
     const [progress, setProgress] = useState(0);
+    const [numCorrect, setNumCorrect] = useState(subjects.length);
     const [quizStates, setQuizStates] = useState<Map<number, QuizState>>(
         new Map()
     );
@@ -95,7 +98,7 @@ const ReviewScreen = (nav: {
                     review.incorrect_meaning_answers =
                         quiz_state.num_meaning_incorrect;
                     review.incorrect_reading_answers =
-                        quiz_state.num_reading_inccorect;
+                        quiz_state.num_reading_incorrect;
             }
         } else {
             console.error("Error: Null Subject when creating review");
@@ -137,8 +140,8 @@ const ReviewScreen = (nav: {
                         num_meaning_incorrect:
                             quiz_state.num_meaning_incorrect +
                             Number(quizType === "meaning" && !is_correct),
-                        num_reading_inccorect:
-                            quiz_state.num_reading_inccorect +
+                        num_reading_incorrect:
+                            quiz_state.num_reading_incorrect +
                             Number(quizType === "reading" && !is_correct),
                     });
                 }
@@ -155,8 +158,16 @@ const ReviewScreen = (nav: {
                         (!quiz_state?.reading_attempt ||
                             !quiz_state?.meaning_attempt))
                 ) {
-                    const idx = Math.floor(Math.random() * subjects.length);
-                    subjects.splice(idx, 0, subject);
+                    const allowed_range = Math.max(
+                        1,
+                        Math.floor(queue.length / 5)
+                    );
+                    const idx = Math.floor(Math.random() * allowed_range);
+                    setQueue((queue) => {
+                        const copy = [...queue];
+                        copy.splice(idx, 0, subject);
+                        return copy;
+                    });
                 }
 
                 // create a review object to send to API once user has been fully quizzed
@@ -169,6 +180,13 @@ const ReviewScreen = (nav: {
                         quiz_state?.meaning_attempt)
                 ) {
                     const review = createReview(assignment_type, quiz_state);
+
+                    // Updating number of passed subjects
+                    if (
+                        quiz_state.num_meaning_incorrect > 0 ||
+                        quiz_state.num_reading_incorrect > 0
+                    )
+                        setNumCorrect(numCorrect - 1);
 
                     const sendReview =
                         assignment_type === "review"
@@ -186,7 +204,7 @@ const ReviewScreen = (nav: {
     // Updates the quiz state of the current subject and replaces the current
     // one with the next subject in the list
     const nextSubject = () => {
-        if (subjects.length === 0) {
+        if (queue.length === 0) {
             if (assignment_type === "lesson" && num_lessons !== 0) {
                 setModalVisible(true);
             } else {
@@ -194,7 +212,8 @@ const ReviewScreen = (nav: {
             }
         }
 
-        const nextSubj = subjects.pop();
+        const nextSubj = queue[0];
+        setQueue((q) => q.slice(1));
 
         if (!nextSubj) return;
 
@@ -231,7 +250,7 @@ const ReviewScreen = (nav: {
         setSubject(nextSubj);
         setQuizType(quiz_type);
         setSubmitted(false);
-        setProgress(100 - ((subjects.length + 1) / initSize.current) * 100);
+        setProgress(100 - (queue.length / initSize.current) * 100);
         setTxtBoxFill(Colors.HEADER_WHITE);
         setTxtFill(Colors.BASIC_BLACK);
 
@@ -257,14 +276,14 @@ const ReviewScreen = (nav: {
     // Getting the first subject from array and initializing quiz states
     useEffect(() => {
         const quiz_states = new Map<number, QuizState>();
-        subjects.forEach((subject) => {
+        queue.forEach((subject) => {
             if (!quiz_states.has(subject?.id)) {
                 quiz_states.set(subject?.id, {
                     last_quizzed_type: null,
                     meaning_attempt: false,
                     reading_attempt: false,
                     num_meaning_incorrect: 0,
-                    num_reading_inccorect: 0,
+                    num_reading_incorrect: 0,
                 });
             }
         });
@@ -322,6 +341,19 @@ const ReviewScreen = (nav: {
                         },
                     ]}
                 >
+                    {/* Review Progress (Passed Kanji, Subjects Left, etc) */}
+                    <ReviewProgress
+                        type={assignment_type}
+                        remaining_subjects={
+                            submitted ? queue.length - 1 : queue.length
+                        }
+                        progress={Math.floor(
+                            (numCorrect / initSize.current) * 100
+                        )}
+                        returnHome={handleNavHome}
+                    />
+
+                    {/* Main Character */}
                     <Text
                         style={{
                             ...ReviewStyles.subject_text,
@@ -336,17 +368,16 @@ const ReviewScreen = (nav: {
 
                 {/* Subject Type */}
                 <View
-                    style={[
-                        ReviewStyles.subject_container,
-                        {
-                            backgroundColor:
-                                subject.type === "vocabulary"
-                                    ? Colors.READING_HIGHLIGHT_FILL
-                                    : Colors.OPTIONS_GREY,
-                            height: height * 0.05,
-                            width: width,
-                        },
-                    ]}
+                    style={{
+                        alignItems: "center",
+                        justifyContent: "center",
+                        backgroundColor:
+                            subject.type === "vocabulary"
+                                ? Colors.READING_HIGHLIGHT_FILL
+                                : Colors.OPTIONS_GREY,
+                        height: height * 0.05,
+                        width: width,
+                    }}
                 >
                     <Text
                         style={{

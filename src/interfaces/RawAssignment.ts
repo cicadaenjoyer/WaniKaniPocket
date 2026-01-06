@@ -6,5 +6,6 @@ export interface RawAssignmentProps {
         subject_id: number;
         subject_type: string;
         srs_stage: number;
+        passed_at?: Date;
     };
 }
