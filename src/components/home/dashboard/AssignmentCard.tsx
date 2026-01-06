@@ -81,6 +81,8 @@ const AssignmentCard: React.FC<AssignmentProps> = ({
         });
     };
     const goToLessons = async () => {
+        const batch_size = 15; // NOTE: Temporary, swap for user pref in future
+
         const review_ids = assignments
             .map((assignment) => {
                 return assignment.data.subject_id;
@@ -103,7 +105,9 @@ const AssignmentCard: React.FC<AssignmentProps> = ({
             })
         );
 
-        navigation.navigate("Lesson", { subjects: subjects_with_assignments });
+        navigation.navigate("Lesson", {
+            subjects: subjects_with_assignments.slice(0, batch_size),
+        });
     };
 
     const AssignmentStyles = {
