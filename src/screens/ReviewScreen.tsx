@@ -160,7 +160,7 @@ const ReviewScreen = (nav: {
                 ) {
                     const allowed_range = Math.max(
                         1,
-                        Math.floor(queue.length / 3)
+                        Math.floor(queue.length / 5)
                     );
                     const idx = Math.floor(Math.random() * allowed_range);
                     setQueue((queue) => {
@@ -212,8 +212,8 @@ const ReviewScreen = (nav: {
             }
         }
 
-        const nextSubj = queue[queue.length - 1];
-        setQueue((q) => q.slice(0, -1));
+        const nextSubj = queue[0];
+        setQueue((q) => q.slice(1));
 
         if (!nextSubj) return;
 
