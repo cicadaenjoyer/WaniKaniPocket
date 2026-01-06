@@ -19,11 +19,6 @@ async function putAssignment(assignment: ReviewProps) {
             {
                 method: "PUT",
                 headers: headers,
-                body: JSON.stringify({
-                    assignment: {
-                        started_at: assignment.started_at,
-                    },
-                }),
             }
         );
 
