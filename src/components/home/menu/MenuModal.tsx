@@ -7,7 +7,7 @@
  * @returns {JSX.Element}
  */
 import React from "react";
-import { View } from "react-native";
+import { View, Text, Pressable } from "react-native";
 import Modal from "react-native-modal";
 
 // Styling
@@ -29,7 +29,11 @@ const MenuModal: React.FC<{
                     handleVisible(false);
                 }}
             >
-                <View style={styles.modal_box}></View>
+                <View style={styles.modal_box}>
+                    <Pressable style={styles.modal_item}>
+                        <Text style={styles.modal_text}>Sign Out</Text>
+                    </Pressable>
+                </View>
             </Modal>
         </View>
     );
