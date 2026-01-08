@@ -30,7 +30,7 @@ This application aims to provide mobile users with the same user experience as t
 <img width="439" height="980" alt="Screenshot from 2026-01-05 21-57-09" src="https://github.com/user-attachments/assets/a2db8470-2b7a-4bd5-815b-d4fabc8c3ea3" />
 
 ### Lesson Screen
-<img width="439" height="980" alt="image" src="https://github.com/user-attachments/assets/c5bb23e4-1ad1-4118-8eff-0055ed61686e" />
+<img width="439" height="980" alt="Screenshot from 2026-01-07 16-48-42" src="https://github.com/user-attachments/assets/5b92290b-33d8-4965-a97d-e5a5dd934a6e" />
 
 ## Features
 
