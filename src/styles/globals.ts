@@ -123,6 +123,16 @@ const LessonStyles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
     },
+    subject_reading: {
+        color: "#ffffff",
+        fontFamily: "NotoSans-Regular",
+        paddingTop: 15,
+    },
+    subject_meaning: {
+        color: "#ffffff",
+        fontFamily: "NotoSans-Bold",
+        paddingBottom: 15,
+    },
     tab_bar: {
         flexDirection: "row",
         justifyContent: "space-evenly",

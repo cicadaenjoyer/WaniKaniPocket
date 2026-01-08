@@ -26,8 +26,7 @@ import { SubjectProps } from "../interfaces/Subject";
 import { R_Utils } from "../utils/related";
 
 // Styles
-import { ReviewStyles } from "../styles/globals";
-import { LessonStyles } from "../styles/globals";
+import { LessonStyles as styles } from "../styles/globals";
 import { Colors } from "../constants/colors";
 
 const BATCH_SIZE = 5;
@@ -269,17 +268,17 @@ const LessonScreen = (nav: {
             {/* Subject Character */}
             <View
                 style={[
-                    LessonStyles.subject_bar,
+                    styles.subject_bar,
                     {
                         backgroundColor: currentSubject.fill,
-                        height: height * 0.17,
+                        height: "auto",
                         width: width,
                     },
                 ]}
             >
                 <Text
                     style={{
-                        ...ReviewStyles.subject_text,
+                        ...styles.subject_reading,
                         fontSize: height * 0.08,
                     }}
                 >
@@ -287,12 +286,20 @@ const LessonScreen = (nav: {
                         ? currentSubject?.characters?.[0]
                         : currentSubject.slug}
                 </Text>
+                <Text
+                    style={{
+                        ...styles.subject_meaning,
+                        fontSize: height * 0.02,
+                    }}
+                >
+                    {currentSubject.meanings?.[0].meaning}
+                </Text>
             </View>
 
             {/* Tabs */}
             <View
                 style={[
-                    LessonStyles.tab_bar,
+                    styles.tab_bar,
                     {
                         backgroundColor: Colors.READING_HIGHLIGHT_FILL,
                         height: height * 0.05,
@@ -310,7 +317,7 @@ const LessonScreen = (nav: {
                         >
                             <Text
                                 style={{
-                                    ...LessonStyles.tab_text,
+                                    ...styles.tab_text,
                                     fontFamily: is_active
                                         ? "NotoSans-Bold"
                                         : "NotoSans-Regular",
