@@ -6,9 +6,16 @@
  */
 
 import React, { useState } from "react";
-import { View, Image, ScrollView, RefreshControl } from "react-native";
+import {
+    View,
+    Image,
+    ScrollView,
+    RefreshControl,
+    Pressable,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useFocusEffect } from "@react-navigation/native";
+import FontAwesome from "@react-native-vector-icons/fontawesome";
 
 // API
 import { UserAPI } from "../api/user";
@@ -17,6 +24,7 @@ import { AssignmentsAPI } from "../api/assignments";
 import { UserProps } from "../interfaces/User";
 
 // Components
+import MenuModal from "../components/home/menu/MenuModal";
 import AssignmentCard from "../components/home/dashboard/AssignmentCard";
 import ProgressSection from "../components/home/progress/ProgressSection";
 
@@ -30,6 +38,7 @@ const HomeScreen = () => {
 
     const [refreshing, setRefreshing] = useState(false);
     const [loading, setLoading] = useState(false);
+    const [menuVisible, setMenuVisible] = useState(false);
 
     // Login and get user level and other preferences
     const fetchUser = async () => {
@@ -112,13 +121,28 @@ const HomeScreen = () => {
                     />
                 }
             >
+                {/* Main Menu Modal */}
+                <MenuModal
+                    isVisible={menuVisible}
+                    handleVisible={setMenuVisible}
+                />
+
                 <View style={styles.container}>
                     {/* Menu Bar */}
                     <View style={styles.menu}>
+                        {/* WaniKani Logo */}
                         <Image
                             style={styles.logo}
                             source={require("../assets/images/icons/wk_banner_logo.png")}
                         ></Image>
+
+                        {/* Main Menu Button */}
+                        <Pressable
+                            style={{ marginLeft: "auto", marginRight: 10 }}
+                            onPress={() => setMenuVisible(true)}
+                        >
+                            <FontAwesome name="bars" size={20} />
+                        </Pressable>
                     </View>
 
                     {/* Lessons & Reviews Dashboard */}
