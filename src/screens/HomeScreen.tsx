@@ -6,9 +6,16 @@
  */
 
 import React, { useState } from "react";
-import { View, Image, ScrollView, RefreshControl } from "react-native";
+import {
+    View,
+    Image,
+    ScrollView,
+    RefreshControl,
+    Pressable,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useFocusEffect } from "@react-navigation/native";
+import FontAwesome from "@react-native-vector-icons/fontawesome";
 
 // API
 import { UserAPI } from "../api/user";
@@ -115,10 +122,18 @@ const HomeScreen = () => {
                 <View style={styles.container}>
                     {/* Menu Bar */}
                     <View style={styles.menu}>
+                        {/* WaniKani Logo */}
                         <Image
                             style={styles.logo}
                             source={require("../assets/images/icons/wk_banner_logo.png")}
                         ></Image>
+
+                        {/* Main Menu Button */}
+                        <Pressable
+                            style={{ marginLeft: "auto", marginRight: 10 }}
+                        >
+                            <FontAwesome name="bars" size={20} />
+                        </Pressable>
                     </View>
 
                     {/* Lessons & Reviews Dashboard */}

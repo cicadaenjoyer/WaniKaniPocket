@@ -70,7 +70,7 @@ const HomeStyles = StyleSheet.create({
         borderBottomWidth: 1,
     },
     logo: {
-        marginLeft: "1%",
+        position: "absolute",
         resizeMode: "contain",
         maxWidth: "30%",
     },
