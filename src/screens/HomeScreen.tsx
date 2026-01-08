@@ -24,6 +24,7 @@ import { AssignmentsAPI } from "../api/assignments";
 import { UserProps } from "../interfaces/User";
 
 // Components
+import MenuModal from "../components/home/menu/MenuModal";
 import AssignmentCard from "../components/home/dashboard/AssignmentCard";
 import ProgressSection from "../components/home/progress/ProgressSection";
 
@@ -37,6 +38,7 @@ const HomeScreen = () => {
 
     const [refreshing, setRefreshing] = useState(false);
     const [loading, setLoading] = useState(false);
+    const [menuVisible, setMenuVisible] = useState(false);
 
     // Login and get user level and other preferences
     const fetchUser = async () => {
@@ -119,6 +121,12 @@ const HomeScreen = () => {
                     />
                 }
             >
+                {/* Main Menu Modal */}
+                <MenuModal
+                    isVisible={menuVisible}
+                    handleVisible={setMenuVisible}
+                />
+
                 <View style={styles.container}>
                     {/* Menu Bar */}
                     <View style={styles.menu}>
@@ -131,6 +139,7 @@ const HomeScreen = () => {
                         {/* Main Menu Button */}
                         <Pressable
                             style={{ marginLeft: "auto", marginRight: 10 }}
+                            onPress={() => setMenuVisible(true)}
                         >
                             <FontAwesome name="bars" size={20} />
                         </Pressable>
