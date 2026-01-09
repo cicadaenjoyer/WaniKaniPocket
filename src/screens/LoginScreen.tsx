@@ -37,7 +37,12 @@ const LoginScreen = () => {
     const hasToken = SecureStore.getItem("WK_TOKEN");
     const { width, height } = useWindowDimensions();
 
-    if (hasToken) navigation.navigate("Home");
+    if (hasToken) {
+        navigation.reset({
+            index: 0,
+            routes: [{ name: "Home" }],
+        });
+    }
 
     const goToSignUp = async (url: string) => {
         const supported = await Linking.canOpenURL(url);
@@ -53,7 +58,12 @@ const LoginScreen = () => {
         await AuthAPI.login(token);
         const has_token = SecureStore.getItem("WK_TOKEN");
 
-        if (has_token) navigation.navigate("Home");
+        if (has_token) {
+            navigation.reset({
+                index: 0,
+                routes: [{ name: "Home" }],
+            });
+        }
     };
 
     return (
