@@ -1,7 +1,18 @@
 import * as SecureStore from "expo-secure-store";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import type { RootStackParamList } from "../navigation/navigation";
 
 const WEB_URL = "https://api.wanikani.com/v2";
 
+/**
+ * Sends the WK API token to the API to fetch user information and stores token
+ * in memory
+ *
+ * @param {string} api_token - The WK API token
+ *
+ * @returns {Object} - User information
+ */
 async function login(api_token: string) {
     const headers: Headers = new Headers();
     headers.set("Authorization", `Bearer ${api_token}`);
@@ -42,6 +53,15 @@ async function login(api_token: string) {
     return await response.json();
 }
 
+/**
+ * Deletes the WK API token from cache and returns to Login screen
+ */
+async function logout(navigation: any) {
+    await SecureStore.deleteItemAsync("WK_TOKEN");
+    navigation.replace("Login");
+}
+
 export const AuthAPI = {
     login,
+    logout,
 };
