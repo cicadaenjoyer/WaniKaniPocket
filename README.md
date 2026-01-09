@@ -21,7 +21,7 @@ This application aims to provide mobile users with the same user experience as t
 <img width="439" height="980" alt="image" src="https://github.com/user-attachments/assets/b4ce2bcb-9968-4e0b-9aeb-395a6b8835bf" />
 
 ### Home Screen
-<img width="439" height="980" alt="Screenshot from 2025-12-31 10-54-53" src="https://github.com/user-attachments/assets/42e200e6-11ec-4d8e-8e00-23cebd495990" />
+<img width="439" height="980" alt="Screenshot from 2026-01-08 19-44-25" src="https://github.com/user-attachments/assets/66541f5e-05bc-488a-8a5a-d55f7fba9bd9" />
 
 ### Subject Screen
 <img width="439" height="980" alt="image" src="https://github.com/user-attachments/assets/2adfb695-9e1f-4718-a6d1-5d101ae5f310" />
