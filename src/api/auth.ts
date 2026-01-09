@@ -58,7 +58,10 @@ async function login(api_token: string) {
  */
 async function logout(navigation: any) {
     await SecureStore.deleteItemAsync("WK_TOKEN");
-    navigation.replace("Login");
+    navigation.reset({
+        index: 0,
+        routes: [{ name: "Login" }],
+    });
 }
 
 export const AuthAPI = {
