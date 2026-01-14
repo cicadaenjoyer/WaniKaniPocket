@@ -1,7 +1,4 @@
 import * as SecureStore from "expo-secure-store";
-import { useNavigation } from "@react-navigation/native";
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import type { RootStackParamList } from "../navigation/navigation";
 
 const WEB_URL = "https://api.wanikani.com/v2";
 
