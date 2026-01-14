@@ -24,6 +24,7 @@ import { AssignmentsAPI } from "../api/assignments";
 import { UserProps } from "../interfaces/User";
 
 // Components
+import ProfileSection from "../components/home/menu/ProfileSection";
 import MenuModal from "../components/home/menu/MenuModal";
 import AssignmentCard from "../components/home/dashboard/AssignmentCard";
 import ProgressSection from "../components/home/progress/ProgressSection";
@@ -130,11 +131,12 @@ const HomeScreen = () => {
                 <View style={styles.container}>
                     {/* Menu Bar */}
                     <View style={styles.menu}>
-                        {/* WaniKani Logo */}
-                        <Image
-                            style={styles.logo}
-                            source={require("../assets/images/icons/wk_banner_logo.png")}
-                        ></Image>
+                        {/* Profile Section */}
+                        <ProfileSection
+                            username={user?.username}
+                            level={user?.level}
+                            subscription_type={user?.subscription.type}
+                        />
 
                         {/* Main Menu Button */}
                         <Pressable
