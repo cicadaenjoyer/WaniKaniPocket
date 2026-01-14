@@ -1,12 +1,14 @@
 /**
  * @file LoginScreen.tsx
  * @description
- *   Login screen for Tabi.
- *   Allows the user to enter their API token and handles authentication.
- *   Redirects to Home if a valid token is already stored.
+ *  Login screen for Tabi.
+ *  Allows the user to enter their WaniKani API token and Gravatar API Token and Email (optional)
+ *  and handles authentication.
+ *
+ *  Redirects to Home if a valid token is already stored.
  */
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
     View,
     SafeAreaView,
@@ -22,6 +24,7 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import type { RootStackParamList } from "../navigation/navigation";
 
 // API
+import { GravatarAPI } from "../api/gravatar";
 import { AuthAPI } from "../api/auth";
 import * as SecureStore from "expo-secure-store";
 
@@ -32,17 +35,11 @@ const SIGNUP_URL = "https://www.wanikani.com/signup";
 
 const LoginScreen = () => {
     const [token, setToken] = useState("");
+    const [gravatarToken, setGravatarToken] = useState("");
+    const [gravatarEmail, setGravatarEmail] = useState("");
     const navigation =
         useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-    const hasToken = SecureStore.getItem("WK_TOKEN");
     const { width, height } = useWindowDimensions();
-
-    if (hasToken) {
-        navigation.reset({
-            index: 0,
-            routes: [{ name: "Home" }],
-        });
-    }
 
     const goToSignUp = async (url: string) => {
         const supported = await Linking.canOpenURL(url);
@@ -56,7 +53,8 @@ const LoginScreen = () => {
 
     const handleLogin = async () => {
         await AuthAPI.login(token);
-        const has_token = SecureStore.getItem("WK_TOKEN");
+        await GravatarAPI.getUserIcon(gravatarEmail, gravatarToken);
+        const has_token = await SecureStore.getItemAsync("WK_TOKEN");
 
         if (has_token) {
             navigation.reset({
@@ -65,6 +63,20 @@ const LoginScreen = () => {
             });
         }
     };
+
+    // Check for existing token on mount
+    useEffect(() => {
+        const checkToken = async () => {
+            const hasToken = await SecureStore.getItemAsync("WK_TOKEN");
+            if (hasToken) {
+                navigation.reset({
+                    index: 0,
+                    routes: [{ name: "Home" }],
+                });
+            }
+        };
+        checkToken();
+    }, [navigation]);
 
     return (
         <SafeAreaView style={styles.container}>
@@ -80,8 +92,25 @@ const LoginScreen = () => {
             <View style={{ gap: 20, width: "65%" }}>
                 {/* API Token Text Box */}
                 <View>
-                    <Text style={styles.label}>API Token</Text>
+                    <Text style={styles.label}>WaniKani API Token</Text>
                     <TextInput style={styles.input} onChangeText={setToken} />
+                </View>
+
+                {/* Gravatar API Token and Email */}
+                <View>
+                    <Text style={styles.label}>
+                        Gravatar Email & API Token (Optional)
+                    </Text>
+                    <TextInput
+                        style={{ ...styles.input, marginBottom: 6 }}
+                        onChangeText={setGravatarEmail}
+                        placeholder="Email"
+                    />
+                    <TextInput
+                        style={styles.input}
+                        onChangeText={setGravatarToken}
+                        placeholder="API Token"
+                    />
                 </View>
 
                 {/* Login Button */}
