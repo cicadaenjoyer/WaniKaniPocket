@@ -64,7 +64,6 @@ const HomeStyles = StyleSheet.create({
         width: "100%",
         backgroundColor: Colors.HEADER_WHITE,
         flexDirection: "row",
-        justifyContent: "center",
         alignItems: "center",
         borderColor: Colors.READING_HIGHLIGHT_BACK,
         borderBottomWidth: 1,
