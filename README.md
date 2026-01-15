@@ -18,10 +18,10 @@ This application aims to provide mobile users with the same user experience as t
 
 ## Screenshots
 ### Login Screen
-<img width="439" height="980" alt="image" src="https://github.com/user-attachments/assets/b4ce2bcb-9968-4e0b-9aeb-395a6b8835bf" />
+<img width="439" height="980" alt="Screenshot from 2026-01-14 17-02-33" src="https://github.com/user-attachments/assets/b0136a80-d82c-4872-a3ae-ed73baeb5062" />
 
 ### Home Screen
-<img width="439" height="980" alt="Screenshot from 2026-01-08 19-44-25" src="https://github.com/user-attachments/assets/66541f5e-05bc-488a-8a5a-d55f7fba9bd9" />
+<img width="439" height="980" alt="Screenshot from 2026-01-14 17-02-11" src="https://github.com/user-attachments/assets/d9bcc5b8-d59d-49b9-98d7-05507d76404d" />
 
 ### Subject Screen
 <img width="439" height="980" alt="image" src="https://github.com/user-attachments/assets/2adfb695-9e1f-4718-a6d1-5d101ae5f310" />
