@@ -35,7 +35,6 @@ const SIGNUP_URL = "https://www.wanikani.com/signup";
 
 const LoginScreen = () => {
     const [token, setToken] = useState("");
-    const [gravatarToken, setGravatarToken] = useState("");
     const [gravatarEmail, setGravatarEmail] = useState("");
     const navigation =
         useNavigation<NativeStackNavigationProp<RootStackParamList>>();
