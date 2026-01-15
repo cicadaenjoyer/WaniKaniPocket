@@ -1,7 +1,4 @@
 import * as SecureStore from "expo-secure-store";
-import { useNavigation } from "@react-navigation/native";
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import type { RootStackParamList } from "../navigation/navigation";
 
 const WEB_URL = "https://api.wanikani.com/v2";
 
@@ -58,6 +55,8 @@ async function login(api_token: string) {
  */
 async function logout(navigation: any) {
     await SecureStore.deleteItemAsync("WK_TOKEN");
+    await SecureStore.deleteItemAsync("GRAVATAR_EMAIL");
+
     navigation.reset({
         index: 0,
         routes: [{ name: "Login" }],
