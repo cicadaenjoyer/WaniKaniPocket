@@ -55,7 +55,7 @@ async function login(api_token: string) {
  */
 async function logout(navigation: any) {
     await SecureStore.deleteItemAsync("WK_TOKEN");
-    await SecureStore.deleteItemAsync("GRAVATAR_ICON");
+    await SecureStore.deleteItemAsync("GRAVATAR_EMAIL");
 
     navigation.reset({
         index: 0,

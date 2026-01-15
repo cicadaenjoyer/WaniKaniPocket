@@ -53,7 +53,7 @@ const LoginScreen = () => {
 
     const handleLogin = async () => {
         await AuthAPI.login(token);
-        await GravatarAPI.getUserIcon(gravatarEmail, gravatarToken);
+        await GravatarAPI.setUserIcon(gravatarEmail);
         const has_token = await SecureStore.getItemAsync("WK_TOKEN");
 
         if (has_token) {
@@ -96,20 +96,12 @@ const LoginScreen = () => {
                     <TextInput style={styles.input} onChangeText={setToken} />
                 </View>
 
-                {/* Gravatar API Token and Email */}
+                {/* Gravatar Email Text Box */}
                 <View>
-                    <Text style={styles.label}>
-                        Gravatar Email & API Token (Optional)
-                    </Text>
-                    <TextInput
-                        style={{ ...styles.input, marginBottom: 6 }}
-                        onChangeText={setGravatarEmail}
-                        placeholder="Email"
-                    />
+                    <Text style={styles.label}>Gravatar Email (Optional)</Text>
                     <TextInput
                         style={styles.input}
-                        onChangeText={setGravatarToken}
-                        placeholder="API Token"
+                        onChangeText={setGravatarEmail}
                     />
                 </View>
 

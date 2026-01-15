@@ -7,31 +7,42 @@
  *
  * @returns {JSX.Element}
  */
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, Image } from "react-native";
 import * as SecureStore from "expo-secure-store";
 
 // Styling
 import { ProfileSectionStyles as styles } from "../../../styles/home/profile.styles";
 
+const DEFAULT_AVATAR = require("../../../assets/images/profile/default_avatar.png");
+
 const ProfileSection: React.FC<{
     username?: string;
     level?: number;
     subscription_type?: string;
 }> = ({ username, level, subscription_type }) => {
-    const profile_icon = SecureStore.getItem("GRAVATAR_ICON");
+    const [avatarIcon, setAvatarIcon] = useState(DEFAULT_AVATAR);
+
+    useEffect(() => {
+        (async () => {
+            const email = await SecureStore.getItemAsync("GRAVATAR_EMAIL");
+            if (!email) return;
+
+            setAvatarIcon({
+                uri: `https://www.gravatar.com/avatar/${email}?s=1000&d=404`,
+            });
+        })();
+    }, []);
+
     return (
         <View style={styles.profile_section}>
             {/* Profile Picture */}
             <View style={styles.icon_view}>
                 <Image
                     style={styles.profile_icon}
-                    source={
-                        profile_icon
-                            ? { uri: profile_icon }
-                            : require("../../../assets/images/profile/default_avatar.png")
-                    }
-                ></Image>
+                    source={avatarIcon}
+                    onError={() => setAvatarIcon(DEFAULT_AVATAR)}
+                />
             </View>
 
             {/* User Level and Subscription */}
