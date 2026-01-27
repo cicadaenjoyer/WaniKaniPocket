@@ -275,6 +275,7 @@ const LessonScreen = (nav: {
                 }}
             >
                 <Text
+                    selectable
                     numberOfLines={1}
                     adjustsFontSizeToFit
                     minimumFontScale={0.5}
@@ -289,6 +290,7 @@ const LessonScreen = (nav: {
                         : currentSubject.slug}
                 </Text>
                 <Text
+                    selectable
                     style={{
                         ...styles.subject_meaning,
                         fontSize: height * 0.02,

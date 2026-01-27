@@ -353,6 +353,7 @@ const ReviewScreen = (nav: {
 
                     {/* Main Character */}
                     <Text
+                        selectable
                         numberOfLines={1}
                         adjustsFontSizeToFit
                         minimumFontScale={0.5}

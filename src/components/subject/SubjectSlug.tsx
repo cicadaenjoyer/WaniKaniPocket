@@ -38,11 +38,15 @@ const SubjectSlug: React.FC<SubjectSlugProps> = ({
                     backgroundColor: fill,
                 }}
             >
-                <Text style={SubjectSlugStyles.slug_text}>{slug}</Text>
+                <Text selectable style={SubjectSlugStyles.slug_text}>
+                    {slug}
+                </Text>
             </View>
 
             {/* Subject Main Meaning & Helper Image */}
-            <Text style={SubjectSlugStyles.meaning}>{main_meaning}</Text>
+            <Text selectable style={SubjectSlugStyles.meaning}>
+                {main_meaning}
+            </Text>
         </View>
     );
 };
