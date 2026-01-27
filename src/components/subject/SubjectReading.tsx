@@ -53,7 +53,7 @@ const SubjectReading: React.FC<SubjectReadingProps> = ({
 
             const { sound } = await Audio.Sound.createAsync(
                 { uri: uri },
-                { shouldPlay: true }
+                { shouldPlay: true },
             );
 
             sound.setOnPlaybackStatusUpdate((status) => {
@@ -142,9 +142,10 @@ const SubjectReading: React.FC<SubjectReadingProps> = ({
                                         fontFamily:
                                             reading.primary &&
                                             readings_raw.length !== 1
-                                                ? "NotoSans-Bold"
-                                                : "NotoSans-Regular",
+                                                ? "NotoSansJP-Bold"
+                                                : "NotoSansJP-Regular",
                                         color: Colors.BASIC_BLACK,
+                                        lineHeight: 18,
                                     }}
                                 >
                                     {reading.value}
@@ -156,8 +157,9 @@ const SubjectReading: React.FC<SubjectReadingProps> = ({
                     <Text
                         style={{
                             ...styles.reading,
-                            fontFamily: "NotoSans-Regular",
+                            fontFamily: "NotoSansJP-Regular",
                             color: Colors.BASIC_BLACK,
+                            lineHeight: 18,
                         }}
                     >
                         {readings_raw?.[0].reading}

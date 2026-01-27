@@ -14,12 +14,15 @@ export const SubjectSlugStyles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
         borderRadius: 8,
+        paddingTop: 2,
+        paddingBottom: 4,
         paddingHorizontal: 12,
     },
     slug_text: {
-        fontFamily: "NotoSans-Bold",
-        fontSize: 25, // NOTE: make dynamic later
+        fontFamily: "NotoSansJP-Bold",
+        fontSize: 28, // NOTE: make dynamic later
         color: Colors.HEADER_WHITE,
+        lineHeight: 40,
     },
     meaning: {
         fontFamily: "NotoSans-Regular",

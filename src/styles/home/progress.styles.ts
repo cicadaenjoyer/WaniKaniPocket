@@ -64,8 +64,9 @@ export const ProgressStyles = StyleSheet.create({
     },
     progress_text: {
         color: "#ffffff",
-        fontFamily: "NotoSans-Bold",
+        fontFamily: "NotoSansJP-Bold",
         fontSize: 18,
+        lineHeight: 20,
     },
     srs_bar: {
         backgroundColor: Colors.OPTIONS_GREY,
