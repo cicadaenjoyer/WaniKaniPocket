@@ -9,6 +9,8 @@ const App = () => {
         "NotoSans-Bold": require("./src/assets/fonts/NotoSans-Bold.ttf"),
         "NotoSans-Light": require("./src/assets/fonts/NotoSans-Light.ttf"),
         "NotoSans-Italic": require("./src/assets/fonts/NotoSans-Italic.ttf"),
+        "NotoSansJP-Regular": require("./src/assets/fonts/NotoSansJP-Regular.ttf"),
+        "NotoSansJP-Bold": require("./src/assets/fonts/NotoSansJP-Bold.ttf"),
     });
 
     if (!fontsLoaded) {
