@@ -61,6 +61,8 @@ export const ProgressStyles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         borderRadius: 8,
+        paddingTop: 2,
+        paddingBottom: 4,
     },
     progress_text: {
         color: "#ffffff",
