@@ -137,6 +137,7 @@ const SubjectReading: React.FC<SubjectReadingProps> = ({
                                     </Text>
                                 )}
                                 <Text
+                                    selectable
                                     style={{
                                         ...styles.reading,
                                         fontFamily:
@@ -155,6 +156,7 @@ const SubjectReading: React.FC<SubjectReadingProps> = ({
                     })}
                 {type === "vocabulary" && (
                     <Text
+                        selectable
                         style={{
                             ...styles.reading,
                             fontFamily: "NotoSansJP-Regular",
@@ -200,7 +202,7 @@ const SubjectReading: React.FC<SubjectReadingProps> = ({
                     paddingBottom: 12,
                 }}
             >
-                <Text style={{ color: Colors.LESSON_GREY }}>
+                <Text selectable style={{ color: Colors.LESSON_GREY }}>
                     <RichText text={reading_explanation} />
                 </Text>
             </View>

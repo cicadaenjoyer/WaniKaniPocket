@@ -52,9 +52,10 @@ const SubjectMeaning: React.FC<SubjectMeaningProps> = ({
             />
 
             {/* Primary/Alt Meanings */}
-            <Text>
+            <View style={{ flexDirection: "row" }}>
                 <Text style={styles.meaning}>Primary{"\t\t"}</Text>
                 <Text
+                    selectable
                     style={{
                         ...styles.meaning,
                         color: Colors.BASIC_BLACK,
@@ -62,17 +63,21 @@ const SubjectMeaning: React.FC<SubjectMeaningProps> = ({
                 >
                     {main_meaning}
                 </Text>
-            </Text>
+            </View>
+
             {alt_meanings && (
-                <Text
-                    style={{
-                        ...styles.meaning,
-                        fontFamily: "NotoSans-Regular",
-                    }}
-                >
-                    Alternatives{"\t\t"}
-                    {alt_meanings}
-                </Text>
+                <View style={{ flexDirection: "row" }}>
+                    <Text style={styles.meaning}>Alternatives{"\t\t"}</Text>
+                    <Text
+                        selectable
+                        style={{
+                            ...styles.meaning,
+                            fontFamily: "NotoSans-Regular",
+                        }}
+                    >
+                        {alt_meanings}
+                    </Text>
+                </View>
             )}
 
             {/* NOTE: Add word type? */}
@@ -86,7 +91,7 @@ const SubjectMeaning: React.FC<SubjectMeaningProps> = ({
                     paddingBottom: 12,
                 }}
             >
-                <Text style={{ color: Colors.LESSON_GREY }}>
+                <Text selectable style={{ color: Colors.LESSON_GREY }}>
                     <RichText text={meaning_explanation} />
                 </Text>
             </View>

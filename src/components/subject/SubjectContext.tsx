@@ -45,6 +45,7 @@ const SubjectContext: React.FC<SubjectContextProps> = ({
                         }}
                     >
                         <Text
+                            selectable
                             style={{
                                 fontFamily: "NotoSansJP-Regular",
                                 fontSize: 14,
@@ -54,6 +55,7 @@ const SubjectContext: React.FC<SubjectContextProps> = ({
                             {c_sent.ja}
                         </Text>
                         <Text
+                            selectable
                             style={{ fontSize: 14, color: Colors.LESSON_GREY }}
                         >
                             {c_sent.en}
