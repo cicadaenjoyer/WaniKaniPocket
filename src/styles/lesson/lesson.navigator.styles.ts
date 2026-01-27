@@ -10,6 +10,7 @@ import { Colors } from "../../constants/colors";
 export const LessonNavigatorStyles = StyleSheet.create({
     navigator: {
         flexDirection: "row",
+        flexWrap: "wrap",
         justifyContent: "center",
         alignItems: "center",
         marginTop: "auto",
