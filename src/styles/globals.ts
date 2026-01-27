@@ -101,7 +101,7 @@ const ReviewStyles = StyleSheet.create({
     },
     subject_text: {
         color: "#ffffff",
-        fontFamily: "NotoSans-Regular",
+        fontFamily: "NotoSansJP-Regular",
     },
     input: {
         width: "85%",
@@ -124,7 +124,7 @@ const LessonStyles = StyleSheet.create({
     },
     subject_reading: {
         color: "#ffffff",
-        fontFamily: "NotoSans-Regular",
+        fontFamily: "NotoSansJP-Regular",
         paddingTop: 15,
     },
     subject_meaning: {

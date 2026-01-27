@@ -71,10 +71,10 @@ const ReviewScreen = (nav: {
     const [progress, setProgress] = useState(0);
     const [numCorrect, setNumCorrect] = useState(subjects.length);
     const [quizStates, setQuizStates] = useState<Map<number, QuizState>>(
-        new Map()
+        new Map(),
     );
     const [quizType, setQuizType] = useState<"meaning" | "reading" | null>(
-        null
+        null,
     );
     const [modalVisible, setModalVisible] = useState(false);
 
@@ -82,7 +82,7 @@ const ReviewScreen = (nav: {
     // sends it to the API
     const createReview = (
         s_type: "review" | "lesson",
-        quiz_state: QuizState
+        quiz_state: QuizState,
     ): ReviewProps => {
         // const timestamp = new Date().toISOString();
         const review = Object.create({});
@@ -158,7 +158,7 @@ const ReviewScreen = (nav: {
                 ) {
                     const allowed_range = Math.max(
                         1,
-                        Math.floor(queue.length / 5)
+                        Math.floor(queue.length / 5),
                     );
                     const idx = Math.floor(Math.random() * allowed_range);
                     setQueue((queue) => {
@@ -346,16 +346,20 @@ const ReviewScreen = (nav: {
                             submitted ? queue.length - 1 : queue.length
                         }
                         progress={Math.floor(
-                            (numCorrect / initSize.current) * 100
+                            (numCorrect / initSize.current) * 100,
                         )}
                         returnHome={handleNavHome}
                     />
 
                     {/* Main Character */}
                     <Text
+                        numberOfLines={1}
+                        adjustsFontSizeToFit
+                        minimumFontScale={0.5}
                         style={{
                             ...ReviewStyles.subject_text,
                             fontSize: height * 0.08,
+                            lineHeight: height * 0.08 * 1.35,
                         }}
                     >
                         {subject.type === "radical"

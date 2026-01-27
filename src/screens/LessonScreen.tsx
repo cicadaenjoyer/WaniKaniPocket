@@ -39,7 +39,7 @@ const LessonScreen = (nav: {
     const { width, height } = useWindowDimensions();
 
     const [allSubjects, setAllSubjects] = useState<Array<SubjectProps>>(
-        nav.route.params.subjects
+        nav.route.params.subjects,
     );
     const [subjectBatch, setSubjectBatch] = useState<Array<SubjectProps>>([]);
     const [currentSubject, setCurrentSubject] = useState<SubjectProps>();
@@ -52,10 +52,10 @@ const LessonScreen = (nav: {
             const updated_subjects = await Promise.all(
                 allSubjects.map(async (subject) => {
                     const related = await R_Utils.getRelatedSubjects(
-                        subject.related_subject_ids
+                        subject.related_subject_ids,
                     );
                     return { ...subject, related_subjects: related };
-                })
+                }),
             );
             const current_batch = updated_subjects.splice(0, BATCH_SIZE);
             const current_subject = current_batch[0];
@@ -267,19 +267,21 @@ const LessonScreen = (nav: {
         <SafeAreaView style={{ flex: 1 }}>
             {/* Subject Character */}
             <View
-                style={[
-                    styles.subject_bar,
-                    {
-                        backgroundColor: currentSubject.fill,
-                        height: "auto",
-                        width: width,
-                    },
-                ]}
+                style={{
+                    ...styles.subject_bar,
+                    backgroundColor: currentSubject.fill,
+                    height: "auto",
+                    width: width,
+                }}
             >
                 <Text
+                    numberOfLines={1}
+                    adjustsFontSizeToFit
+                    minimumFontScale={0.5}
                     style={{
                         ...styles.subject_reading,
                         fontSize: height * 0.08,
+                        lineHeight: height * 0.08 * 1.35,
                     }}
                 >
                     {currentSubject.type === "radical"

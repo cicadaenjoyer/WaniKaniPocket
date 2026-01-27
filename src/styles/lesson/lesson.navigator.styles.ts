@@ -10,6 +10,7 @@ import { Colors } from "../../constants/colors";
 export const LessonNavigatorStyles = StyleSheet.create({
     navigator: {
         flexDirection: "row",
+        flexWrap: "wrap",
         justifyContent: "center",
         alignItems: "center",
         marginTop: "auto",
@@ -27,8 +28,9 @@ export const LessonNavigatorStyles = StyleSheet.create({
     },
     slug_text: {
         color: Colors.HEADER_WHITE,
-        fontSize: 15,
-        fontFamily: "NotoSans-Bold",
+        fontSize: 16,
+        fontFamily: "NotoSansJP-Bold",
+        lineHeight: 28,
     },
     reviews: {
         height: "auto",

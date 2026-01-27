@@ -61,11 +61,14 @@ export const ProgressStyles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         borderRadius: 8,
+        paddingTop: 2,
+        paddingBottom: 4,
     },
     progress_text: {
         color: "#ffffff",
-        fontFamily: "NotoSans-Bold",
+        fontFamily: "NotoSansJP-Bold",
         fontSize: 18,
+        lineHeight: 20,
     },
     srs_bar: {
         backgroundColor: Colors.OPTIONS_GREY,

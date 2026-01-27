@@ -44,8 +44,18 @@ const SubjectContext: React.FC<SubjectContextProps> = ({
                             paddingBottom: 12,
                         }}
                     >
-                        <Text>{c_sent.ja}</Text>
-                        <Text style={{ color: Colors.LESSON_GREY }}>
+                        <Text
+                            style={{
+                                fontFamily: "NotoSansJP-Regular",
+                                fontSize: 14,
+                                lineHeight: 18,
+                            }}
+                        >
+                            {c_sent.ja}
+                        </Text>
+                        <Text
+                            style={{ fontSize: 14, color: Colors.LESSON_GREY }}
+                        >
                             {c_sent.en}
                         </Text>
                     </View>

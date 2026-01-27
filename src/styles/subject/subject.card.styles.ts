@@ -20,18 +20,21 @@ export const SubjectCardStyles = StyleSheet.create({
     },
     slug: {
         borderRadius: 8,
-        paddingVertical: 4,
+        paddingTop: 2,
+        paddingBottom: 4,
         paddingHorizontal: 10,
     },
     slug_text: {
         color: "#ffffff",
         fontSize: 24,
-        fontFamily: "NotoSans-Bold",
+        fontFamily: "NotoSansJP-Bold",
+        lineHeight: 38,
     },
     reading: {
         color: Colors.BASIC_BLACK,
-        fontFamily: "NotoSans-Regular",
+        fontFamily: "NotoSansJP-Regular",
         fontSize: 13,
+        lineHeight: 20,
     },
     meaning: {
         color: Colors.READING_HIGHLIGHT_FILL,
