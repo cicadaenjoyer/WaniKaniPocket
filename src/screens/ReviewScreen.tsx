@@ -353,6 +353,9 @@ const ReviewScreen = (nav: {
 
                     {/* Main Character */}
                     <Text
+                        numberOfLines={1}
+                        adjustsFontSizeToFit
+                        minimumFontScale={0.5}
                         style={{
                             ...ReviewStyles.subject_text,
                             fontSize: height * 0.08,

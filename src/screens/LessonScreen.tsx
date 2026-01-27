@@ -269,13 +269,15 @@ const LessonScreen = (nav: {
             <View
                 style={{
                     ...styles.subject_bar,
-                        backgroundColor: currentSubject.fill,
-                        height: "auto",
-                        width: width,
-                    },
-                ]}
+                    backgroundColor: currentSubject.fill,
+                    height: "auto",
+                    width: width,
+                }}
             >
                 <Text
+                    numberOfLines={1}
+                    adjustsFontSizeToFit
+                    minimumFontScale={0.5}
                     style={{
                         ...styles.subject_reading,
                         fontSize: height * 0.08,
